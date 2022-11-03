@@ -1,0 +1,4 @@
+Name: John Doe
+Product{name='Apples', store='Target', description='you eat it', quantity=1, price=2.99}
+Product{name='Oranges', store='Walmart', description='you eat it', quantity=3, price=4.99}
+Product{name='Grapes', store='Walmart', description='you eat it', quantity=10, price=3.99}
