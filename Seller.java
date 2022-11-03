@@ -21,9 +21,9 @@ public class Seller extends User {
     public String toString() {
         return "Seller{" +
                 "products=" + products +
-                ", customerName='" + customerName + '\'' +
-                ", password='" + password + '\'' +
-                ", username='" + username + '\'' +
+                ", customerName='" + getCustomerName() + '\'' +
+                ", password='" + getPassword() + '\'' +
+                ", username='" + getUsername() + '\'' +
                 '}';
     }
 }
