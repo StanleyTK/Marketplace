@@ -3,7 +3,7 @@ public class User {
     private String password;
     private String username;
 
-    public User(String customerName, String password, String username) {
+    public User(String customerName, String username, String passwordcu) {
         this.customerName = customerName;
         this.password = password;
         this.username = username;
@@ -29,6 +29,9 @@ public class User {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public String toString() {

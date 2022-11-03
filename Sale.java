@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Sale {
     private ArrayList<Product> products = new ArrayList<>();
-    private String customer;
+    private Customer customer;
 
-    public Sale(ArrayList<Product> products, String customer) {
+    public Sale(ArrayList<Product> products, Customer customer) {
         this.products = products;
         this.customer = customer;
     }
@@ -17,11 +17,11 @@ public class Sale {
         this.products = products;
     }
 
-    public String getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(String customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 

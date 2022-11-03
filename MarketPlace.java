@@ -7,16 +7,27 @@ public class MarketPlace {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to Marketplace!");
-        System.out.println("Enter the username");
-
-        String userName = scanner.nextLine();
-
-        System.out.println("Enter the password");
-        String password = scanner.nextLine();
+        String info;
         //implement try catch error for verify login
-        String name = verifyLogin(userName, password);
-        Product product = new Product("Apples", "Target", "you eat it", 1, 2.99);
-        System.out.println(product.toString());
+        while (true) {
+            try {
+                System.out.println("Enter the username");
+                String userName = scanner.nextLine();
+                System.out.println("Enter the password");
+                String password = scanner.nextLine();
+                info = verifyLogin(userName, password);
+                break;
+            } catch (UserNamePasswordIncorrectException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        User user = getUser(info);
+        System.out.println("Welcome " + user.getCustomerName() + "!");
+        System.out.println(user.toString());
+
+
+
+
 
 
     }
@@ -38,8 +49,6 @@ public class MarketPlace {
                 line = bfr.readLine();
             }
             bfr.close();
-        } catch (FileNotFoundException e) {
-            throw new UserNamePasswordIncorrectException();
         } catch (IOException e) {
             throw new UserNamePasswordIncorrectException();
         }
@@ -48,8 +57,12 @@ public class MarketPlace {
 
     // Assuming no name duplicate
     // Gets the Customer class from name
-    public static Customer getCustomer(String name) {
-        String fileName = name + "'s File.txt";
+    public static User getUser(String info) {
+        String[] contents = info.split(",");
+        ArrayList<Product> products = new ArrayList<>();
+        String user = "Customer";
+
+        String fileName = contents[2] + "'s File.txt";
         try {
             BufferedReader bfr = new BufferedReader(new FileReader(fileName));
             String line = bfr.readLine();
@@ -58,14 +71,33 @@ public class MarketPlace {
                 lines.add(line);
                 line = bfr.readLine();
             }
-            ArrayList<Product> products = new ArrayList<>();
 
-
+            for (String productInfo : lines) {
+                if (!productInfo.contains("Name:") && !productInfo.contains("User:")) {
+                    products.add(getProduct(productInfo));
+                } else if (productInfo.contains("User: Seller")) {
+                    user = "Seller";
+                }
+            }
             bfr.close();
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        if (user.equals("Customer")) {
+            return new Customer(contents[2], contents[0], contents[1], products);
+        } else {
+            return new Seller(contents[2], contents[0], contents[1], products);
+        }
+
+
+
+    }
+
+    public static Product getProduct(String line) {
+        String[] contents = line.split(",");
+        return new Product(contents[0], contents[1], contents[2],
+                Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
     }
 }

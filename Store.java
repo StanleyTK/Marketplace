@@ -3,9 +3,9 @@ import java.util.ArrayList;
 public class Store {
 
     private ArrayList<Product> products;
-    private Customer customer;
+    private ArrayList<Customer> customer;
 
-    public Store(ArrayList<Product> products, Customer customer) {
+    public Store(ArrayList<Product> products, ArrayList<Customer> customer) {
         this.products = products;
         this.customer = customer;
     }
@@ -19,11 +19,11 @@ public class Store {
         this.products = products;
     }
 
-    public Customer getCustomer() {
+    public ArrayList<Customer> getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(ArrayList<Customer> customer) {
         this.customer = customer;
     }
 

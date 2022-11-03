@@ -1,9 +1,0 @@
-Name: John Doe
-Product{name=Apples, store=Target,
-"Product{" +
-                "name='" + name + '\'' +
-                ", store='" + store + '\'' +
-                ", description='" + description + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                '}';

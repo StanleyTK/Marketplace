@@ -4,7 +4,7 @@ public class Customer extends User {
 
     private ArrayList<Product> products = new ArrayList<>();
 
-    public Customer(String customerName, String password, String username, ArrayList<Product> products) {
+    public Customer(String customerName, String username, String password, ArrayList<Product> products) {
         super(customerName, password, username);
         this.products = products;
     }
@@ -17,10 +17,9 @@ public class Customer extends User {
         this.products = products;
     }
 
-    @Override
     public String toString() {
         return "Customer{" +
-                "products=" + products +
+                "products=" + products.get(0).toString() +
                 ", customerName='" + getCustomerName() + '\'' +
                 ", password='" + getPassword() + '\'' +
                 ", username='" + getUsername() + '\'' +

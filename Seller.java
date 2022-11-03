@@ -4,8 +4,8 @@ public class Seller extends User {
 
     private ArrayList<Product> products = new ArrayList<>();
 
-    public Seller(String customerName, String password, String username, ArrayList<Product> products) {
-        super(customerName, password, username);
+    public Seller(String customerName, String username, String password, ArrayList<Product> products) {
+        super(customerName, username, password);
         this.products = products;
     }
 

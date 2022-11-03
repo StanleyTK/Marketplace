@@ -1,0 +1,5 @@
+Name: John Doe
+User: Customer
+Apples,Target,You eat it,3,2.99
+Oranges,Walmart,You eat it,5,5.99
+Grapes,Target,You eat it,4,7.99
