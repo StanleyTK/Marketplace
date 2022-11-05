@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class Store {
+public class Market {
 
     private ArrayList<Product> products;
     private ArrayList<Customer> customer;
 
-    public Store(ArrayList<Product> products, ArrayList<Customer> customer) {
+    public Market(ArrayList<Product> products, ArrayList<Customer> customer) {
         this.products = products;
         this.customer = customer;
     }
