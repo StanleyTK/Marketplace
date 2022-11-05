@@ -3,7 +3,7 @@ public class User {
     private String password;
     private String username;
 
-    public User(String customerName, String username, String passwordcu) {
+    public User(String customerName, String username, String password) {
         this.customerName = customerName;
         this.password = password;
         this.username = username;

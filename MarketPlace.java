@@ -23,13 +23,75 @@ public class MarketPlace {
         }
         User user = getUser(info);
         System.out.println("Welcome " + user.getCustomerName() + "!");
-        System.out.println(user.toString());
+
+        boolean running = true;
+        if (user instanceof Customer) {
+            while (running) {
+                System.out.println("What option would you like to choose?");
+                System.out.println("1. Look up a product name, with where the stores sell it\n" +
+                        "2. Look up a store\n" +
+                        "3. Look up product description\n" +
+                        "4. How many of the product is there left in the store\n" +
+                        "5. Exit");
+                int option = Integer.parseInt(scanner.nextLine());
+                switch (option) {
+                    case (1):
+                        System.out.println("HEya");
+                        break;
+                    case (2):
+                        System.out.println("asdfa");
+                        break;
+                    case (3):
+                        System.out.println("fasd");
+                        break;
+                    case (4):
+                        System.out.println("a");
+                        break;
+                    case (5):
+                        System.out.println("Have a nice day!");
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("Please enter a valid input!");
+
+                }
+            }
 
 
+        } else {
+            while (running) {
 
+                System.out.println("What option would you like to choose?");
+                System.out.println("1. Look up a product name, with where the stores sell it\n" +
+                        "2. Look up a store\n" +
+                        "3. Look up product description\n" +
+                        "4. How many of the product is there left in the store\n" +
+                        "5. Exit");
+                int option = Integer.parseInt(scanner.nextLine());
+                switch (option) {
+                    case (1):
+                        System.out.println("HEya");
+                        break;
+                    case (2):
+                        System.out.println("asdfa");
+                        break;
+                    case (3):
+                        System.out.println("fasd");
+                        break;
+                    case (4):
+                        System.out.println("a");
+                        break;
+                    case (5):
+                        System.out.println("Have a nice day!");
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("Please enter a valid input!");
 
+                }
+            }
 
-
+        }
     }
 
     public static String verifyLogin(String username, String password) throws UserNamePasswordIncorrectException {

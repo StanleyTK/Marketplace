@@ -5,7 +5,7 @@ public class Customer extends User {
     private ArrayList<Product> products = new ArrayList<>();
 
     public Customer(String customerName, String username, String password, ArrayList<Product> products) {
-        super(customerName, password, username);
+        super(customerName, username, password);
         this.products = products;
     }
 
