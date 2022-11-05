@@ -147,10 +147,13 @@ public class MarketPlace {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        ShoppingCart shoppingCart = new ShoppingCart(products);
+
         if (user.equals("Customer")) {
-            return new Customer(contents[2], contents[0], contents[1], products);
+            return new Customer(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
         } else {
-            return new Seller(contents[2], contents[0], contents[1], products);
+            return new Seller(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
         }
 
 
