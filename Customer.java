@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Customer extends User {
 
-    private ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<Product>products;
 
     public Customer(String customerName, String username, String password, ArrayList<Product> products) {
         super(customerName, username, password);
