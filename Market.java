@@ -57,8 +57,26 @@ public class Market {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(ArrayList<Product> products) throws FileNotFoundException {
         this.products = products;
+        String fileName = this.name + " Market.txt";
+        File market = new File(fileName);
+        FileOutputStream fos = new FileOutputStream(market);
+        PrintWriter pw = new PrintWriter(fos);
+        for (int i = 0; i < products.size(); i++) {
+            Product p = products.get(i);
+            String product = p.getName() + ";;" + p.getDescription() + ";;" + p.getStore() + ";;" + p.getPrice() + ";;" + p.getQuantity();
+            pw.println(product);
+        }
+        pw.close();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
