@@ -31,4 +31,20 @@ public class ShoppingCart {
         }
         return totalCost; //Cost of all the items in the cart
     }
+
+    //Method to add an Item to the cart
+    public void addItem(Product product) {
+        cartItems.add(product); //Adds the product to the cartItems list
+        this.setCartItems(cartItems); //Changes the shopping cart
+    }
+
+    //Method to remove an item from the cart
+    public void removeItem(Product product) {
+        for (int i = 0; i < cartItems.size(); i++) { //Iterates through each item in cartItems
+            if (cartItems.get(i).equals(product)) { //Checks if it equals product
+                cartItems.remove(i); //Removes the required item
+            }
+        }
+        this.setCartItems(cartItems); //Changes the shopping cart
+    }
 }
