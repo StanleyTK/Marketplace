@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MarketPlace {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to Marketplace!");
@@ -28,18 +28,26 @@ public class MarketPlace {
         if (user instanceof Customer) {
             while (running) {
                 System.out.println("What option would you like to choose?");
-                System.out.println("1. Look up a product name, with where the stores sell it\n" +
-                        "2. Look up a store\n" +
+                System.out.println("1. View the marketplace\n" +
+                        "2. Search for specific products by name, description, and store\n" +
                         "3. Look up product description\n" +
                         "4. How many of the product is there left in the store\n" +
                         "5. Exit");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
                     case (1):
-                        System.out.println("HEya");
+                        viewMarket();
+
                         break;
                     case (2):
-                        System.out.println("asdfa");
+                        ArrayList<Product> products = searchForProducts(scanner);
+                        for (Product product : products) {
+                            System.out.printf("Product name: %s, Store: %s," +
+                                            " Description: %s, Quantity: %d, Price: $%.2f\n",
+                                    product.getName(), product.getStore(), product.getDescription(),
+                                    product.getQuantity(), product.getPrice());
+                        }
+                        System.out.println("");
                         break;
                     case (3):
                         System.out.println("fasd");
@@ -63,7 +71,7 @@ public class MarketPlace {
 
                 System.out.println("What option would you like to choose?");
                 System.out.println("1. Look up a product name, with where the stores sell it\n" +
-                        "2. Look up a store\n" +
+                        "2. Search for specific products by name, description, and store\n" +
                         "3. Look up product description\n" +
                         "4. How many of the product is there left in the store\n" +
                         "5. Exit");
@@ -166,34 +174,33 @@ public class MarketPlace {
                 Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
     }
 
-    public void viewMarket() throws FileNotFoundException { //prints out marketplace to user
-        File markets = new File("Markets.txt");
-        BufferedReader bfr = new BufferedReader(new FileReader(markets));
+    public static void viewMarket() { //prints out marketplace to user
+
 
         String line;
         String printer = "";
 
         ArrayList<String> storeNames = new ArrayList<>();
         try {
+            File markets = new File("Markets.txt");
+            BufferedReader bfr = new BufferedReader(new FileReader(markets));
             while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
                 storeNames.add(line); //adds to arraylist
             }
 
             bfr.close();
-
             for (String storeName : storeNames) {
-
+                printer = printer + storeName + "\n" + "-------------\n";
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
 
                 while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
                     Product product = getProduct(line);
-                    printer = printer + product.getStore() +
-                            "\n-----\n" +
-                            product.getName() + "\n" +
-                            product.getDescription() + "\n" +
-                            product.getPrice() + "\n" +
-                            product.getQuantity() + "\n\n";
+                    printer = printer +
+                            "Product: " + product.getName() + "\n" +
+                            "Description: " + product.getDescription() + "\n" +
+                            "Price: " + product.getPrice() + "\n" +
+                            "Quantity " + product.getQuantity() + "\n\n";
                 }
 
                 //MarketPlace.getProduct()
@@ -203,8 +210,61 @@ public class MarketPlace {
         } catch (IOException e) {
             System.out.println("There was an error");
         }
-
-
+        System.out.println(printer);
 
     }
+    public static ArrayList<Product> searchForProducts(Scanner scanner) {
+        ArrayList<Product> toReturn = new ArrayList<>();
+        boolean running = true;
+        while (running) {
+            System.out.println("What products would you like to search by?");
+            System.out.println("1. Product by name");
+            System.out.println("2. Product by description");
+            System.out.println("3. Product by store");
+            try {
+                int input = Integer.parseInt(scanner.nextLine());
+                System.out.println("Enter your text for search");
+                String search = scanner.nextLine();
+                running = false;
+                File f = new File("Markets.txt");
+                BufferedReader br = new BufferedReader(new FileReader(f));
+                String line = br.readLine();
+                ArrayList<String> lines = new ArrayList<>();
+                while (line != null) {
+                    lines.add(line);
+                    line = br.readLine();
+                }
+                for (String market : lines) {
+                    f = new File(market + " Market.txt");
+                    br = new BufferedReader(new FileReader(f));
+                    line = br.readLine();
+                    lines = new ArrayList<>();
+                    while (line != null) {
+                        lines.add(line);
+                        line = br.readLine();
+                    }
+                    for (String productInfo : lines) {
+                        Product product = getProduct(productInfo);
+                        if (product.getName().contains(search) && input == 1) {
+                            toReturn.add(product);
+                        } else if (product.getDescription().contains(search) && input == 2) {
+                            toReturn.add(product);
+                        } else if (product.getStore().contains(search) && input == 3) {
+                            toReturn.add(product);
+                        }
+                    }
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Wrong format, try again.");
+            } catch (IOException e) {
+                System.out.println("There was an error. Try again");
+            }
+        }
+        return toReturn;
+    }
+
+
+
+
 }
