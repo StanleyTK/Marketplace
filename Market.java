@@ -83,8 +83,7 @@ public class Market {
         File market = new File(fileName);
         FileOutputStream fos = new FileOutputStream(market);
         PrintWriter pw = new PrintWriter(fos);
-        for (int i = 0; i < products.size(); i++) {
-            Product p = products.get(i);
+        for (Product p : products) {
             String product = p.getName() + ";;" + p.getDescription() + ";;" + p.getStore() + ";;" + p.getPrice() + ";;" + p.getQuantity();
             pw.println(product);
         }

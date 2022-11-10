@@ -1,11 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class MarketPlace {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("Welcome to Marketplace!");
         String info;
         //implement try catch error for verify login
@@ -30,30 +31,22 @@ public class MarketPlace {
                 System.out.println("What option would you like to choose?");
                 System.out.println("1. View the marketplace\n" +
                         "2. Search for specific products by name, description, and store\n" +
-                        "3. Look up product description\n" +
-                        "4. How many of the product is there left in the store\n" +
+                        "3. Sort by price least to greatest\n" +
+                        "4. Sort by quantity least to greatest\n" +
                         "5. Exit");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
                     case (1):
-                        viewMarket();
-
+                        CustomerOptions.viewMarket();
                         break;
                     case (2):
-                        ArrayList<Product> products = searchForProducts(scanner);
-                        for (Product product : products) {
-                            System.out.printf("Product name: %s, Store: %s," +
-                                            " Description: %s, Quantity: %d, Price: $%.2f\n",
-                                    product.getName(), product.getStore(), product.getDescription(),
-                                    product.getQuantity(), product.getPrice());
-                        }
-                        System.out.println("");
+                        CustomerOptions.searchForProducts(scanner);
                         break;
                     case (3):
-                        System.out.println("fasd");
+                        CustomerOptions.sortByPrice();
                         break;
                     case (4):
-                        System.out.println("a");
+                        CustomerOptions.sortByQuantity();
                         break;
                     case (5):
                         System.out.println("Have a nice day!");
@@ -70,11 +63,9 @@ public class MarketPlace {
             while (running) {
 
                 System.out.println("What option would you like to choose?");
-                System.out.println("1. Look up a product name, with where the stores sell it\n" +
+                System.out.println("1. Create, edit, or delete products from a store\n" +
                         "2. Search for specific products by name, description, and store\n" +
-                        "3. Look up product description\n" +
-                        "4. How many of the product is there left in the store\n" +
-                        "5. Exit");
+                        "3. Exit");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
                     case (1):
@@ -84,12 +75,6 @@ public class MarketPlace {
                         System.out.println("asdfa");
                         break;
                     case (3):
-                        System.out.println("fasd");
-                        break;
-                    case (4):
-                        System.out.println("a");
-                        break;
-                    case (5):
                         System.out.println("Have a nice day!");
                         running = false;
                         break;
@@ -102,6 +87,7 @@ public class MarketPlace {
         }
     }
 
+    // Login function
     public static String verifyLogin(String username, String password) throws UserNamePasswordIncorrectException {
         File f = new File("login.txt");
         FileReader fr = null;
@@ -164,104 +150,12 @@ public class MarketPlace {
             return new Seller(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
         }
 
-
-
     }
-
+    // Function to return the Product object from the line in the markets
     public static Product getProduct(String line) {
         String[] contents = line.split(",");
         return new Product(contents[0], contents[1], contents[2],
                 Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
-    }
-
-    public static void viewMarket() { //prints out marketplace to user
-
-
-        String line;
-        String printer = "";
-
-        ArrayList<String> storeNames = new ArrayList<>();
-        try {
-            File markets = new File("Markets.txt");
-            BufferedReader bfr = new BufferedReader(new FileReader(markets));
-            while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
-                storeNames.add(line); //adds to arraylist
-            }
-
-            bfr.close();
-            for (String storeName : storeNames) {
-                printer = printer + storeName + "\n" + "-------------\n";
-                File f = new File(storeName + " Market.txt");
-                BufferedReader productReader = new BufferedReader(new FileReader(f));
-
-                while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
-                    Product product = getProduct(line);
-                    printer = printer +
-                            "Product: " + product.getName() + "\n" +
-                            "Description: " + product.getDescription() + "\n" +
-                            "Price: " + product.getPrice() + "\n" +
-                            "Quantity " + product.getQuantity() + "\n\n";
-                }
-
-                //MarketPlace.getProduct()
-
-
-            }
-        } catch (IOException e) {
-            System.out.println("There was an error");
-        }
-        System.out.println(printer);
-
-    }
-    public static ArrayList<Product> searchForProducts(Scanner scanner) {
-        ArrayList<Product> toReturn = new ArrayList<>();
-        boolean running = true;
-        while (running) {
-            System.out.println("What products would you like to search by?");
-            System.out.println("1. Product by name");
-            System.out.println("2. Product by description");
-            System.out.println("3. Product by store");
-            try {
-                int input = Integer.parseInt(scanner.nextLine());
-                System.out.println("Enter your text for search");
-                String search = scanner.nextLine();
-                running = false;
-                File f = new File("Markets.txt");
-                BufferedReader br = new BufferedReader(new FileReader(f));
-                String line = br.readLine();
-                ArrayList<String> lines = new ArrayList<>();
-                while (line != null) {
-                    lines.add(line);
-                    line = br.readLine();
-                }
-                for (String market : lines) {
-                    f = new File(market + " Market.txt");
-                    br = new BufferedReader(new FileReader(f));
-                    line = br.readLine();
-                    lines = new ArrayList<>();
-                    while (line != null) {
-                        lines.add(line);
-                        line = br.readLine();
-                    }
-                    for (String productInfo : lines) {
-                        Product product = getProduct(productInfo);
-                        if (product.getName().contains(search) && input == 1) {
-                            toReturn.add(product);
-                        } else if (product.getDescription().contains(search) && input == 2) {
-                            toReturn.add(product);
-                        } else if (product.getStore().contains(search) && input == 3) {
-                            toReturn.add(product);
-                        }
-                    }
-                }
-
-            } catch (NumberFormatException e) {
-                System.out.println("Wrong format, try again.");
-            } catch (IOException e) {
-                System.out.println("There was an error. Try again");
-            }
-        }
-        return toReturn;
     }
 
 
