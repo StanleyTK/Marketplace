@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,7 +30,7 @@ public class MarketPlace {
             while (running) {
                 System.out.println("What option would you like to choose?");
                 System.out.println("1. Look up a product name, with where the stores sell it\n" +
-                        "2. Look up a store\n" +
+                        "2. Search for specific products by name, description, and store\n" +
                         "3. Look up product description\n" +
                         "4. How many of the product is there left in the store\n" +
                         "5. Exit");
@@ -39,7 +40,14 @@ public class MarketPlace {
                         System.out.println("HEya");
                         break;
                     case (2):
-                        System.out.println("asdfa");
+                        ArrayList<Product> products = searchForProducts(scanner);
+                        for (Product product : products) {
+                            System.out.printf("Product name: %s, Store: %s," +
+                                    " Description: %s, Quantity: %d, Price: $%.2f\n",
+                                    product.getName(), product.getStore(), product.getDescription(),
+                                    product.getQuantity(), product.getPrice());
+                        }
+                        System.out.println("");
                         break;
                     case (3):
                         System.out.println("fasd");
@@ -63,7 +71,7 @@ public class MarketPlace {
 
                 System.out.println("What option would you like to choose?");
                 System.out.println("1. Look up a product name, with where the stores sell it\n" +
-                        "2. Look up a store\n" +
+                        "2. Search for specific products by name, description, and store\n" +
                         "3. Look up product description\n" +
                         "4. How many of the product is there left in the store\n" +
                         "5. Exit");
@@ -164,5 +172,56 @@ public class MarketPlace {
         String[] contents = line.split(",");
         return new Product(contents[0], contents[1], contents[2],
                 Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
+    }
+
+    public static ArrayList<Product> searchForProducts(Scanner scanner) {
+        ArrayList<Product> toReturn = new ArrayList<>();
+        boolean running = true;
+        while (running) {
+            System.out.println("What products would you like to search by?");
+            System.out.println("1. Product by name");
+            System.out.println("2. Product by description");
+            System.out.println("3. Product by store");
+            try {
+                int input = Integer.parseInt(scanner.nextLine());
+                System.out.println("Enter your text for search");
+                String search = scanner.nextLine();
+                running = false;
+                File f = new File("Markets.txt");
+                BufferedReader br = new BufferedReader(new FileReader(f));
+                String line = br.readLine();
+                ArrayList<String> lines = new ArrayList<>();
+                while (line != null) {
+                    lines.add(line);
+                    line = br.readLine();
+                }
+                for (String market : lines) {
+                    f = new File(market + " Market.txt");
+                    br = new BufferedReader(new FileReader(f));
+                    line = br.readLine();
+                    lines = new ArrayList<>();
+                    while (line != null) {
+                        lines.add(line);
+                        line = br.readLine();
+                    }
+                    for (String productInfo : lines) {
+                        Product product = getProduct(productInfo);
+                        if (product.getName().contains(search) && input == 1) {
+                            toReturn.add(product);
+                        } else if (product.getDescription().contains(search) && input == 2) {
+                            toReturn.add(product);
+                        } else if (product.getStore().contains(search) && input == 3) {
+                            toReturn.add(product);
+                        }
+                    }
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Wrong format, try again.");
+            } catch (IOException e) {
+                System.out.println("There was an error. Try again");
+            }
+        }
+        return toReturn;
     }
 }
