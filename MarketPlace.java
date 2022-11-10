@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -154,6 +155,46 @@ public class MarketPlace {
             return new Customer(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
         } else {
             return new Seller(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
+        }
+
+
+
+    }
+
+    public void viewMarket() throws MarketExistsException, IOException { //prints out marketplace to user
+        File markets = new File("Markets.txt");
+        BufferedReader bfr = new BufferedReader(new FileReader(markets));
+
+        String line;
+        String printer = "";
+
+        ArrayList storeNames = new ArrayList();
+
+        while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
+            storeNames.add(line); //adds to arraylist
+        }
+
+        bfr.close();
+
+        for (int i = 0; i < storeNames.size(); i++) {
+
+            File f = new File(storeNames.get(i) + " Market.txt");
+            BufferedReader productReader = new BufferedReader(new FileReader(f));
+
+            while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                Product product = getProduct(line);
+                printer = printer + product.getStore() +
+                        "\n-----\n" +
+                        product.getName() + "\n" +
+                        product.getDescription() + "\n" +
+                        product.getPrice() + "\n" +
+                        product.getQuantity() + "\n\n";
+            }
+
+            //MarketPlace.getProduct()
+
+
+
         }
 
 
