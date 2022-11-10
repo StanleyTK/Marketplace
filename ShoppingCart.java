@@ -39,10 +39,14 @@ public class ShoppingCart {
     }
 
     //Method to remove an item from the cart
-    public void removeItem(Product product) {
-        for (int i = 0; i < cartItems.size(); i++) { //Iterates through each item in cartItems
-            if (cartItems.get(i).equals(product)) { //Checks if it equals product
-                cartItems.remove(i); //Removes the required item
+    public void removeItem(Product product, int amount) {
+        int amountremoved = 0;
+        while (amountremoved < amount) {
+            for (int i = 0; i < cartItems.size(); i++) { //Iterates through each item in cartItems
+                if (cartItems.get(i).equals(product)) { //Checks if it equals product
+                    cartItems.remove(i); //Removes the required item
+                    amountremoved++;
+                }
             }
         }
         this.setCartItems(cartItems); //Changes the shopping cart
