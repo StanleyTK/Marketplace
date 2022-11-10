@@ -165,4 +165,46 @@ public class MarketPlace {
         return new Product(contents[0], contents[1], contents[2],
                 Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
     }
+
+    public void viewMarket() throws FileNotFoundException { //prints out marketplace to user
+        File markets = new File("Markets.txt");
+        BufferedReader bfr = new BufferedReader(new FileReader(markets));
+
+        String line;
+        String printer = "";
+
+        ArrayList<String> storeNames = new ArrayList<>();
+        try {
+            while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
+                storeNames.add(line); //adds to arraylist
+            }
+
+            bfr.close();
+
+            for (String storeName : storeNames) {
+
+                File f = new File(storeName + " Market.txt");
+                BufferedReader productReader = new BufferedReader(new FileReader(f));
+
+                while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                    Product product = getProduct(line);
+                    printer = printer + product.getStore() +
+                            "\n-----\n" +
+                            product.getName() + "\n" +
+                            product.getDescription() + "\n" +
+                            product.getPrice() + "\n" +
+                            product.getQuantity() + "\n\n";
+                }
+
+                //MarketPlace.getProduct()
+
+
+            }
+        } catch (IOException e) {
+            System.out.println("There was an error");
+        }
+
+
+
+    }
 }
