@@ -52,6 +52,34 @@ public class Market {
         pw.close();
     }
 
+    public Market(String name) throws FileNotFoundException, IOException {
+        File f = new File("Markets.txt");
+        ArrayList<String> markets = new ArrayList<String>();
+        ArrayList<Product> products = new ArrayList<Product>();
+        FileReader fr = new FileReader(f);
+        BufferedReader bfr = new BufferedReader(fr);
+        String line = bfr.readLine();
+        while (line != null) {
+            if (line.equals(name)) {
+                bfr.close();
+                String fileName = name + " Market.txt";
+                File market = new File(fileName);
+                fr = new FileReader(fileName);
+                bfr = new BufferedReader(fr);
+                line = bfr.readLine();
+                while (line != null) {
+                    Product product = MarketPlace.getProduct(line);
+                    products.add(product);
+                    line = bfr.readLine();
+                }
+            }
+            markets.add(line);
+            line = bfr.readLine();
+        }
+        bfr.close();
+        this.name = name;
+        this.products = products;
+    }
 
     public ArrayList<Product> getProducts() {
         return products;
