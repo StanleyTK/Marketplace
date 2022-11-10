@@ -6,7 +6,7 @@ public class Market {
     private ArrayList<Product> products;
     private String name;
     // checks if market already exists in markets.txt. throws MarketExistsException if it does
-    // if markets.txt does not exist, creates new markets.txt file with itself as the first market name
+    // while markets.txt does not exist, creates new markets.txt file with itself as the first market name
     // creates its own market file of the format "name" + " Market.txt"
     // prints each product to the file, in the form name;;description;;store;;price;;quantity
     public Market(String name, ArrayList<Product> products) throws IOException, MarketExistsException {
