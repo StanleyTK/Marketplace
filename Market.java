@@ -14,36 +14,28 @@ public class Market {
         this.name = name;
         File f = new File("Markets.txt");
         ArrayList<String> markets = new ArrayList<String>();
-        try {
-            FileReader fr = new FileReader(f);
-            BufferedReader bfr = new BufferedReader(fr);
-            String line = bfr.readLine();
-            while (line != null) {
-                if (line.equals(name)) {
-                    throw new MarketExistsException(name);
-                }
-                markets.add(line);
-                line = bfr.readLine();
+        FileReader fr = new FileReader(f);
+        BufferedReader bfr = new BufferedReader(fr);
+        String line = bfr.readLine();
+        while (line != null) {
+            if (line.equals(name)) {
+                throw new MarketExistsException(name);
             }
-            bfr.close();
-            FileOutputStream fos = new FileOutputStream(f);
-            PrintWriter pw = new PrintWriter(fos);
-            for (int i = 0; i < markets.size(); i++) {
-                pw.println(markets.get(i));
-            }
-            pw.println(name);
-            pw.close();
-        } catch (FileNotFoundException e) {
-            f.createNewFile();
-            FileOutputStream fos = new FileOutputStream(f);
-            PrintWriter pw = new PrintWriter(fos);
-            pw.println(name);
-            pw.close();
+            markets.add(line);
+            line = bfr.readLine();
         }
+        bfr.close();
+        FileOutputStream fos = new FileOutputStream(f);
+        PrintWriter pw = new PrintWriter(fos);
+        for (int i = 0; i < markets.size(); i++) {
+            pw.println(markets.get(i));
+        }
+        pw.println(name);
+        pw.close();
         String fileName = name + " Market.txt";
         File market = new File(fileName);
-        FileOutputStream fos = new FileOutputStream(market);
-        PrintWriter pw = new PrintWriter(fos);
+        fos = new FileOutputStream(market);
+        pw = new PrintWriter(fos);
         for (int i = 0; i < products.size(); i++) {
             Product p = products.get(i);
             String product = p.getName() + ";;" + p.getDescription() + ";;" + p.getStore() + ";;" + p.getPrice() + ";;" + p.getQuantity();
