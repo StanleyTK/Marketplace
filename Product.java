@@ -1,13 +1,13 @@
 public class Product {
     private String name;
-    private String store;
+    private String market;
     private String description;
     private int quantity;
     private double price;
 
-    public Product(String name, String store, String description, int quantity, double price) {
+    public Product(String name, String market, String description, int quantity, double price) {
         this.name = name;
-        this.store = store;
+        this.market = market;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
@@ -21,12 +21,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getStore() {
-        return store;
+    public String getMarket() {
+        return market;
     }
 
-    public void setStore(String store) {
-        this.store = store;
+    public void setMarket(String market) {
+        this.market = market;
     }
 
     public String getDescription() {
@@ -55,6 +55,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("%s, %s, %s, %d, %.2f", name, store, description, quantity, price);
+        return String.format("%s, %s, %s, %d, %.2f", name, market, description, quantity, price);
     }
 }

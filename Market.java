@@ -38,7 +38,7 @@ public class Market {
         pw = new PrintWriter(fos);
         for (int i = 0; i < products.size(); i++) {
             Product p = products.get(i);
-            String product = p.getName() + ";;" + p.getDescription() + ";;" + p.getStore() + ";;" + p.getPrice() + ";;" + p.getQuantity();
+            String product = p.getName() + ";;" + p.getDescription() + ";;" + p.getMarket() + ";;" + p.getPrice() + ";;" + p.getQuantity();
             pw.println(product);
         }
         pw.close();
@@ -85,7 +85,7 @@ public class Market {
         PrintWriter pw = new PrintWriter(fos);
         for (int i = 0; i < products.size(); i++) {
             Product p = products.get(i);
-            String product = p.getName() + ";;" + p.getDescription() + ";;" + p.getStore() + ";;" + p.getPrice() + ";;" + p.getQuantity();
+            String product = p.getName() + ";;" + p.getDescription() + ";;" + p.getMarket() + ";;" + p.getPrice() + ";;" + p.getQuantity();
             pw.println(product);
         }
         pw.close();
