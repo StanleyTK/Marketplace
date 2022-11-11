@@ -185,10 +185,10 @@ public class MarketPlace {
                 Product product = getProduct(line);
                 printer = printer + product.getStore() +
                         "\n-----\n" +
-                        product.getName() + "\n" +
-                        product.getDescription() + "\n" +
-                        product.getPrice() + "\n" +
-                        product.getQuantity() + "\n\n";
+                        "Name: " + product.getName() + "\n" +
+                        "Description: " + product.getDescription() + "\n" +
+                        "Price: " + product.getPrice() + "\n" +
+                        "Quantity" + product.getQuantity() + "\n\n";
             }
 
             //MarketPlace.getProduct()
@@ -196,6 +196,8 @@ public class MarketPlace {
 
 
         }
+
+        System.out.println(printer);
 
 
 
