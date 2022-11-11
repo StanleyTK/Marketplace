@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 Name: Jane Doe
 User: Seller
 John Doe
-=======
-Name: janedoe456
-User: Seller
->>>>>>> main
+
