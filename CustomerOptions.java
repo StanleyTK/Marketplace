@@ -44,16 +44,17 @@ public class CustomerOptions {
         ArrayList<Product> toReturn = new ArrayList<>();
         boolean running = true;
         String printer = "";
+        int option;
         while (running) {
             while (true) {
                 try {
                     System.out.print("""
                             Which Option of these would you like to choose?
-                            1. Create a new product
-                            2. Edit a product
-                            3. Delete a product
+                            1. Search by name
+                            2. Search by description
+                            3. Search by store
                             """);
-                    int option = Integer.parseInt(scanner.nextLine());
+                    option = Integer.parseInt(scanner.nextLine());
                     if (option == 1 || option == 2 || option == 3) {
                         break;
                     }
@@ -64,7 +65,6 @@ public class CustomerOptions {
                 }
             }
             try {
-                int input = Integer.parseInt(scanner.nextLine());
                 System.out.println("Enter your text for search");
                 String search = scanner.nextLine();
                 running = false;
@@ -90,19 +90,19 @@ public class CustomerOptions {
                     }
                     for (String productInfo : lines) {
                         Product product = MarketPlace.getProduct(productInfo);
-                        if (product.getName().contains(search) && input == 1) {
+                        if (product.getName().contains(search) && option == 1) {
                             printer = printer +
                                     "Product: " + product.getName() + "\n" +
                                     "Description: " + product.getDescription() + "\n" +
                                     "Price: " + product.getPrice() + "\n" +
                                     "Quantity " + product.getQuantity() + "\n\n";
-                        } else if (product.getDescription().contains(search) && input == 2) {
+                        } else if (product.getDescription().contains(search) && option == 2) {
                             printer = printer +
                                     "Product: " + product.getName() + "\n" +
                                     "Description: " + product.getDescription() + "\n" +
                                     "Price: " + product.getPrice() + "\n" +
                                     "Quantity " + product.getQuantity() + "\n\n";
-                        } else if (product.getStore().contains(search) && input == 3) {
+                        } else if (product.getStore().contains(search) && option == 3) {
                             printer = printer +
                                     "Product: " + product.getName() + "\n" +
                                     "Description: " + product.getDescription() + "\n" +

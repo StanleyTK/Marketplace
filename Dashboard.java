@@ -13,25 +13,29 @@ public class Dashboard {
     }
 
     // export csv
-    public static void csvFile(Seller seller) {
+    public static void csvFile() {
         //TODO Sellers can import or export products for their stores using a csv file.
         //TODO All product details should be included, with one row per product.
 
     }
     // import csv
-    public static Seller csvFile(Seller seller, String fileName) throws IOException, IllegalArgumentException {
-        File f = new File(fileName);
-        FileReader fr = new FileReader(f);
-        BufferedReader bfr = new BufferedReader(fr);
-        String line = bfr.readLine();
-        ArrayList<Product> products = new ArrayList<Product>();
-        while (line != null) {
-            Product product = MarketPlace.getProduct(line);
-            products.add(product);
-            seller.setProducts(products);
-        }
-        return seller;
-    }
+//    public static void csvFile(Seller seller) {
+//        try {
+//            File f = new File("f");
+//            FileReader fr = new FileReader(f);
+//            BufferedReader bfr = new BufferedReader(fr);
+//            String line = bfr.readLine();
+//            ArrayList<Product> products = new ArrayList<Product>();
+//            while (line != null) {
+//                Product product = MarketPlace.getProduct(line);
+//                products.add(product);
+//                seller.setProducts(products);
+//                line = bfr.readLine();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void exportPurchaseHistory() {
         //TODO Customers can export a file with their purchase history.

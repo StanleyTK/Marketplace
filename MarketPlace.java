@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MarketPlace {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to Marketplace!");
@@ -28,31 +28,28 @@ public class MarketPlace {
         if (user instanceof Customer) {
             while (running) {
                 System.out.println("What option would you like to choose?");
-                System.out.println("1. Look up a product name, with where the stores sell it\n" +
-                        "2. Look up a store\n" +
-                        "3. Look up product description\n" +
-                        "4. How many of the product is there left in the store\n" +
-                        "5. Exit");
+                System.out.println("""
+                        1. View the marketplace
+                        2. Search for specific products by name, description, and store
+                        3. Sort by price least to greatest
+                        4. Sort by quantity least to greatest
+                        5. View Dashboard
+                        6. Export File with Purchase History
+                        7. Add items to the Shopping Cart
+                        8. Exit""");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
-                    case (1):
-                        System.out.println("HEya");
-                        break;
-                    case (2):
-                        System.out.println("asdfa");
-                        break;
-                    case (3):
-                        System.out.println("fasd");
-                        break;
-                    case (4):
-                        System.out.println("a");
-                        break;
-                    case (5):
-                        System.out.println("Have a nice day!");
+                    case (1) -> CustomerOptions.viewMarket();
+                    case (2) -> CustomerOptions.searchForProducts(scanner);
+                    case (3) -> CustomerOptions.sortByPrice();
+                    case (4) -> CustomerOptions.sortByQuantity();
+                    case (5) -> Dashboard.viewCustomer(); //TODO
+                    case (6) -> Dashboard.exportPurchaseHistory(); //TODO
+                    case (7) -> CustomerOptions.addProductsShoppingCart(); //TODO
+                    case (8) -> {
                         running = false;
-                        break;
-                    default:
-                        System.out.println("Please enter a valid input!");
+                    }
+                    default -> System.out.println("Please enter a valid input!");
 
                 }
             }
@@ -62,31 +59,26 @@ public class MarketPlace {
             while (running) {
 
                 System.out.println("What option would you like to choose?");
-                System.out.println("1. Look up a product name, with where the stores sell it\n" +
-                        "2. Look up a store\n" +
-                        "3. Look up product description\n" +
-                        "4. How many of the product is there left in the store\n" +
-                        "5. Exit");
+                System.out.println("""
+                        1. View the marketplace
+                        2. Create, edit, or delete products from a store
+                        3. View the list of their sales by store
+                        4. View Dashboard
+                        5. Import/Export Products using CSV file
+                        6. View products currently in customer's shopping carts
+                        7. Exit""");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
-                    case (1):
-                        System.out.println("HEya");
-                        break;
-                    case (2):
-                        System.out.println("asdfa");
-                        break;
-                    case (3):
-                        System.out.println("fasd");
-                        break;
-                    case (4):
-                        System.out.println("a");
-                        break;
-                    case (5):
-                        System.out.println("Have a nice day!");
-                        running = false;
-                        break;
-                    default:
-                        System.out.println("Please enter a valid input!");
+                    case (1) -> CustomerOptions.viewMarket();
+                    case (2) -> SellerOptions.editProducts(scanner);
+                    case (3) -> SellerOptions.viewSales();//TODO
+                    case (4) -> Dashboard.viewSeller(); //TODO
+                    case (5) -> Dashboard.csvFile(); //TODO
+                    case (6) -> SellerOptions.viewCustomerShoppingCarts(); //TODO
+                    case (7) -> running = false;
+                    default -> System.out.println("Please enter a valid input!");
+
+
 
                 }
             }
@@ -135,7 +127,7 @@ public class MarketPlace {
             }
 
             for (String productInfo : lines) {
-                if (!productInfo.contains("Name:") && !productInfo.contains("User:")) {
+                if (!productInfo.contains("Name:") && !productInfo.contains("User:") && productInfo.contains("User: Seller")) {
                     products.add(getProduct(productInfo));
                 } else if (productInfo.contains("User: Seller")) {
                     user = "Seller";
@@ -153,7 +145,7 @@ public class MarketPlace {
         if (user.equals("Customer")) {
             return new Customer(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
         } else {
-            return new Seller(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
+            return new Seller(contents[2], contents[0], contents[1]);
         }
 
 

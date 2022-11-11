@@ -2,27 +2,25 @@ import java.util.ArrayList;
 
 public class Customer extends User {
 
-    private ArrayList<Product>products;
+    private ShoppingCart shoppingCart;
 
     public Customer(String customerName, String username, String password, ArrayList<Product> products) {
         super(customerName, username, password);
-        this.products = products;
+        shoppingCart = new ShoppingCart(products);
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
+    @Override
     public String toString() {
         return "Customer{" +
-                "products=" + products.get(0).toString() +
-                ", customerName='" + getCustomerName() + '\'' +
-                ", password='" + getPassword() + '\'' +
-                ", username='" + getUsername() + '\'' +
+                "shoppingCart=" + shoppingCart +
                 '}';
     }
 }
