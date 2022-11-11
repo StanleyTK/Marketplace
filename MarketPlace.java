@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class MarketPlace {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("Welcome to Marketplace!");
         String info;
         //implement try catch error for verify login
@@ -27,24 +28,29 @@ public class MarketPlace {
         if (user instanceof Customer) {
             while (running) {
                 System.out.println("What option would you like to choose?");
-                System.out.println("1. View the marketplace\n" +
-                        "2. Search for specific products by name, description, and store\n" +
-                        "3. Sort by price least to greatest\n" +
-                        "4. Sort by quantity least to greatest\n" +
-                        "5. View Dashboard" +
-                        "6. Exit");
+                System.out.println("""
+                        1. View the marketplace
+                        2. Search for specific products by name, description, and store
+                        3. Sort by price least to greatest
+                        4. Sort by quantity least to greatest
+                        5. View Dashboard
+                        6. Export File with Purchase History
+                        7. Add items to the Shopping Cart
+                        8. Exit""");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
-                    case (1) -> Options.viewMarket();
-                    case (2) -> Options.searchForProducts(scanner);
-                    case (3) -> Options.sortByPrice();
-                    case (4) -> Options.sortByQuantity();
-                    case (5) -> Dashboard.viewCustomer();
-                    case (6) -> {
-                        System.out.println("Have a nice day!");
+                    case (1) -> CustomerOptions.viewMarket();
+                    case (2) -> CustomerOptions.searchForProducts(scanner);
+                    case (3) -> CustomerOptions.sortByPrice();
+                    case (4) -> CustomerOptions.sortByQuantity();
+                    case (5) -> Dashboard.viewCustomer(); //TODO
+                    case (6) -> Dashboard.exportPurchaseHistory(); //TODO
+                    case (7) -> CustomerOptions.addProductsShoppingCart(); //TODO
+                    case (8) -> {
                         running = false;
                     }
                     default -> System.out.println("Please enter a valid input!");
+
                 }
             }
 
@@ -53,29 +59,33 @@ public class MarketPlace {
             while (running) {
 
                 System.out.println("What option would you like to choose?");
-                System.out.println("1. View the marketplace\n" +
-                        "2. Create, edit, or delete products from a store\n" +
-                        "3. View the list of their sales by store\n" +
-                        "4. View Dashboard" +
-                        "5. Exit");
+                System.out.println("""
+                        1. View the marketplace
+                        2. Create, edit, or delete products from a store
+                        3. View the list of their sales by store
+                        4. View Dashboard
+                        5. Import/Export Products using CSV file
+                        6. View products currently in customer's shopping carts
+                        7. Exit""");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
-                    case (1) -> Options.viewMarket();
-                    case (2) -> Options.editProducts(scanner);
-                    case (3) -> Options.viewSales();
-                    case (4) -> Dashboard.viewSeller();
-                    case (5) -> {
-                        System.out.println("Have a nice day!");
-                        running = false;
-                    }
+                    case (1) -> CustomerOptions.viewMarket();
+                    case (2) -> SellerOptions.editProducts(scanner);
+                    case (3) -> SellerOptions.viewSales();//TODO
+                    case (4) -> Dashboard.viewSeller(); //TODO
+                    case (5) -> Dashboard.csvFile(); //TODO
+                    case (6) -> SellerOptions.viewCustomerShoppingCarts(); //TODO
+                    case (7) -> running = false;
                     default -> System.out.println("Please enter a valid input!");
+
+
+
                 }
             }
 
         }
     }
 
-    // Login function
     public static String verifyLogin(String username, String password) throws UserNamePasswordIncorrectException {
         File f = new File("login.txt");
         FileReader fr = null;
@@ -135,18 +145,16 @@ public class MarketPlace {
         if (user.equals("Customer")) {
             return new Customer(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
         } else {
-            return new Seller(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
+            return new Seller(contents[2], contents[0], contents[1]);
         }
 
+
+
     }
-    // Function to return the Product object from the line in the markets
+
     public static Product getProduct(String line) {
         String[] contents = line.split(",");
         return new Product(contents[0], contents[1], contents[2],
                 Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
     }
-
-
-
-
 }
