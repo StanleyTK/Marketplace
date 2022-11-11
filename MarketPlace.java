@@ -1,11 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class MarketPlace {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Marketplace!");
         String info;
@@ -33,28 +31,20 @@ public class MarketPlace {
                         "2. Search for specific products by name, description, and store\n" +
                         "3. Sort by price least to greatest\n" +
                         "4. Sort by quantity least to greatest\n" +
-                        "5. Exit");
+                        "5. View Dashboard" +
+                        "6. Exit");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
-                    case (1):
-                        CustomerOptions.viewMarket();
-                        break;
-                    case (2):
-                        CustomerOptions.searchForProducts(scanner);
-                        break;
-                    case (3):
-                        CustomerOptions.sortByPrice();
-                        break;
-                    case (4):
-                        CustomerOptions.sortByQuantity();
-                        break;
-                    case (5):
+                    case (1) -> Options.viewMarket();
+                    case (2) -> Options.searchForProducts(scanner);
+                    case (3) -> Options.sortByPrice();
+                    case (4) -> Options.sortByQuantity();
+                    case (5) -> Dashboard.viewCustomer();
+                    case (6) -> {
                         System.out.println("Have a nice day!");
                         running = false;
-                        break;
-                    default:
-                        System.out.println("Please enter a valid input!");
-
+                    }
+                    default -> System.out.println("Please enter a valid input!");
                 }
             }
 
@@ -63,24 +53,22 @@ public class MarketPlace {
             while (running) {
 
                 System.out.println("What option would you like to choose?");
-                System.out.println("1. Create, edit, or delete products from a store\n" +
-                        "2. Search for specific products by name, description, and store\n" +
-                        "3. Exit");
+                System.out.println("1. View the marketplace\n" +
+                        "2. Create, edit, or delete products from a store\n" +
+                        "3. View the list of their sales by store\n" +
+                        "4. View Dashboard" +
+                        "5. Exit");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
-                    case (1):
-                        System.out.println("HEya");
-                        break;
-                    case (2):
-                        System.out.println("asdfa");
-                        break;
-                    case (3):
+                    case (1) -> Options.viewMarket();
+                    case (2) -> Options.editProducts(scanner);
+                    case (3) -> Options.viewSales();
+                    case (4) -> Dashboard.viewSeller();
+                    case (5) -> {
                         System.out.println("Have a nice day!");
                         running = false;
-                        break;
-                    default:
-                        System.out.println("Please enter a valid input!");
-
+                    }
+                    default -> System.out.println("Please enter a valid input!");
                 }
             }
 
@@ -129,7 +117,7 @@ public class MarketPlace {
             }
 
             for (String productInfo : lines) {
-                if (!productInfo.contains("Name:") && !productInfo.contains("User:")) {
+                if (!productInfo.contains("Name:") && !productInfo.contains("User:") && productInfo.contains("User: Seller")) {
                     products.add(getProduct(productInfo));
                 } else if (productInfo.contains("User: Seller")) {
                     user = "Seller";
