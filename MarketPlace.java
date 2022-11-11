@@ -119,7 +119,7 @@ public class MarketPlace {
 
     // Assuming no name duplicate
     // Gets the Customer class from name
-    public static User getUser(String info) throws IOException {
+    public static User getUser(String info) {
         String[] contents = info.split(",");
         ArrayList<Product> products = new ArrayList<>();
         String user = "Customer";
@@ -151,10 +151,13 @@ public class MarketPlace {
         ShoppingCart shoppingCart = new ShoppingCart(products);
 
         if (user.equals("Customer")) {
-            return new Customer(contents[3], contents[0], contents[1]);
+            return new Customer(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
         } else {
-            return new Seller(contents[3], contents[0], contents[1]);
+            return new Seller(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
         }
+
+
+
     }
 
     public static Product getProduct(String line) {

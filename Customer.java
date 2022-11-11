@@ -9,10 +9,6 @@ public class Customer extends User {
         this.products = products;
     }
 
-    public Customer(String name, String username, String password) {
-        super(name, username, password);
-    }
-
     public ArrayList<Product> getProducts() {
         return products;
     }

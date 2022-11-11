@@ -9,7 +9,7 @@ public class Market {
     // while markets.txt does not exist, creates new markets.txt file with itself as the first market name
     // creates its own market file of the format "name" + " Market.txt"
     // prints each product to the file, in the form name;;description;;store;;price;;quantity
-    public Market(String name, ArrayList<Product> products) throws IOException, MarketExistsException {
+    public Market(String name, ArrayList<Product> products) throws IOException {
         this.products = products;
         this.name = name;
         File f = new File("Markets.txt");
@@ -19,7 +19,7 @@ public class Market {
         String line = bfr.readLine();
         while (line != null) {
             if (line.equals(name)) {
-                throw new MarketExistsException(name);
+                System.out.println("The Market Already Exists");
             }
             markets.add(line);
             line = bfr.readLine();
@@ -83,8 +83,7 @@ public class Market {
         File market = new File(fileName);
         FileOutputStream fos = new FileOutputStream(market);
         PrintWriter pw = new PrintWriter(fos);
-        for (int i = 0; i < products.size(); i++) {
-            Product p = products.get(i);
+        for (Product p : products) {
             String product = p.getName() + ";;" + p.getDescription() + ";;" + p.getStore() + ";;" + p.getPrice() + ";;" + p.getQuantity();
             pw.println(product);
         }

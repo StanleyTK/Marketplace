@@ -1,1 +1,7 @@
-Oranges,Walmart,You eat it,5,5.99
+Apples,Walmart,You eat it,3,2.99
+Oranges,Walmart,You eat it,99,5.99
+Water Bottle,Walmart,You drink it,50,19.99
+Walnuts,Walmart,You eat it,20,9.99
+Keyboard,Walmart,You type on it,5,19.99
+Dildo,Walmart,it is very long,39,19.99
+stanley kim,Walmart,i am about to lose my shit working on this fucking project,1,0.01

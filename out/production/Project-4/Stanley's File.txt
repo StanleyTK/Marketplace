@@ -1,0 +1,5 @@
+Name: Stanley
+User: Customer
+Nintendo Switch,Walmart,You play it,2,299.99
+Walnuts,Target,You eat it,1,9.99
+Keyboard,Target,You type on it,3,19.99
