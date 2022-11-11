@@ -46,7 +46,6 @@ public class MarketPlace {
                     case (6) -> Dashboard.exportPurchaseHistory(); //TODO
                     case (7) -> CustomerOptions.addProductsShoppingCart(); //TODO
                     case (8) -> {
-                        System.out.println("Have a nice day!");
                         running = false;
                     }
                     default -> System.out.println("Please enter a valid input!");
@@ -75,7 +74,6 @@ public class MarketPlace {
                     case (5) -> Dashboard.csvFile(); //TODO
                     case (6) -> SellerOptions.viewCustomerShoppingCarts(); //TODO
                     case (7) -> {
-                        System.out.println("Have a nice day!");
                         running = false;
                     }
                     default -> System.out.println("Please enter a valid input!");
@@ -83,6 +81,7 @@ public class MarketPlace {
             }
 
         }
+        System.out.println("Have a nice day!");
     }
 
     // Login function
@@ -145,7 +144,7 @@ public class MarketPlace {
         if (user.equals("Customer")) {
             return new Customer(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
         } else {
-            return new Seller(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
+            return new Seller(contents[2], contents[0], contents[1]);
         }
 
     }
@@ -155,8 +154,6 @@ public class MarketPlace {
         return new Product(contents[0], contents[1], contents[2],
                 Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
     }
-
-
 
 
 }
