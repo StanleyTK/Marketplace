@@ -161,45 +161,43 @@ public class MarketPlace {
 
     }
 
-    public void viewMarket() throws MarketExistsException, IOException { //prints out marketplace to user
-        File markets = new File("Markets.txt");
-        BufferedReader bfr = new BufferedReader(new FileReader(markets));
+    public static void viewMarket() { //prints out marketplace to user
+
 
         String line;
         String printer = "";
 
-        ArrayList storeNames = new ArrayList();
-
-        while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
-            storeNames.add(line); //adds to arraylist
-        }
-
-        bfr.close();
-
-        for (int i = 0; i < storeNames.size(); i++) {
-
-            File f = new File(storeNames.get(i) + " Market.txt");
-            BufferedReader productReader = new BufferedReader(new FileReader(f));
-
-            while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
-                Product product = getProduct(line);
-                printer = printer + product.getStore() +
-                        "\n-----\n" +
-                        "Name: " + product.getName() + "\n" +
-                        "Description: " + product.getDescription() + "\n" +
-                        "Price: " + product.getPrice() + "\n" +
-                        "Quantity" + product.getQuantity() + "\n\n";
+        ArrayList<String> storeNames = new ArrayList<>();
+        try {
+            File markets = new File("Markets.txt");
+            BufferedReader bfr = new BufferedReader(new FileReader(markets));
+            while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
+                storeNames.add(line); //adds to arraylist
             }
 
-            //MarketPlace.getProduct()
+            bfr.close();
+            for (String storeName : storeNames) {
+                printer = printer + storeName + "\n" + "-------------\n";
+                File f = new File(storeName + " Market.txt");
+                BufferedReader productReader = new BufferedReader(new FileReader(f));
+
+                while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                    Product product = getProduct(line);
+                    printer = printer +
+                            "Product: " + product.getName() + "\n" +
+                            "Description: " + product.getDescription() + "\n" +
+                            "Price: " + product.getPrice() + "\n" +
+                            "Quantity " + product.getQuantity() + "\n\n";
+                }
+
+                //MarketPlace.getProduct()
 
 
-
+            }
+        } catch (IOException e) {
+            System.out.println("There was an error");
         }
-
         System.out.println(printer);
-
-
 
     }
 
