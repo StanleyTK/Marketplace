@@ -44,7 +44,7 @@ public class MarketPlace {
                     case (3) -> CustomerOptions.sortByPrice();
                     case (4) -> CustomerOptions.sortByQuantity();
                     case (5) -> Dashboard.viewCustomer(); //TODO
-                    case (6) -> Dashboard.exportPurchaseHistory((Customer) user); //TODO
+                    case (6) -> Dashboard.exportPurchaseHistory((Customer) user);
                     case (7) -> CustomerOptions.addProductsShoppingCart(); //TODO
                     case (8) -> {
                         running = false;
@@ -73,7 +73,7 @@ public class MarketPlace {
                     case (2) -> SellerOptions.editProducts(scanner);
                     case (3) -> SellerOptions.viewSales();//TODO
                     case (4) -> Dashboard.viewSeller(); //TODO
-                    case (5) -> Dashboard.csvFile(); //TODO
+                    case (5) -> Dashboard.csvFile();
                     case (6) -> SellerOptions.viewCustomerShoppingCarts(); //TODO
                     case (7) -> running = false;
                     default -> System.out.println("Please enter a valid input!");
