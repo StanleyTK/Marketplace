@@ -180,7 +180,38 @@ public class SellerOptions {
 
 
     public static void viewCustomerShoppingCarts() {
-        //TODO Sellers can view the number of products currently in customer shopping carts, along with the store and details associated with the products.
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Customers.txt"));
+            String line = br.readLine();
+            ArrayList<String> list = new ArrayList<>();
+            while (line != null) {
+                list.add(line);
+                line = br.readLine();
+            }
+            for (String user : list) {
+                System.out.println("");
+                System.out.printf(user + "'s Shopping Cart\n------------------------\n");
+                File f = new File(user + "'s File.txt");
+                br = new BufferedReader(new FileReader(f));
+                line = br.readLine();
+                while (line != null) {
+                    if (!line.contains("Name: ") && !line.contains("User: ")) {
+                        Product product = MarketPlace.getProduct(line);
+                        System.out.printf("Product: %s, Store: %s, Description: %s, " +
+                                        "Price: %.2f, Quantity: %d\n", product.getName(), product.getStore(),
+                                product.getDescription(), product.getPrice(), product.getQuantity());
+                    }
+                    line = br.readLine();
+
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.print("\n\n");
+
+
     }
 }
 
