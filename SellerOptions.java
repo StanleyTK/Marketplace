@@ -63,7 +63,7 @@ public class SellerOptions {
                     FileOutputStream fos = new FileOutputStream(f);
                     PrintWriter pw = new PrintWriter(fos);
                     pw.println(product.toString());
-                    pw.println(after);
+                    pw.print(after);
                     pw.close();
                     br.close();
 
@@ -118,7 +118,7 @@ public class SellerOptions {
                             System.out.println(product.toString());
                             pw.println(product.toString());
                         }
-                        pw.println(rest);
+                        pw.print(rest);
                         pw.close();
                     }
 
@@ -127,7 +127,8 @@ public class SellerOptions {
                     printer = printer + storeName + "\n" + "-------------\n";
                     BufferedReader productReader = new BufferedReader(new FileReader(f));
                     ArrayList<Product> products = new ArrayList<>();
-                    while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                    line = productReader.readLine();
+                    while (!line.equals("--------")) { //iterates through lines of files and adds them to string
                         Product product = MarketPlace.getProduct(line);
                         products.add(product);
                         printer = printer +
@@ -135,6 +136,12 @@ public class SellerOptions {
                                 "Description: " + product.getDescription() + "\n" +
                                 "Price: " + product.getPrice() + "\n" +
                                 "Quantity " + product.getQuantity();
+                        line = productReader.readLine();
+                    }
+                    String after = "";
+                    while (line != null) {
+                        after += line + "\n";
+                        line = productReader.readLine();
                     }
                     System.out.println(printer);
                     System.out.println("Which of these items would you like to remove from " + storeName);
@@ -159,6 +166,7 @@ public class SellerOptions {
                         for (Product product : products) {
                             pw.println(product.toString());
                         }
+                        pw.print(after);
                         pw.close();
 
                     }
