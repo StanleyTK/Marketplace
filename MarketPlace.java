@@ -44,7 +44,7 @@ public class MarketPlace {
                     case (3) -> CustomerOptions.sortByPrice();
                     case (4) -> CustomerOptions.sortByQuantity();
                     case (5) -> Dashboard.viewCustomer(); //TODO
-                    case (6) -> Dashboard.exportPurchaseHistory(); //TODO
+                    case (6) -> Dashboard.exportPurchaseHistory((Customer) user); //TODO
                     case (7) -> CustomerOptions.addProductsShoppingCart(); //TODO
                     case (8) -> {
                         running = false;
