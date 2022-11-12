@@ -137,11 +137,14 @@ public class Dashboard {
         File f = new File(scanner.nextLine());
         PrintWriter pw = new PrintWriter(new FileOutputStream(f));
         pw.println(customer.getCustomerName() + "'s Purchase History");
+        pw.println("--------");
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
-            pw.println("Purchased " + product.getName() + " for " + product.getPrice()
-            + " from " + product.getStore() + ".");
+            pw.println("Purchased " + product.getQuantity() + " " + product.getName() + " for\n" +
+                    product.getPrice() + " each(" + (product.getPrice() * product.getQuantity())
+            + " total) from " + product.getStore() + ".");
             pw.println("Description: " + product.getDescription());
+            pw.println();
         }
         pw.close();
     }
