@@ -153,9 +153,10 @@ public class CustomerOptions {
             for (String storeName : storeNames) {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
-
-                while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                line = productReader.readLine();
+                while (!line.equals("--------")) { //iterates through lines of files and adds them to string
                     products.add(MarketPlace.getProduct(line));
+                    line = productReader.readLine();
                 }
             }
         } catch (IOException e) {
@@ -207,9 +208,10 @@ public class CustomerOptions {
             for (String storeName : storeNames) {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
-
-                while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                line = productReader.readLine();
+                while (!line.equals("--------")) { //iterates through lines of files and adds them to string
                     products.add(MarketPlace.getProduct(line));
+                    line = productReader.readLine();
                 }
             }
         } catch (IOException e) {

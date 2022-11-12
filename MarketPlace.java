@@ -40,7 +40,7 @@ public class MarketPlace {
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
                     case (1) -> CustomerOptions.viewMarket();
-                    case (2) -> CustomerOptions.searchForProducts(scanner); //TODO
+                    case (2) -> CustomerOptions.searchForProducts(scanner);
                     case (3) -> CustomerOptions.sortByPrice();
                     case (4) -> CustomerOptions.sortByQuantity();
                     case (5) -> Dashboard.viewCustomer(); //TODO
