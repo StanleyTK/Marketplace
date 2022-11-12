@@ -50,12 +50,22 @@ public class SellerOptions {
                     String quantity = scanner.nextLine();
                     System.out.println("What is the Product's new price?");
                     String price = scanner.nextLine();
+                    FileReader fr = new FileReader(f);
+                    BufferedReader br = new BufferedReader(fr);
+                    line = br.readLine();
+                    String after = "";
+                    while (line != null) {
+                        after += line + "\n";
+                        line = br.readLine();
+                    }
+
                     Product product = new Product(name, storeName, desc, Integer.parseInt(quantity), Double.parseDouble(price));
-                    FileOutputStream fos = new FileOutputStream(f, true);
+                    FileOutputStream fos = new FileOutputStream(f);
                     PrintWriter pw = new PrintWriter(fos);
-                    pw.println("");
                     pw.println(product.toString());
+                    pw.println(after);
                     pw.close();
+                    br.close();
 
 
                 }
@@ -63,14 +73,21 @@ public class SellerOptions {
                     printer = printer + storeName + "\n" + "-------------\n";
                     BufferedReader productReader = new BufferedReader(new FileReader(f));
                     ArrayList<Product> products = new ArrayList<>();
-                    while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                    line = productReader.readLine();
+                    while (!line.equals("--------")) { //iterates through lines of files and adds them to string
                         Product product = MarketPlace.getProduct(line);
                         products.add(product);
                         printer = printer +
                                 "Product: " + product.getName() + "\n" +
                                 "Description: " + product.getDescription() + "\n" +
                                 "Price: " + product.getPrice() + "\n" +
-                                "Quantity " + product.getQuantity() + "\n\n";
+                                "Quantity " + product.getQuantity();
+                        line = productReader.readLine();
+                    }
+                    String rest = "";
+                    while (line != null) {
+                        rest += line + "\n";
+                        line = productReader.readLine();
                     }
                     System.out.println(printer);
                     System.out.println("Which of these items would you like to edit from " + storeName);
@@ -95,12 +112,13 @@ public class SellerOptions {
                     } else {
                         System.out.println("The product was successfully edited");
                         System.out.println("Updating the file...");
-                        FileOutputStream fos = new FileOutputStream(f, false);
+                        FileOutputStream fos = new FileOutputStream(f);
                         PrintWriter pw = new PrintWriter(fos);
                         for (Product product : products) {
                             System.out.println(product.toString());
                             pw.println(product.toString());
                         }
+                        pw.println(rest);
                         pw.close();
                     }
 
@@ -116,7 +134,7 @@ public class SellerOptions {
                                 "Product: " + product.getName() + "\n" +
                                 "Description: " + product.getDescription() + "\n" +
                                 "Price: " + product.getPrice() + "\n" +
-                                "Quantity " + product.getQuantity() + "\n\n";
+                                "Quantity " + product.getQuantity();
                     }
                     System.out.println(printer);
                     System.out.println("Which of these items would you like to remove from " + storeName);
