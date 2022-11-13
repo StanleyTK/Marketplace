@@ -10,7 +10,6 @@ public class Seller extends User {
         try {
             BufferedReader br = new BufferedReader(new FileReader(f));
             while ((line = br.readLine()) != null) { //iterates through lines of files and adds them to string
-
                 customerNames.add(line);
             }
 

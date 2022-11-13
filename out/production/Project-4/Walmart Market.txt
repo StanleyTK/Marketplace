@@ -1,4 +1,4 @@
-Orange,Walmart,You eat it,5,5.99
+Orange,Walmart,You eat it,4,5.99
 Orange Juice,Walmart,You drink it,100,6.99
 Water Bottle,Walmart,You drink it,50,19.99
 Walnuts,Walmart,You eat it,20,9.99
