@@ -1,11 +1,13 @@
-Apples,Walmart,You eat it,3,2.99
-Oranges,Walmart,You eat it,99,5.99
+Orange,Walmart,You eat it,5,5.99
+Orange Juice,Walmart,You drink it,100,6.99
 Water Bottle,Walmart,You drink it,50,19.99
-Bananas,Walmart,You eat it,3,2.99
-Gum,Walmart,You eat it,99,5.99
-Orange Juice,Walmart,You drink it,50,19.99
+Walnuts,Walmart,You eat it,20,9.99
+Keyboard,Walmart,You type on it,6,79.99
+------------
+Stanley
+John Doe
 --------
-stanley kim
-Walmart
---------
-i am about to lose my shit working on this fucking project,1,0.01
+Keyboard,Walmart,You type on it,5,19.99,Stanley
+Keyboard,Walmart,You type on it,5,19.99,John Doe
+Water Bottle,Walmart,You drink it,50,19.99,Stanley
+Water Bottle,Walmart,You drink it,50,19.99,Stanley

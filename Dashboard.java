@@ -12,9 +12,6 @@ public class Dashboard {
         //TODO Customers can choose to sort the dashboard.
     }
 
-    // export csv
-        //TODO Sellers can import or export products for their stores using a csv file.
-        //TODO All product details should be included, with one row per product.
     // import csv
     public static void csvFile() throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -99,7 +96,53 @@ public class Dashboard {
         }
     }
 
-    public static void exportPurchaseHistory() {
-        //TODO Customers can export a file with their purchase history.
+    public static void exportPurchaseHistory(Customer customer) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Product> products = new ArrayList<Product>();
+        File marketsFile = new File("Markets.txt");
+        BufferedReader bfr = new BufferedReader(new FileReader(marketsFile));
+        ArrayList<String> markets = new ArrayList<String>();
+        String line = bfr.readLine();
+        while (line != null) {
+            markets.add(line);
+            line = bfr.readLine();
+        }
+        bfr.close();
+        for (int i = 0; i < markets.size(); i++) {
+            File file = new File(markets.get(i) + " Market.txt");
+            bfr = new BufferedReader(new FileReader(file));
+            line = bfr.readLine();
+            while (!line.equals("--------")) {
+                line = bfr.readLine();
+            }
+            line = bfr.readLine();
+            while (!line.equals("--------")) {
+                line = bfr.readLine();
+            }
+            line = bfr.readLine();
+            while (line != null) {
+                String[] splitLine = line.split(",");
+                if (splitLine[5].equals(customer.getCustomerName())) {
+                    products.add(new Product(splitLine[0], splitLine[1], splitLine[2],
+                            Integer.parseInt(splitLine[3]), Double.parseDouble(splitLine[4])));
+                }
+                line = bfr.readLine();
+            }
+        }
+        bfr.close();
+        System.out.println("What is the file location you wish to export your purchase history to?");
+        File f = new File(scanner.nextLine());
+        PrintWriter pw = new PrintWriter(new FileOutputStream(f));
+        pw.println(customer.getCustomerName() + "'s Purchase History");
+        pw.println("--------");
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            pw.println("Purchased " + product.getQuantity() + " " + product.getName() + " for\n" +
+                    product.getPrice() + " each(" + (product.getPrice() * product.getQuantity())
+            + " total) from " + product.getStore() + ".");
+            pw.println("Description: " + product.getDescription());
+            pw.println();
+        }
+        pw.close();
     }
 }

@@ -1,0 +1,17 @@
+Index: ShoppingCart.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\r\n\r\npublic class ShoppingCart {\r\n    ArrayList<Product> cartItems;\r\n\r\n    public ShoppingCart(ArrayList<Product> cartItems) {\r\n        this.cartItems = cartItems;\r\n    }\r\n\r\n    public ArrayList<Product> getCartItems() {\r\n        return cartItems;\r\n    }\r\n\r\n    public void setCartItems(ArrayList<Product> cartItems) {\r\n        this.cartItems = cartItems;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"ShoppingCart{\" +\r\n                \"cartItems=\" + cartItems +\r\n                '}';\r\n    }\r\n\r\n    //Method to find the total cost of items in a shopping cart.\r\n    public double totalCost() {\r\n        double totalCost = 0;\r\n        for (Product cartItem : cartItems) {\r\n            double itemCost = cartItem.getQuantity() * cartItem.getPrice(); //Cost of each item.\r\n            totalCost += itemCost;\r\n        }\r\n        return totalCost; //Cost of all the items in the cart\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ShoppingCart.java b/ShoppingCart.java
+--- a/ShoppingCart.java	(revision e8fc15798bf43529b60ae3e1b0774ba5043961bc)
++++ b/ShoppingCart.java	(date 1668039442616)
+@@ -31,4 +31,4 @@
+         }
+         return totalCost; //Cost of all the items in the cart
+     }
+-}
++}
+\ No newline at end of file
