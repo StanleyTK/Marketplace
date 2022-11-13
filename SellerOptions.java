@@ -395,6 +395,20 @@ public class SellerOptions {
     }
 
     public static void createMarket() {
+    public static void createMarket(Scanner scanner) {
+        System.out.println("What is the name of the market you want to create?");
+        String market = scanner.nextLine();
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter("Markets.txt", true));
+            pw.println(market);
+            pw.flush();
+            pw.close();
+            FileWriter fw = new FileWriter(market + " Market.txt");
+            fw.write("");
+            fw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
