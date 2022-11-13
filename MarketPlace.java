@@ -115,7 +115,7 @@ public class MarketPlace {
                         case (4) -> Dashboard.viewSeller(); //TODO
                         case (5) -> Dashboard.csvFile();
                         case (6) -> SellerOptions.viewCustomerShoppingCarts(); //TODO
-                        case (7) -> SellerOptions.createMarket();
+                        case (7) -> SellerOptions.createMarket(scanner);
                         case (8) -> SellerOptions.deleteMarket();
                         case (9) -> running = false;
                         default -> System.out.println("Please enter a valid input!");
