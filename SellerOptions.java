@@ -323,6 +323,12 @@ public class SellerOptions {
 
 
     }
+
+    public static void createMarket() {
+    }
+
+    public static void deleteMarket() {
+    }
 }
 
 

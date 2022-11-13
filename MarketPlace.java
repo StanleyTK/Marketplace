@@ -1,46 +1,81 @@
 import java.io.*;
+import java.nio.Buffer;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class MarketPlace {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        boolean running = true;
+        String password;
+        String name;
         System.out.println("Welcome to Marketplace!");
-        String info;
+        String info = "";
         //implement try catch error for verify login
-//        System.out.println("Choose an option:");
-//        System.out.println("1. Log in");
-//        System.out.println("2. Create a new account");
-//        String login = scanner.nextLine();
+        System.out.println("\n1. Create a new account");
+        System.out.println("2. Log in to your account");
+        String op = scanner.nextLine();
+        String userName = "";
+        User user = null;
+        if (op.equals("2")) {
+            while (true) {
+                try {
+                    System.out.println("Enter the username/email");
+                    userName = scanner.nextLine();
+                    System.out.println("Enter the password");
+                    password = scanner.nextLine();
+                    info = verifyLogin(userName, password);
+                    user = getUser(info);
 
-        while (true) {
-            try {
-                System.out.println("Enter the username");
-                String userName = scanner.nextLine();
-                System.out.println("Enter the password");
-                String password = scanner.nextLine();
-                info = verifyLogin(userName, password);
-                break;
-            } catch (UserNamePasswordIncorrectException e) {
-                System.out.println(e.getMessage());
+                    break;
+                } catch (UserNamePasswordIncorrectException e) {
+                    System.out.println(e.getMessage());
+                }
             }
+
+        } else {
+            while (true) {
+                System.out.println("Enter the username/email");
+                userName = scanner.nextLine();
+                System.out.println("Enter the password");
+                password = scanner.nextLine();
+                System.out.println("What is your name?");
+                System.out.println("Wy2345ouadsf");
+                name = scanner.nextLine();
+                if (!checkAccount(userName)) {
+                    System.out.println("Username/email is already taken");
+                    System.out.println("Please try again");
+                } else {
+                    System.out.println("Wyouadsf");
+                    break;
+                }
+            }
+            String yolo;
+            while (true) {
+                System.out.println("Are you a Customer or Seller?");
+                yolo = scanner.nextLine();
+                if (yolo.equals("Customer") || yolo.equals("Seller")) {
+                    break;
+                }
+                System.out.println("Enter a valid input");
+            }
+            user = createUser(userName, password, yolo, name);
+
         }
-        User user = getUser(info);
         System.out.println("Welcome " + user.getCustomerName() + "!");
 
+        boolean running = true;
         if (user instanceof Customer) {
             while (running) {
                 System.out.println("What option would you like to choose?");
-                System.out.println("\n1. View the marketplace\n" +
-                        "2. Search for specific products by name, description, and store\n" +
-                        "3. Sort by price least to greatest\n" +
-                        "4. Sort by quantity least to greatest\n" +
-                        "5. View Dashboard\n" +
-                        "6. Export File with Purchase History\n" +
-                        "7. Add items to the Shopping Cart\n" +
-                        "8. Exit");
+                System.out.println("""
+                        1. View the marketplace
+                        2. Search for specific products by name, description, and store
+                        3. Sort by price least to greatest
+                        4. Sort by quantity least to greatest
+                        5. View Dashboard
+                        6. Export File with Purchase History
+                        7. Add items to the Shopping Cart
+                        8. Exit""");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
                     case (1) -> CustomerOptions.viewMarket();
@@ -49,7 +84,7 @@ public class MarketPlace {
                     case (4) -> CustomerOptions.sortByQuantity();
                     case (5) -> Dashboard.viewCustomer(); //TODO
                     case (6) -> Dashboard.exportPurchaseHistory((Customer) user);
-                    case (7) -> CustomerOptions.addOrRemoveProductsShoppingCart(scanner, user.getCustomerName());
+                    case (7) -> CustomerOptions.addOrRemoveProductsShoppingCart(scanner, user.getCustomerName()); //TODO
                     case (8) -> {
                         running = false;
                     }
@@ -63,22 +98,27 @@ public class MarketPlace {
             while (running) {
 
                 System.out.println("What option would you like to choose?");
-                System.out.println("\n1. View the marketplace\n" +
-                        "2. Create, edit, or delete products from a store\n" +
-                        "3. View the list of their sales by store\n" +
-                        "4. View Dashboard\n" +
-                        "5. Import/Export Products using CSV file\n" +
-                        "6. View products currently in customer's shopping carts\n" +
-                        "7. Exit");
+                System.out.println("""
+                        1. View the marketplace
+                        2. Create, edit, or delete products from a store
+                        3. View the list of their sales by store
+                        4. View Dashboard
+                        5. Import/Export Products using CSV file
+                        6. View products currently in customer's shopping carts
+                        7. Create a new market
+                        8. Delete a market
+                        9. Exit""");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
                     case (1) -> CustomerOptions.viewMarket();
                     case (2) -> SellerOptions.editProducts(scanner);
-                    case (3) -> SellerOptions.viewSales();
+                    case (3) -> SellerOptions.viewSales();//TODO
                     case (4) -> Dashboard.viewSeller(); //TODO
                     case (5) -> Dashboard.csvFile();
-                    case (6) -> SellerOptions.viewCustomerShoppingCarts();
-                    case (7) -> running = false;
+                    case (6) -> SellerOptions.viewCustomerShoppingCarts(); //TODO
+                    case (7) -> SellerOptions.createMarket();
+                    case (8) -> SellerOptions.deleteMarket();
+                    case (9) -> running = false;
                     default -> System.out.println("Please enter a valid input!");
 
 
@@ -161,28 +201,44 @@ public class MarketPlace {
                 Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
     }
 
-    //Method to sort two products based on quantity
-    public static Comparator<Product> productQuantity = new Comparator<Product>() {
-        public int compare(Product product1, Product product2) {
-            int quantity1 = product1.getQuantity();
-            int quantity2 = product2.getQuantity();
-            return quantity2 - quantity1; //Returns descending order
+    public static boolean checkAccount(String userName) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("login.txt"));
+            String line = br.readLine();
+            while (line != null) {
+                String[] info = line.split(",");
+                if (info[0].equals(userName)) return false;
+                line = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    };
+        return true;
 
-    //Method to sort the marketplace based on quantity
-    public static ArrayList<Product>sortQuantity(ArrayList<Market> markets) {
-        ArrayList<Product> marketProducts = new ArrayList<>();
-        for (int i = 0; i < markets.size(); i++) {
-            for (int j = 0; j < markets.get(i).getProducts().size(); i++) {
-                marketProducts.add(markets.get(i).getProducts().get(j)); //Adds each product to marketProducts
-            }
+    }
+
+    public static User createUser(String username, String password, String option, String name) {
+        try {
+
+            PrintWriter pw = new PrintWriter(new FileOutputStream("login.txt", true));
+            pw.println(username + "," + password + "," + name);
+            pw.close();
+
+            File f = new File(name + "'s File.txt");
+            pw = new PrintWriter(new FileOutputStream(f, true));
+            pw.println(("Name: " + name));
+            pw.println("User: " + option);
+            pw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        for (int i = 0; i < marketProducts.size(); i +=2) {
-            for (int j = 1; j < marketProducts.size(); j+=2) {
-                marketProducts.sort(MarketPlace.productQuantity); //Sorts each product in marketProducts
-            }
+
+        if (option.equals("Customer")) {
+            return new Customer(name, username, password);
+        } else {
+            return new Seller(name, username, password);
         }
-        return marketProducts; //Returns the sorted marketProducts
+
     }
 }
