@@ -1,0 +1,4 @@
+Name: John Doe
+User: Customer
+iPhone XS,Walmart,You use it,1,499.99
+Water Bottle,Target,You drink it,3,19.99
