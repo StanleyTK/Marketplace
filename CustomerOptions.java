@@ -50,7 +50,7 @@ public class CustomerOptions {
         while (running) {
             while (true) {
                 try {
-                    System.out.print("Which Option of these would you like to choose?\n" +
+                    System.out.println("Which Option of these would you like to choose?\n" +
                             "1. Search by name\n" +
                             "2. Search by description\n" +
                             "3. Search by store");

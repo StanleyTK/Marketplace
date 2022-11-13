@@ -395,7 +395,7 @@ public class SellerOptions {
     }
 
     public static void createMarket() {
-    public static void createMarket(Scanner scanner) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("What is the name of the market you want to create?");
         String market = scanner.nextLine();
         try {

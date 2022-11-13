@@ -270,6 +270,14 @@ public class Dashboard {
             line = bfr.readLine();
         }
         bfr.close();
+        marketsFile = new File("DeletedMarkets.txt");
+        bfr = new BufferedReader(new FileReader(marketsFile));
+        line = bfr.readLine();
+        while (line != null) {
+            markets.add(line);
+            line = bfr.readLine();
+        }
+        bfr.close();
         for (int i = 0; i < markets.size(); i++) {
             File file = new File(markets.get(i) + " Market.txt");
             bfr = new BufferedReader(new FileReader(file));
