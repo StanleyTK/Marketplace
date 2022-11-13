@@ -324,11 +324,43 @@ public class SellerOptions {
 
     }
 
+    public static void deleteMarket() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Which market would you like to delete?");
+        String market = scanner.nextLine();
+        File f = new File("Markets.txt");
+        FileReader fr = new FileReader(f);
+        BufferedReader bfr = new BufferedReader(fr);
+        String line = bfr.readLine();
+        ArrayList<String> markets = new ArrayList<String>();
+        boolean exists = false;
+        while (line != null) {
+            markets.add(line);
+            if (line.equals(market)) {
+                exists = true;
+            }
+            line = bfr.readLine();
+        }
+        bfr.close();
+        if (exists) {
+            PrintWriter pw = new PrintWriter(new FileOutputStream(f));
+            for (int i = 0; i < markets.size(); i++) {
+                if (!markets.get(i).equals(market)) {
+                    pw.println(markets.get(i));
+                }
+            }
+            pw.close();
+            pw = new PrintWriter(new FileOutputStream(new File("DeletedMarkets.txt"), true));
+            pw.println(market);
+            pw.close();
+        } else {
+            System.out.println("This market couldn't be found!");
+        }
+    }
+
     public static void createMarket() {
     }
 
-    public static void deleteMarket() {
-    }
 }
 
 
