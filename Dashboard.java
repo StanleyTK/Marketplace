@@ -12,9 +12,6 @@ public class Dashboard {
         //TODO Customers can choose to sort the dashboard.
     }
 
-    // export csv
-        //TODO Sellers can import or export products for their stores using a csv file.
-        //TODO All product details should be included, with one row per product.
     // import csv
     public static void csvFile() throws IOException {
         Scanner scanner = new Scanner(System.in);
