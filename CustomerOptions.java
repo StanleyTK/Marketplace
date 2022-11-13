@@ -273,7 +273,7 @@ public class CustomerOptions {
             ArrayList<Product> productsFromStore = new ArrayList<>();
             while ((line = br.readLine()) != null) { //Takes name of all markets in file
 
-                if (!line.contains("------")) {
+                if (!line.contains("--------")) {
                     Product product = MarketPlace.getProduct(line);
                     productsFromStore.add(product);
                 } else {
@@ -281,7 +281,7 @@ public class CustomerOptions {
                 }
             }
             ArrayList<String> marketExtra = new ArrayList<>();
-            marketExtra.add("------------");
+            marketExtra.add("--------");
             line = br.readLine();
             while (line != null) {
                 marketExtra.add(line);
