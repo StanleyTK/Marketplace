@@ -1,15 +1,127 @@
 import java.io.*;
 import java.util.*;
+
+class CustomerPurchases { //Class used in the viewSeller method.
+    public String customer;
+    public ArrayList<String> purchases;
+    public CustomerPurchases(String customer, ArrayList<String> purchases) {
+        this.customer = customer;
+        this.purchases = purchases;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public ArrayList<String> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(ArrayList<String> purchases) {
+        this.purchases = purchases;
+    }
+}
+
+class ProductPurchases { //Class used in the viewSeller method.
+    public String product;
+    public int purchaseNumber;
+    public ProductPurchases(String product, int purchaseNumber) {
+        this.product = product;
+        this.purchaseNumber = purchaseNumber;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public int getPurchaseNumber() {
+        return purchaseNumber;
+    }
+
+    public void setPurchaseNumber(int purchaseNumber) {
+        this.purchaseNumber = purchaseNumber;
+    }
+}
 public class Dashboard {
-    public static void viewSeller() {
-        //TODO Data will include a list of customers with the number of items that they have purchased and a list of products with the number of sales.
-        //TODO Sellers can choose to sort the dashboard.
+    public static void viewSeller() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter a store name.");
+        String market = scanner.nextLine(); //Gets the store name from the user.
+        FileReader fr = new FileReader(market + " Market.txt");
+        BufferedReader br = new BufferedReader(fr);
+        int delineate = 0; //Checks to see where in the market store br is.
+        ArrayList<ProductPurchases> productPurchases = new ArrayList<>(); //ArrayList of products and purchases.
+        ArrayList<CustomerPurchases> customerPurchases = new ArrayList<>(); //ArrayList of customers and purchases.
+        ArrayList<String[]> purchases = new ArrayList<>(); //ArrayList for each purchase in the store.
+        String line = br.readLine();
+        while (line != null) {
+            if (line.equals("--------")) {
+                delineate++; //Increments delineate if it iterates through the given line.
+                line = br.readLine();
+            }
+            while (delineate == 0 && !line.equals("--------")) {
+                productPurchases.add(new ProductPurchases(line, 0)); //Adds a new product.
+                line = br.readLine();
+            }
+            while (delineate == 1 && !line.equals("--------")) {
+                customerPurchases.add(new CustomerPurchases(line, new ArrayList<>())); //Adds a new customer.
+                line = br.readLine();
+            }
+            while (delineate == 2 && line != null) {
+                String[] purchase = line.split(","); //Creates an array of the purchase.
+                purchases.add(purchase); //Adds the purchase.
+                line = br.readLine();
+            }
+        }
+        br.close();
+
+        for (CustomerPurchases currentCustomer : customerPurchases) {
+            for (String[] currentPurchase : purchases) {
+                if (currentCustomer.getCustomer().equals(currentPurchase[5])) {
+                    ArrayList<String> currentCustomerPurchases = currentCustomer.getPurchases();
+                    currentCustomerPurchases.add(currentPurchase[0]);
+                    currentCustomer.setPurchases(currentCustomerPurchases);
+                }
+            }
+        } //Assigns each purchase in the store to a customer.
+
+        for (ProductPurchases currentProduct : productPurchases) {
+            for (String[] currentPurchase : purchases) {
+                if (currentProduct.getProduct().equals(currentPurchase[0])) {
+                    int purchaseNumber = Integer.parseInt(currentProduct.getPurchaseNumber() + currentPurchase[3]);
+                    currentProduct.setPurchaseNumber(purchaseNumber);
+                }
+            }
+        } //Finds the total number of times each product has been purchased.
+        System.out.println("The list of customers who have purchased from this store is: ");
+        for (int i = 0; i < customerPurchases.size(); i++) {
+            CustomerPurchases currentCustomer = customerPurchases.get(i);
+            System.out.printf("%d. ", i + 1);
+            System.out.printf("%s:\n", currentCustomer.getCustomer());
+            for (int j = 0; j < currentCustomer.getPurchases().size(); j++) {
+                System.out.println(currentCustomer.getPurchases().get(j));
+            }
+        } //Prints the list of customers who have made purchases and their products.
+
+        System.out.println("The list of products and the amount of times they have been purchased is: ");
+        for (int i = 0; i < productPurchases.size(); i++) {
+            ProductPurchases currentProduct = productPurchases.get(i);
+            System.out.printf("%d. ", i + 1);
+            System.out.printf("%s: %d\n", currentProduct.getProduct(), currentProduct.getPurchaseNumber());
+        } //Prints the list of products in the store and the amount of times they have been purchased.
     }
 
     public static void viewCustomer() {
         //TODO Customers can view a dashboard with store and seller information.
         //TODO Data will include a list of stores by number of products sold and a list of stores by the products purchased by that particular customer.
-        //TODO Customers can choose to sort the dashboard.
     }
 
     // import csv

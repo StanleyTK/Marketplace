@@ -12,10 +12,6 @@ public class Product {
         this.quantity = quantity;
         this.price = price;
     }
-    public boolean equals(Product product) {
-        return name.equals(product.getName()) && store.equals(product.getStore()) &&
-                name.equals(product.getDescription()) && quantity == product.getQuantity() && price == product.getPrice();
-    }
 
     public String getName() {
         return name;
@@ -59,6 +55,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%d,%.2f", name, store, description, quantity, price);
+        return String.format("%s, %s, %s, %d, %.2f", name, store, description, quantity, price);
     }
 }

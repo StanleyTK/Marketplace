@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class MarketPlace {
@@ -154,5 +155,30 @@ public class MarketPlace {
         String[] contents = line.split(",");
         return new Product(contents[0], contents[1], contents[2],
                 Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
+    }
+
+    //Method to sort two products based on quantity
+    public static Comparator<Product> productQuantity = new Comparator<Product>() {
+        public int compare(Product product1, Product product2) {
+            int quantity1 = product1.getQuantity();
+            int quantity2 = product2.getQuantity();
+            return quantity2 - quantity1; //Returns descending order
+        }
+    };
+
+    //Method to sort the marketplace based on quantity
+    public static ArrayList<Product>sortQuantity(ArrayList<Market> markets) {
+        ArrayList<Product> marketProducts = new ArrayList<>();
+        for (int i = 0; i < markets.size(); i++) {
+            for (int j = 0; j < markets.get(i).getProducts().size(); i++) {
+                marketProducts.add(markets.get(i).getProducts().get(j)); //Adds each product to marketProducts
+            }
+        }
+        for (int i = 0; i < marketProducts.size(); i +=2) {
+            for (int j = 1; j < marketProducts.size(); j+=2) {
+                marketProducts.sort(MarketPlace.productQuantity); //Sorts each product in marketProducts
+            }
+        }
+        return marketProducts; //Returns the sorted marketProducts
     }
 }
