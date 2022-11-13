@@ -231,7 +231,7 @@ public class SellerOptions {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter a store name.");
         String market = scanner.nextLine(); //Gets the store name from the user.
-        FileReader fr = new FileReader(market + "Market.txt");
+        FileReader fr = new FileReader(market + " Market.txt");
         BufferedReader br = new BufferedReader(fr);
         int delineate = 0;
         ArrayList<PurchaseInformation> purchaseInformation = new ArrayList<>(); //ArrayList of customers and purchases.
@@ -241,21 +241,22 @@ public class SellerOptions {
         while (line != null) {
             if (line.equals("--------")) {
                 delineate++; //Increments delineate if it iterates through the given line.
+                line = br.readLine();
+            }
+            while (delineate == 0 && !line.equals("--------")) {
+                line = br.readLine();
             }
             while (delineate == 1 && !line.equals("--------")) {
                 purchaseInformation.add(new PurchaseInformation(line, new ArrayList<>(), new ArrayList<>(), new ArrayList<>())); //Adds a new customer.
                 line = br.readLine();
             }
-            line = br.readLine();
             while (delineate == 2 && line != null) {
                 String[] purchase = line.split(","); //Creates an array of the purchase.
                 purchases.add(purchase); //Adds the purchase.
                 line = br.readLine();
             }
-            line = br.readLine();
         }
         br.close();
-
         for (PurchaseInformation currentInformation : purchaseInformation) {
             for (String[] currentPurchase : purchases) {
                 if (currentInformation.getCustomer().equals(currentPurchase[5])) {
@@ -284,9 +285,9 @@ public class SellerOptions {
                 customerAmountSpent = customerAmountSpent + amountSpent;
                 totalRevenue = totalRevenue + amountSpent;
             }
-            System.out.printf("%s spent %.2f dollars", currentInformation.getCustomer(), customerAmountSpent);
+            System.out.printf("%s spent %.2f dollars\n", currentInformation.getCustomer(), customerAmountSpent);
         } //Prints the list of product each customer bought and the money spent on each product.
-        System.out.printf("The total revenue made from the store is: %.2f", totalRevenue);
+        System.out.printf("The total revenue made from the store is: %.2f\n", totalRevenue);
     } //Prints the total revenue made from the store.
 
 

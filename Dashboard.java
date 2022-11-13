@@ -55,7 +55,7 @@ public class Dashboard {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter a store name.");
         String market = scanner.nextLine(); //Gets the store name from the user.
-        FileReader fr = new FileReader(market + "Market.txt");
+        FileReader fr = new FileReader(market + " Market.txt");
         BufferedReader br = new BufferedReader(fr);
         int delineate = 0; //Checks to see where in the market store br is.
         ArrayList<ProductPurchases> productPurchases = new ArrayList<>(); //ArrayList of products and purchases.
@@ -65,6 +65,7 @@ public class Dashboard {
         while (line != null) {
             if (line.equals("--------")) {
                 delineate++; //Increments delineate if it iterates through the given line.
+                line = br.readLine();
             }
             while (delineate == 0 && !line.equals("--------")) {
                 productPurchases.add(new ProductPurchases(line, 0)); //Adds a new product.
@@ -74,13 +75,11 @@ public class Dashboard {
                 customerPurchases.add(new CustomerPurchases(line, new ArrayList<>())); //Adds a new customer.
                 line = br.readLine();
             }
-            line = br.readLine();
             while (delineate == 2 && line != null) {
                 String[] purchase = line.split(","); //Creates an array of the purchase.
                 purchases.add(purchase); //Adds the purchase.
                 line = br.readLine();
             }
-            line = br.readLine();
         }
         br.close();
 
