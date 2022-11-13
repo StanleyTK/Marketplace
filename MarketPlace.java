@@ -35,7 +35,7 @@ public class MarketPlace {
                         4. Sort by quantity least to greatest
                         5. View Dashboard
                         6. Export File with Purchase History
-                        7. Add items to the Shopping Cart
+                        7. Add/Remove items to the Shopping Cart
                         8. Exit""");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
@@ -45,7 +45,7 @@ public class MarketPlace {
                     case (4) -> CustomerOptions.sortByQuantity();
                     case (5) -> Dashboard.viewCustomer(); //TODO
                     case (6) -> Dashboard.exportPurchaseHistory(); //TODO
-                    case (7) -> CustomerOptions.addProductsShoppingCart(); //TODO
+                    case (7) -> CustomerOptions.addOrRemoveProductsShoppingCart(scanner, user.getCustomerName());
                     case (8) -> {
                         running = false;
                     }
@@ -73,12 +73,10 @@ public class MarketPlace {
                     case (2) -> SellerOptions.editProducts(scanner);
                     case (3) -> SellerOptions.viewSales();//TODO
                     case (4) -> Dashboard.viewSeller(); //TODO
-                    case (5) -> Dashboard.csvFile(); //TODO
+                    case (5) -> Dashboard.csvFile();
                     case (6) -> SellerOptions.viewCustomerShoppingCarts();
                     case (7) -> running = false;
                     default -> System.out.println("Please enter a valid input!");
-
-
 
                 }
             }
@@ -135,20 +133,15 @@ public class MarketPlace {
             }
             bfr.close();
 
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        ShoppingCart shoppingCart = new ShoppingCart(products);
-
         if (user.equals("Customer")) {
-            return new Customer(contents[2], contents[0], contents[1], shoppingCart.getCartItems());
+            return new Customer(contents[2], contents[0], contents[1], products);
         } else {
             return new Seller(contents[2], contents[0], contents[1]);
         }
-
-
 
     }
 

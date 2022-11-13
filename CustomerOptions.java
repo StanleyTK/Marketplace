@@ -41,7 +41,6 @@ public class CustomerOptions {
 
     // Customer Option 2
     public static void searchForProducts(Scanner scanner) {
-        ArrayList<Product> toReturn = new ArrayList<>();
         boolean running = true;
         String printer = "";
         int option;
@@ -230,9 +229,164 @@ public class CustomerOptions {
     }
 
 
-    public static void addProductsShoppingCart() {
-        //TODO Customers can add products from different stores to a shopping cart to purchase all at once,
-        // and can remove any product if they choose to do so. The shopping cart is preserved between sessions,
-        // so a customer may choose to sign out and return to make the purchase later.
+    public static void addOrRemoveProductsShoppingCart(Scanner scanner, String customerName) {
+        String input = null;
+        int option;
+        boolean run = true;
+        try {
+            ArrayList<Product> userProducts = new ArrayList<>();
+            BufferedReader br = new BufferedReader(new FileReader(customerName + "'s File.txt"));
+            String line;
+
+            while ((line = br.readLine()) != null) { //Takes name of all markets in file
+                if (!line.contains("Name:") && !line.contains("User: ")) {
+                    Product product = MarketPlace.getProduct(line);
+                    userProducts.add(product);
+
+                }
+            }
+            System.out.println("What store would you like to choose to add or remove new products?");
+            br = new BufferedReader(new FileReader("Markets.txt"));
+
+            while ((line = br.readLine()) != null) { //Takes name of all markets in file
+                System.out.println(line);
+            }
+
+            input = scanner.nextLine();
+            br = new BufferedReader(new FileReader(input + " Market.txt"));
+            ArrayList<Product> productsFromStore = new ArrayList<>();
+            while ((line = br.readLine()) != null) { //Takes name of all markets in file
+
+                if (!line.contains("------")) {
+                    Product product = MarketPlace.getProduct(line);
+                    productsFromStore.add(product);
+                } else {
+                    break;
+                }
+            }
+
+
+            System.out.print("""
+                    Which Option of these would you like to choose?
+                    1. Add a product to your shopping cart
+                    2. Remove a product to your shopping cart
+                    """);
+            option = Integer.parseInt(scanner.nextLine());
+            boolean bol = false;
+
+            // Add product
+            if (option == 1) {
+                // Add product to existing product
+                for (Product product : productsFromStore) {
+                    System.out.printf("Product: %s, Description: %s, " +
+                                    "Price: %.2f, Quantity: %d\n", product.getName(),
+                            product.getDescription(), product.getPrice(), product.getQuantity());
+                }
+                System.out.println("Which item would you like to buy?");
+                String item = scanner.nextLine();
+                System.out.printf("How many %s would you like to buy?\n", item);
+                int quantity = Integer.parseInt(scanner.nextLine());
+                boolean isInShoppingCart = false;
+                for (Product userProduct : userProducts) {
+                    if (userProduct.getName().equals(item)) {
+                        isInShoppingCart = true;
+                        break;
+                    }
+                }
+                // If the item is already in the shopping cart
+                if (isInShoppingCart) {
+                    for (Product product : userProducts) {
+                        if (product.getName().equals(item)) {
+                            product.setQuantity(product.getQuantity() + quantity);
+                        }
+                    }
+                    for (int i = 0; i < productsFromStore.size(); i++) {
+                        if (productsFromStore.get(i).getName().equals(item)) {
+                            if (!(productsFromStore.get(i).getQuantity() <= quantity)) {
+                                productsFromStore.get(i).setQuantity(productsFromStore.get(i).getQuantity() - quantity);
+                            } else {
+                                productsFromStore.remove(productsFromStore.get(i));
+                            }
+                        }
+                    }
+                // If the product is not in the shopping cart
+                } else {
+                    for (int i = 0; i < productsFromStore.size(); i++) {
+                        if (item.equals(productsFromStore.get(i).getName())) {
+                            if (quantity >= productsFromStore.get(i).getQuantity()) {
+                                productsFromStore.remove(productsFromStore.get(i));
+                                userProducts.add(productsFromStore.get(i));
+                            } else {
+                                productsFromStore.get(i).setQuantity(productsFromStore.get(i).getQuantity() - quantity);
+                                Product product = new Product(productsFromStore.get(i).getName(), productsFromStore.get(i).getStore(),
+                                        productsFromStore.get(i).getDescription(), quantity, productsFromStore.get(i).getPrice());
+                                userProducts.add(product);
+
+                            }
+                        }
+                    }
+                }
+            } else {
+                System.out.println("Which product name would you like to remove from your shopping cart?");
+                for (Product product : userProducts) {
+                    System.out.printf("Product: %s, Description: %s, " +
+                                    "Price: %.2f, Quantity: %d\n", product.getName(),
+                            product.getDescription(), product.getPrice(), product.getQuantity());
+                }
+                String answer = scanner.nextLine();
+                int quantity = 0;
+
+                for (int i = 0; i < userProducts.size(); i++) {
+                    if (answer.equals(userProducts.get(i).getName())) {
+                        while (run) {
+                            System.out.println("How many items would you like to remove?");
+                            quantity = Integer.parseInt(scanner.nextLine());
+                            if (quantity >= userProducts.get(i).getQuantity()) {
+                                System.out.printf("%s is removed from your shopping cart\n", answer);
+                                for (Product product : productsFromStore) {
+                                    if (product.getName().equals(answer)) {
+                                        System.out.println(userProducts.get(i).getQuantity() + "\n" + product.getQuantity());
+                                        product.setQuantity(userProducts.get(i).getQuantity() + product.getQuantity());
+                                    }
+                                }
+                                userProducts.remove(userProducts.get(i));
+
+                                run = false;
+                                break;
+                            } else if (quantity < 0) {
+                                System.out.println("The quantity removed cannot be less than 0");
+                            } else {
+                                userProducts.get(i).setQuantity(userProducts.get(i).getQuantity() - quantity);
+                                System.out.printf("You removed %d of %s. Your current quantity for %d is %s\n",
+                                        quantity, answer, userProducts.get(i).getQuantity(), answer);
+                                run = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            File f = new File(customerName + "'s File.txt");
+            FileOutputStream fos = new FileOutputStream(f, false);
+            PrintWriter pw = new PrintWriter(fos);
+            pw.println("Name: " + customerName);
+            pw.println("User: Customer");
+            for (Product product : userProducts) {
+                pw.println(product.toString());
+            }
+            pw.close();
+
+            f = new File(input + " Market.txt");
+            fos = new FileOutputStream(f, false);
+            pw = new PrintWriter(fos);
+            for (Product product : productsFromStore) {
+                pw.println(product.toString());
+            }
+            pw.close();
+            System.out.println("Updating files...\nSuccess!!!\n\n");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

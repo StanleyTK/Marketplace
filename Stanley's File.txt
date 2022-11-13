@@ -1,5 +1,6 @@
 Name: Stanley
 User: Customer
-Nintendo Switch,Walmart,You play it,2,299.99
-Walnuts,Target,You eat it,1,9.99
-Keyboard,Target,You type on it,3,19.99
+Water Bottle,Walmart,You drink it,88,19.99
+Apples,Walmart,You eat it,11,2.99
+Walnuts,Walmart,You eat it,9,9.99
+Oranges,Walmart,You eat it,1,5.99
