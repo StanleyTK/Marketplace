@@ -7,6 +7,7 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import java.io.*;
+import java.util.ArrayList;
 
 
 import static org.junit.Assert.*;
@@ -34,6 +35,8 @@ public class RunLocalTest {
                 System.out.println(failure);
             }
         }
+
+
     }
 
     /**
@@ -77,6 +80,8 @@ public class RunLocalTest {
         }
 
 
+
+        // Tests to see if the login function works
         @Test(timeout = 1000)
         public void testExpectedOne() {
             // Set the input
@@ -118,6 +123,8 @@ public class RunLocalTest {
         }
 
 
+
+        // Tests to create a new file
         @Test(timeout = 1000)
         public void testExpectedTwo() {
             // Set the input
@@ -160,10 +167,82 @@ public class RunLocalTest {
             // Trims the output and verifies it is correct.
             expected = expected.replaceAll("\r\n","\n");
             output = output.replaceAll("\r\n","\n");
+
+            //Reset the files for test case 2
+            File f = new File("Stan's File.txt");
+            f.delete();
+            try {
+                f = new File("login.txt");
+                BufferedReader br = new BufferedReader(new FileReader("login.txt"));
+                String line = br.readLine();
+                ArrayList<String> lines = new ArrayList<>();
+                while (line != null) {
+                    lines.add(line);
+                    line = br.readLine();
+                }
+                br.close();
+                PrintWriter pw = new PrintWriter(new FileOutputStream(f, false));
+                boolean contain = false;
+                for (String x : lines) {
+                    if (!x.contains("testaccount747,project4,Stan")) {
+                        pw.println(x);
+                    } else {
+                        contain = true;
+                    }
+                }
+                pw.close();
+                if (!contain) {
+                    fail("Login in file fail");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             assertEquals("Test case failed!",
                     expected.trim(), output.trim());
         }
 
+
+
+
+        @Test(timeout = 1000)
+        public void testExpectedThree() {
+            // Set the input
+            String input = "2" + System.lineSeparator() +
+                    "stanleykim2" + System.lineSeparator() +
+                    "sparkystan" + System.lineSeparator() +
+                    "8" + System.lineSeparator();
+
+            // Pair the input with the expected result
+            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
+                    "1. Create a new account" + System.lineSeparator() +
+                    "2. Log in to your account" + System.lineSeparator() +
+                    "Enter the username/email" + System.lineSeparator() +
+                    "Enter the password" + System.lineSeparator() +
+                    "Welcome Stanley!" + System.lineSeparator() +
+                    "What option would you like to choose?" + System.lineSeparator() +
+                    "1. View the marketplace" + System.lineSeparator() +
+                    "2. Search for specific products by name, description, and store" + System.lineSeparator() +
+                    "3. Sort by price least to greatest" + System.lineSeparator() +
+                    "4. Sort by quantity least to greatest" + System.lineSeparator() +
+                    "5. View Dashboard" + System.lineSeparator() +
+                    "6. Export File with Purchase History" + System.lineSeparator() +
+                    "7. Add items to the Shopping Cart" + System.lineSeparator() +
+                    "8. Exit" + System.lineSeparator() +
+                    "Have a nice day!!" + System.lineSeparator();
+
+            // Runs the program with the input values
+            receiveInput(input);
+            MarketPlace.main(new String[0]);
+
+            // Retrieves the output from the program
+            String output = getOutput();
+
+            // Trims the output and verifies it is correct.
+            expected = expected.replaceAll("\r\n","\n");
+            output = output.replaceAll("\r\n","\n");
+            assertEquals("Test case failed!",
+                    expected.trim(), output.trim());
+        }
 
     }
 }
