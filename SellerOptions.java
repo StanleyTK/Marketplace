@@ -353,6 +353,42 @@ public class SellerOptions {
             pw = new PrintWriter(new FileOutputStream(new File("DeletedMarkets.txt"), true));
             pw.println(market);
             pw.close();
+            f = new File ("login.txt");
+            fr = new FileReader(f);
+            bfr = new BufferedReader(fr);
+            line = bfr.readLine();
+            ArrayList<String> users = new ArrayList<String>();
+            while (line != null) {
+                String[] lineSplit = line.split(",");
+                users.add(lineSplit[2]);
+                line = bfr.readLine();
+            }
+            bfr.close();
+            for (int i = 0; i < users.size(); i++) {
+                f = new File(users.get(i) + "'s File.txt");
+                bfr = new BufferedReader(new FileReader(f));
+                String name = bfr.readLine();
+                String customerType = bfr.readLine();
+                if (customerType.equals("User: Customer")) {
+                    ArrayList<Product> shoppingCart = new ArrayList<Product>();
+                    line = bfr.readLine();
+                    while (line != null) {
+                        Product product = MarketPlace.getProduct(line);
+                        if (!product.getStore().equals(market)) {
+                            shoppingCart.add(product);
+                        }
+                        line = bfr.readLine();
+                    }
+                    pw = new PrintWriter(new FileOutputStream(f));
+                    pw.println(name);
+                    pw.println(customerType);
+                    for (int j = 0; j < shoppingCart.size(); j++) {
+                        pw.println(shoppingCart.get(j).toString());
+                    }
+                    pw.close();
+                }
+                bfr.close();
+            }
         } else {
             System.out.println("This market couldn't be found!");
         }
