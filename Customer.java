@@ -6,7 +6,9 @@ public class Customer extends User {
 
     public Customer(String customerName, String username, String password, ArrayList<Product> products) {
         super(customerName, username, password);
-        //shoppingCart = new ShoppingCart(products);
+    }
+    public Customer(String customerName, String username, String password) {
+        super(customerName, username, password);
     }
 
     public ShoppingCart getShoppingCart() {

@@ -1,27 +1,66 @@
 import java.io.*;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MarketPlace {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-
+        String password;
+        String name;
         System.out.println("Welcome to Marketplace!");
-        String info;
+        String info = "";
         //implement try catch error for verify login
-        while (true) {
-            try {
-                System.out.println("Enter the username");
-                String userName = scanner.nextLine();
-                System.out.println("Enter the password");
-                String password = scanner.nextLine();
-                info = verifyLogin(userName, password);
-                break;
-            } catch (UserNamePasswordIncorrectException e) {
-                System.out.println(e.getMessage());
+        System.out.println("\n1. Create a new account");
+        System.out.println("2. Log in to your account");
+        String op = scanner.nextLine();
+        String userName = "";
+        User user = null;
+        if (op.equals("2")) {
+            while (true) {
+                try {
+                    System.out.println("Enter the username/email");
+                    userName = scanner.nextLine();
+                    System.out.println("Enter the password");
+                    password = scanner.nextLine();
+                    info = verifyLogin(userName, password);
+                    user = getUser(info);
+
+                    break;
+                } catch (UserNamePasswordIncorrectException e) {
+                    System.out.println(e.getMessage());
+                }
             }
+
+        } else {
+            while (true) {
+                System.out.println("Enter the username/email");
+                userName = scanner.nextLine();
+                System.out.println("Enter the password");
+                password = scanner.nextLine();
+                System.out.println("What is your name?");
+                System.out.println("Wy2345ouadsf");
+                name = scanner.nextLine();
+                if (!checkAccount(userName)) {
+                    System.out.println("Username/email is already taken");
+                    System.out.println("Please try again");
+                } else {
+                    System.out.println("Wyouadsf");
+                    break;
+                }
+            }
+            String yolo;
+            while (true) {
+                System.out.println("Are you a Customer or Seller?");
+                yolo = scanner.nextLine();
+                if (yolo.equals("Customer") || yolo.equals("Seller")) {
+                    break;
+                }
+                System.out.println("Enter a valid input");
+            }
+            user = createUser(userName, password, yolo, name);
+
         }
-        User user = getUser(info);
         System.out.println("Welcome " + user.getCustomerName() + "!");
 
         boolean running = true;
@@ -156,5 +195,46 @@ public class MarketPlace {
         String[] contents = line.split(",");
         return new Product(contents[0], contents[1], contents[2],
                 Integer.parseInt(contents[3]), Double.parseDouble(contents[4]));
+    }
+
+    public static boolean checkAccount(String userName) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("login.txt"));
+            String line = br.readLine();
+            while (line != null) {
+                String[] info = line.split(",");
+                if (info[0].equals(userName)) return false;
+                line = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+
+    }
+
+    public static User createUser(String username, String password, String option, String name) {
+        try {
+
+            PrintWriter pw = new PrintWriter(new FileOutputStream("login.txt", true));
+            pw.println(username + "," + password + "," + name);
+            pw.close();
+
+            File f = new File(name + "'s File.txt");
+            pw = new PrintWriter(new FileOutputStream(f, true));
+            pw.println(("Name: " + name));
+            pw.println("User: " + option);
+            pw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (option.equals("Customer")) {
+            return new Customer(name, username, password);
+        } else {
+            return new Seller(name, username, password);
+        }
+
     }
 }
