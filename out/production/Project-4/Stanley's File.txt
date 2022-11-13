@@ -4,3 +4,4 @@ Water Bottle,Walmart,You drink it,94,19.99
 Apples,Walmart,You eat it,11,2.99
 Walnuts,Walmart,You eat it,9,9.99
 Oranges,Walmart,You eat it,1,5.99
+Orange Juice,Target,You drink it,4,6.99

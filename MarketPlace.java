@@ -73,7 +73,7 @@ public class MarketPlace {
                             4. Sort by quantity least to greatest
                             5. View Dashboard
                             6. Export File with Purchase History
-                            7. Add items to the Shopping Cart
+                            7. Add or remove items to the Shopping Cart
                             8. Exit""");
                     int option = Integer.parseInt(scanner.nextLine());
                     switch (option) {
