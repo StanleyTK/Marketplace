@@ -105,7 +105,9 @@ public class MarketPlace {
                         4. View Dashboard
                         5. Import/Export Products using CSV file
                         6. View products currently in customer's shopping carts
-                        7. Exit""");
+                        7. Create a new market
+                        8. Delete a market
+                        9. Exit""");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
                     case (1) -> CustomerOptions.viewMarket();
@@ -114,7 +116,9 @@ public class MarketPlace {
                     case (4) -> Dashboard.viewSeller(); //TODO
                     case (5) -> Dashboard.csvFile();
                     case (6) -> SellerOptions.viewCustomerShoppingCarts(); //TODO
-                    case (7) -> running = false;
+                    case (7) -> SellerOptions.createMarket();
+                    case (8) -> SellerOptions.deleteMarket();
+                    case (9) -> running = false;
                     default -> System.out.println("Please enter a valid input!");
 
 
