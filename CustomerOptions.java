@@ -21,14 +21,15 @@ public class CustomerOptions {
                 printer = printer + storeName + "\n" + "-------------\n";
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
-
-                while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                line = productReader.readLine();
+                while (!line.equals("--------")) { //iterates through lines of files and adds them to string
                     Product product = MarketPlace.getProduct(line);
                     printer = printer +
                             "Product: " + product.getName() + "\n" +
                             "Description: " + product.getDescription() + "\n" +
                             "Price: " + product.getPrice() + "\n" +
                             "Quantity " + product.getQuantity() + "\n\n";
+                    line = productReader.readLine();
                 }
 
             }
@@ -44,6 +45,7 @@ public class CustomerOptions {
         boolean running = true;
         String printer = "";
         int option;
+        boolean searchResult = false;
         while (running) {
             while (true) {
                 try {
@@ -77,37 +79,46 @@ public class CustomerOptions {
                 }
 
                 for (String market : lines) {
-                    printer = printer + market + "\n" + "-------------\n";
-
+                    boolean found = false;
+                    String results = "";
                     f = new File(market + " Market.txt");
                     br = new BufferedReader(new FileReader(f));
                     line = br.readLine();
                     lines = new ArrayList<>();
-                    while (line != null) {
+                    while (!line.equals("--------")) {
                         lines.add(line);
                         line = br.readLine();
                     }
                     for (String productInfo : lines) {
                         Product product = MarketPlace.getProduct(productInfo);
                         if (product.getName().contains(search) && option == 1) {
-                            printer = printer +
+                            results +=
                                     "Product: " + product.getName() + "\n" +
                                     "Description: " + product.getDescription() + "\n" +
                                     "Price: " + product.getPrice() + "\n" +
                                     "Quantity " + product.getQuantity() + "\n\n";
+                            found = true;
+                            searchResult = true;
                         } else if (product.getDescription().contains(search) && option == 2) {
-                            printer = printer +
+                            results +=
                                     "Product: " + product.getName() + "\n" +
                                     "Description: " + product.getDescription() + "\n" +
                                     "Price: " + product.getPrice() + "\n" +
                                     "Quantity " + product.getQuantity() + "\n\n";
+                            found = true;
+                            searchResult = true;
                         } else if (product.getStore().contains(search) && option == 3) {
-                            printer = printer +
+                            results +=
                                     "Product: " + product.getName() + "\n" +
                                     "Description: " + product.getDescription() + "\n" +
                                     "Price: " + product.getPrice() + "\n" +
                                     "Quantity " + product.getQuantity() + "\n\n";
+                            found = true;
+                            searchResult = true;
                         }
+                    }
+                    if (found) {
+                        printer += market + "\n" + "-------------\n" + results;
                     }
                 }
                 br.close();
@@ -118,8 +129,11 @@ public class CustomerOptions {
                 System.out.println("There was an error. Try again");
             }
         }
-        System.out.println(printer);
-
+        if (searchResult) {
+            System.out.print(printer);
+        } else {
+            System.out.println("No results found!");
+        }
     }
 
     // Customer Option 3
@@ -138,9 +152,10 @@ public class CustomerOptions {
             for (String storeName : storeNames) {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
-
-                while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                line = productReader.readLine();
+                while (!line.equals("--------")) { //iterates through lines of files and adds them to string
                     products.add(MarketPlace.getProduct(line));
+                    line = productReader.readLine();
                 }
             }
         } catch (IOException e) {
@@ -192,9 +207,10 @@ public class CustomerOptions {
             for (String storeName : storeNames) {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
-
-                while ((line = productReader.readLine()) != null) { //iterates through lines of files and adds them to string
+                line = productReader.readLine();
+                while (!line.equals("--------")) { //iterates through lines of files and adds them to string
                     products.add(MarketPlace.getProduct(line));
+                    line = productReader.readLine();
                 }
             }
         } catch (IOException e) {
