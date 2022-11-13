@@ -6,10 +6,15 @@ import java.util.Scanner;
 public class MarketPlace {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-
+        boolean running = true;
         System.out.println("Welcome to Marketplace!");
         String info;
         //implement try catch error for verify login
+//        System.out.println("Choose an option:");
+//        System.out.println("1. Log in");
+//        System.out.println("2. Create a new account");
+//        String login = scanner.nextLine();
+
         while (true) {
             try {
                 System.out.println("Enter the username");
@@ -25,7 +30,6 @@ public class MarketPlace {
         User user = getUser(info);
         System.out.println("Welcome " + user.getCustomerName() + "!");
 
-        boolean running = true;
         if (user instanceof Customer) {
             while (running) {
                 System.out.println("What option would you like to choose?");
@@ -70,7 +74,7 @@ public class MarketPlace {
                 switch (option) {
                     case (1) -> CustomerOptions.viewMarket();
                     case (2) -> SellerOptions.editProducts(scanner);
-                    case (3) -> SellerOptions.viewSales();//TODO
+                    case (3) -> SellerOptions.viewSales();
                     case (4) -> Dashboard.viewSeller(); //TODO
                     case (5) -> Dashboard.csvFile();
                     case (6) -> SellerOptions.viewCustomerShoppingCarts();

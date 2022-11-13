@@ -22,7 +22,8 @@ public class CustomerOptions {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
                 line = productReader.readLine();
-                while (!line.equals("--------")) { //iterates through lines of files and adds them to string
+                while (!line.contains("------")) { //iterates through lines of files and adds them to string
+                    System.out.println(line);
                     Product product = MarketPlace.getProduct(line);
                     printer = printer +
                             "Product: " + product.getName() + "\n" +
@@ -83,7 +84,7 @@ public class CustomerOptions {
                     br = new BufferedReader(new FileReader(f));
                     line = br.readLine();
                     lines = new ArrayList<>();
-                    while (!line.equals("--------")) {
+                    while (!line.contains("------")) {
                         lines.add(line);
                         line = br.readLine();
                     }
@@ -151,7 +152,7 @@ public class CustomerOptions {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
                 line = productReader.readLine();
-                while (!line.equals("--------")) { //iterates through lines of files and adds them to string
+                while (!line.contains("------")) { //iterates through lines of files and adds them to string
                     products.add(MarketPlace.getProduct(line));
                     line = productReader.readLine();
                 }
@@ -206,7 +207,7 @@ public class CustomerOptions {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
                 line = productReader.readLine();
-                while (!line.equals("--------")) { //iterates through lines of files and adds them to string
+                while (!line.contains("-----")) { //iterates through lines of files and adds them to string
                     products.add(MarketPlace.getProduct(line));
                     line = productReader.readLine();
                 }
@@ -279,7 +280,7 @@ public class CustomerOptions {
                 }
             }
             ArrayList<String> marketExtra = new ArrayList<>();
-            marketExtra.add("--------");
+            marketExtra.add("----------");
             line = br.readLine();
             while (line != null) {
                 marketExtra.add(line);
