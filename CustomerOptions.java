@@ -23,7 +23,7 @@ public class CustomerOptions {
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
                 line = productReader.readLine();
                 while (!line.contains("------")) { //iterates through lines of files and adds them to string
-                    System.out.println(line);
+
                     Product product = MarketPlace.getProduct(line);
                     printer = printer +
                             "Product: " + product.getName() + "\n" +

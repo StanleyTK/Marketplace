@@ -226,7 +226,7 @@ public class RunLocalTest {
                     "4. Sort by quantity least to greatest" + System.lineSeparator() +
                     "5. View Dashboard" + System.lineSeparator() +
                     "6. Export File with Purchase History" + System.lineSeparator() +
-                    "7. Add items to the Shopping Cart" + System.lineSeparator() +
+                    "7. Add or remove items to the Shopping Cart" + System.lineSeparator() +
                     "8. Exit" + System.lineSeparator() +
                     "Have a nice day!!" + System.lineSeparator();
 
