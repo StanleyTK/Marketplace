@@ -323,6 +323,20 @@ public class SellerOptions {
 
 
     }
+
+    public static void createMarket(String market) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter("Markets.txt", true));
+            pw.println(market);
+            pw.flush();
+            pw.close();
+            FileWriter fw = new FileWriter(market + " Market.txt");
+            fw.write("");
+            fw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

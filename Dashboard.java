@@ -119,9 +119,55 @@ public class Dashboard {
         } //Prints the list of products in the store and the amount of times they have been purchased.
     }
 
-    public static void viewCustomer() {
-        //TODO Customers can view a dashboard with store and seller information.
-        //TODO Data will include a list of stores by number of products sold and a list of stores by the products purchased by that particular customer.
+    public static void viewCustomer() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter the customer name.");
+        String customerName = scanner.nextLine();
+        FileReader fr = new FileReader("Markets.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String line = br.readLine();
+        ArrayList<String[]> products = new ArrayList<>(); //ArrayList for each product in the store.
+        ArrayList<String[]> purchases = new ArrayList<>(); //ArrayList for each purchase in the store.
+        ArrayList<String[]> customerPurchases = new ArrayList<>(); //ArrayList for each purchase the customer made.
+        while (line != null) {
+            FileReader fileReader = new FileReader(line + " Market.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            int delineate = 0; //Checks to see where in the market store bufferedReader is.
+            String marketLine = bufferedReader.readLine();
+            while (marketLine != null) {
+                if (marketLine.equals("--------")) {
+                    delineate++; //Increments delineate if it iterates through the given line.
+                    marketLine = bufferedReader.readLine();
+                }
+                while (delineate == 0 && !marketLine.equals("--------")) {
+                    String[] product = bufferedReader.readLine().split(","); //Creates an array of the product.
+                    products.add(product);
+                    marketLine = bufferedReader.readLine(); //Creates an arraylist of products available.
+                }
+                while (delineate == 2 && !marketLine.equals("--------")) {
+                    String[] purchase = line.split(","); //Creates an array of the purchase.
+                    purchases.add(purchase);
+                    marketLine = bufferedReader.readLine(); //Creates an arraylist of all the purchases.
+                }
+            }
+            bufferedReader.close();
+            int productsNumber = products.size();
+            System.out.printf("%s has %d products for sale.\n", line, productsNumber);
+            for (int i = 0; i < products.size(); i++) {
+                System.out.printf("%d: %s\n", i + 1, Arrays.toString(products.get(i)));
+            } //Prints all the products available for sale.
+            for (String[] currentPurchase : purchases) {
+                if (customerName.equals(currentPurchase[5])) {
+                    customerPurchases.add(currentPurchase);
+                }
+            } //Checks if the customer has purchased, then adds to the arraylist of customer purchases.
+            System.out.printf("From %s, %s has purchased the following products:\n", line, customerName);
+            for (int i = 0; i < customerPurchases.size();i++) {
+                System.out.printf("%d: %s\n", i + 1, Arrays.toString(customerPurchases.get(i)));
+            } //Prints the products that the customer has purchased from the store.
+            line = br.readLine();
+        }
+        br.close();
     }
 
     // import csv
