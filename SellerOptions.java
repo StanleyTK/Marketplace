@@ -8,12 +8,10 @@ public class SellerOptions {
         int option;
         while (true) {
             try {
-                System.out.print("""
-                        Which Option of these would you like to choose?
-                        1. Create a new product
-                        2. Edit a product
-                        3. Delete a product
-                        """);
+                System.out.print("\nWhich Option of these would you like to choose?\n" +
+                        "1. Create a new product\n" +
+                        "2. Edit a product\n" +
+                        "3. Delete a product");
                 option = Integer.parseInt(scanner.nextLine());
                 if (option == 1 || option == 2 || option == 3) {
                     break;

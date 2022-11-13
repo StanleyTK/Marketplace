@@ -28,15 +28,14 @@ public class MarketPlace {
         if (user instanceof Customer) {
             while (running) {
                 System.out.println("What option would you like to choose?");
-                System.out.println("""
-                        1. View the marketplace
-                        2. Search for specific products by name, description, and store
-                        3. Sort by price least to greatest
-                        4. Sort by quantity least to greatest
-                        5. View Dashboard
-                        6. Export File with Purchase History
-                        7. Add items to the Shopping Cart
-                        8. Exit""");
+                System.out.println("\n1. View the marketplace\n" +
+                        "2. Search for specific products by name, description, and store\n" +
+                        "3. Sort by price least to greatest\n" +
+                        "4. Sort by quantity least to greatest\n" +
+                        "5. View Dashboard\n" +
+                        "6. Export File with Purchase History\n" +
+                        "7. Add items to the Shopping Cart\n" +
+                        "8. Exit");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
                     case (1) -> CustomerOptions.viewMarket();
@@ -59,14 +58,13 @@ public class MarketPlace {
             while (running) {
 
                 System.out.println("What option would you like to choose?");
-                System.out.println("""
-                        1. View the marketplace
-                        2. Create, edit, or delete products from a store
-                        3. View the list of their sales by store
-                        4. View Dashboard
-                        5. Import/Export Products using CSV file
-                        6. View products currently in customer's shopping carts
-                        7. Exit""");
+                System.out.println("\n1. View the marketplace\n" +
+                        "2. Create, edit, or delete products from a store\n" +
+                        "3. View the list of their sales by store\n" +
+                        "4. View Dashboard\n" +
+                        "5. Import/Export Products using CSV file\n" +
+                        "6. View products currently in customer's shopping carts\n" +
+                        "7. Exit");
                 int option = Integer.parseInt(scanner.nextLine());
                 switch (option) {
                     case (1) -> CustomerOptions.viewMarket();

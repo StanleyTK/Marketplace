@@ -1,39 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab84dc06-260d-4e5f-9e8f-ae82a8b8f31b" name="Changes" comment="2 methods i worked on worked!!!">
-      <change beforePath="$PROJECT_DIR$/CustomerOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/CustomerOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stanley's File.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Stanley's File.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Walmart Market.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Walmart Market.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Customer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/CustomerOptions.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Customers.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Dashboard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Jane Doe's File.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/John Doe's File.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Market.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/MarketExistsException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/MarketPlace.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Markets.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Product.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Project-4.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Seller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/SellerOptions.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/ShoppingCart.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Stanley's File.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Target Market.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/UserNamePasswordIncorrectException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/Walmart Market.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/login.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project-4/stores.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="53ecd84f-0ac3-40b9-aa2c-16f797fa5e57" name="Changes" comment="fixed sort methods" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +18,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -55,215 +25,188 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/MarketPlace.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/Product.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/SellerOptions.java" root0="SKIP_INSPECTION" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+  <component name="ProjectId" id="2H8scDniNdntpoVtFpuuay7UMnE" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectId" id="2H3A3SyMqWMvPQvE9UaXt28nDrF" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Stanley Kim/IdeaProjects/CS Homework 8&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.notifications"
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration name="MarketPlace" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MarketPlace" />
+      <module name="Project-4" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MarketPlace" />
+        <item itemvalue="Application.MarketPlace" />
+        <item itemvalue="Application.MarketPlace" />
+        <item itemvalue="Application.MarketPlace" />
+        <item itemvalue="Application.MarketPlace" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="ab84dc06-260d-4e5f-9e8f-ae82a8b8f31b" name="Changes" comment="" />
-      <created>1667503193640</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1667503193640</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Main method">
-      <created>1667512276702</created>
+    <task id="LOCAL-00001" summary="VerifyLogin method and incorrect username/password exception">
+      <created>1667506450941</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1667512276702</updated>
+      <updated>1667506450941</updated>
     </task>
-    <task id="LOCAL-00002" summary="Main method">
-      <created>1667512365366</created>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="53ecd84f-0ac3-40b9-aa2c-16f797fa5e57" name="Changes" comment="VerifyLogin method and incorrect username/password exception" />
+      <created>1667678122148</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667678122148</updated>
+    </task>
+    <task id="LOCAL-00002" summary="shopping cart goes bye">
+      <created>1667679965417</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1667512365366</updated>
+      <updated>1667679965417</updated>
     </task>
-    <task id="LOCAL-00003" summary="11/3 Implemented VerifyLogin, getUser getProduct, and main function, edited some classes, created 2 text files and userNamePasswordIncorrect Exception class">
-      <created>1667516439011</created>
+    <task id="LOCAL-00003" summary="implemented market constructor and MarketExistsException">
+      <created>1667701512424</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1667516439011</updated>
+      <updated>1667701512424</updated>
     </task>
-    <task id="LOCAL-00004" summary="Fixed some errors in customer and user, added features in the main method">
-      <created>1667677528583</created>
+    <task id="LOCAL-00004" summary="added getName and setName methods. Also added functionality to setProducts to modify the file storing the data.">
+      <created>1667701786802</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1667677528583</updated>
+      <updated>1667701786802</updated>
     </task>
-    <task id="LOCAL-00005" summary="Fixed some errors in customer and user, added features in the main method">
-      <created>1667679793153</created>
+    <task id="LOCAL-00005" summary="overloaded market constructor to work for existing files">
+      <created>1668040569737</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1667679793153</updated>
+      <updated>1668040569737</updated>
     </task>
-    <task id="LOCAL-00006" summary="error fixed">
-      <created>1667680101223</created>
+    <task id="LOCAL-00006" summary="removed try block for redundancy">
+      <created>1668041840072</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1667680101223</updated>
+      <updated>1668041840072</updated>
     </task>
-    <task id="LOCAL-00007" summary="Market Files changed">
-      <created>1668042041820</created>
+    <task id="LOCAL-00007" summary="added seller constructors">
+      <created>1668045136692</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1668042041820</updated>
+      <updated>1668045136692</updated>
     </task>
-    <task id="LOCAL-00008" summary="Implemented my method">
-      <created>1668047801415</created>
+    <task id="LOCAL-00008" summary="fixed some exceptions">
+      <created>1668045247982</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1668047801415</updated>
+      <updated>1668045247982</updated>
     </task>
-    <task id="LOCAL-00009" summary="Implemented my method">
-      <created>1668047864886</created>
+    <task id="LOCAL-00009" summary="import csv method + seller.setProducts()">
+      <created>1668202393867</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1668047864886</updated>
+      <updated>1668202393867</updated>
     </task>
-    <task id="LOCAL-00010" summary="Implemented my method">
-      <created>1668047990583</created>
+    <task id="LOCAL-00010" summary="import csv method + seller.setProducts()">
+      <created>1668232718912</created>
       <option name="number" value="00010" />
       <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1668047990583</updated>
+      <updated>1668232718912</updated>
     </task>
-    <task id="LOCAL-00011" summary="Implemented my method">
-      <created>1668048211531</created>
+    <task id="LOCAL-00011" summary="SellerOptions.editProducts&#10;switch 1 and 2 refactored">
+      <created>1668234001901</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1668048211531</updated>
+      <updated>1668234001901</updated>
     </task>
-    <task id="LOCAL-00012" summary="Implemented my method">
-      <created>1668050506231</created>
+    <task id="LOCAL-00012" summary="SellerOptions.editProducts&#10;switch 1 and 2 refactored">
+      <created>1668234722372</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1668050506231</updated>
+      <updated>1668234722372</updated>
     </task>
-    <task id="LOCAL-00013" summary="Implemented my method">
-      <created>1668050555402</created>
+    <task id="LOCAL-00013" summary="import/export csv for sellers">
+      <created>1668237552272</created>
       <option name="number" value="00013" />
       <option name="presentableId" value="LOCAL-00013" />
       <option name="project" value="LOCAL" />
-      <updated>1668050555402</updated>
+      <updated>1668237552272</updated>
     </task>
-    <task id="LOCAL-00014" summary="Implemented my method">
-      <created>1668051183646</created>
+    <task id="LOCAL-00014" summary="import/export csv for sellers">
+      <created>1668280972343</created>
       <option name="number" value="00014" />
       <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1668051183646</updated>
+      <updated>1668280972344</updated>
     </task>
-    <task id="LOCAL-00015" summary="I want to die">
-      <created>1668057857484</created>
+    <task id="LOCAL-00015" summary="implemented export purchase history for customers">
+      <created>1668282658376</created>
       <option name="number" value="00015" />
       <option name="presentableId" value="LOCAL-00015" />
       <option name="project" value="LOCAL" />
-      <updated>1668057857484</updated>
+      <updated>1668282658376</updated>
     </task>
-    <task id="LOCAL-00016" summary="Finished one of the Seller methods, as well as updated different methods">
-      <created>1668152414306</created>
+    <task id="LOCAL-00016" summary="removed //TODO for import/export methods for seller and customer">
+      <created>1668283363006</created>
       <option name="number" value="00016" />
       <option name="presentableId" value="LOCAL-00016" />
       <option name="project" value="LOCAL" />
-      <updated>1668152414306</updated>
+      <updated>1668283363006</updated>
     </task>
-    <task id="LOCAL-00017" summary="Finished one of the Seller methods, as well as updated different methods">
-      <created>1668152434231</created>
+    <task id="LOCAL-00017" summary="snazzed up the export purchase history method file format. also added information about the quantity of the product.">
+      <created>1668284096584</created>
       <option name="number" value="00017" />
       <option name="presentableId" value="LOCAL-00017" />
       <option name="project" value="LOCAL" />
-      <updated>1668152434231</updated>
+      <updated>1668284096584</updated>
     </task>
-    <task id="LOCAL-00018" summary="3 AM I'm so done with this project">
-      <created>1668153670332</created>
+    <task id="LOCAL-00018" summary="fixed viewMarketplace and searchMarketplace. for searchMarketplace made it so that if a market doesn't have results it won't show up and if no results are found it displays a message.">
+      <created>1668285834800</created>
       <option name="number" value="00018" />
       <option name="presentableId" value="LOCAL-00018" />
       <option name="project" value="LOCAL" />
-      <updated>1668153670332</updated>
+      <updated>1668285834800</updated>
     </task>
-    <task id="LOCAL-00019" summary="updated.">
-      <created>1668154195064</created>
+    <task id="LOCAL-00019" summary="fixed sort methods">
+      <created>1668286162490</created>
       <option name="number" value="00019" />
       <option name="presentableId" value="LOCAL-00019" />
       <option name="project" value="LOCAL" />
-      <updated>1668154195064</updated>
+      <updated>1668286162490</updated>
     </task>
-    <task id="LOCAL-00020" summary="Edited: Shopping Cart is now part of the Customer class, instead of arraylist of products. Seller has a field called arraylist of customer names. These implementations would make it a lot easier when doing the other methods.">
-      <created>1668191966931</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1668191966931</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Edited: Shopping Cart is now part of the Customer class, instead of arraylist of products. Seller has a field called arraylist of customer names. These implementations would make it a lot easier when doing the other methods.">
-      <created>1668202761172</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1668202761172</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Edited: Shopping Cart is now part of the Customer class, instead of arraylist of products. Seller has a field called arraylist of customer names. These implementations would make it a lot easier when doing the other methods.">
-      <created>1668205283108</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1668205283109</updated>
-    </task>
-    <task id="LOCAL-00023" summary="a">
-      <created>1668234528647</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1668234528647</updated>
-    </task>
-    <task id="LOCAL-00024" summary="a">
-      <created>1668234543222</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1668234543222</updated>
-    </task>
-    <task id="LOCAL-00025" summary="2 methods i worked on worked!!!">
-      <created>1668323983572</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1668323983572</updated>
-    </task>
-    <option name="localTasksCounter" value="26" />
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -278,20 +221,22 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Main method" />
-    <MESSAGE value="11/3 Implemented VerifyLogin, getUser getProduct, and main function, edited some classes, created 2 text files and userNamePasswordIncorrect Exception class" />
-    <MESSAGE value="Fixed some erros in customer and user, added features in the main method" />
-    <MESSAGE value="Fixed some errors in customer and user, added features in the main method" />
-    <MESSAGE value="error fixed" />
-    <MESSAGE value="Market Files changed" />
-    <MESSAGE value="Implemented my method" />
-    <MESSAGE value="I want to die" />
-    <MESSAGE value="Finished one of the Seller methods, as well as updated different methods" />
-    <MESSAGE value="3 AM I'm so done with this project" />
-    <MESSAGE value="updated." />
-    <MESSAGE value="Edited: Shopping Cart is now part of the Customer class, instead of arraylist of products. Seller has a field called arraylist of customer names. These implementations would make it a lot easier when doing the other methods." />
-    <MESSAGE value="a" />
-    <MESSAGE value="2 methods i worked on worked!!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="2 methods i worked on worked!!!" />
+    <MESSAGE value="VerifyLogin method and incorrect username/password exception" />
+    <MESSAGE value="shopping cart goes bye" />
+    <MESSAGE value="implemented market constructor and MarketExistsException" />
+    <MESSAGE value="added getName and setName methods. Also added functionality to setProducts to modify the file storing the data." />
+    <MESSAGE value="overloaded market constructor to work for existing files" />
+    <MESSAGE value="removed try block for redundancy" />
+    <MESSAGE value="added seller constructors" />
+    <MESSAGE value="fixed some exceptions" />
+    <MESSAGE value="import csv method + seller.setProducts()" />
+    <MESSAGE value="SellerOptions.editProducts&#10;switch 1 and 2 refactored" />
+    <MESSAGE value="import/export csv for sellers" />
+    <MESSAGE value="implemented export purchase history for customers" />
+    <MESSAGE value="removed //TODO for import/export methods for seller and customer" />
+    <MESSAGE value="snazzed up the export purchase history method file format. also added information about the quantity of the product." />
+    <MESSAGE value="fixed viewMarketplace and searchMarketplace. for searchMarketplace made it so that if a market doesn't have results it won't show up and if no results are found it displays a message." />
+    <MESSAGE value="fixed sort methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed sort methods" />
   </component>
 </project>

@@ -49,12 +49,10 @@ public class CustomerOptions {
         while (running) {
             while (true) {
                 try {
-                    System.out.print("""
-                            Which Option of these would you like to choose?
-                            1. Search by name
-                            2. Search by description
-                            3. Search by store
-                            """);
+                    System.out.print("Which Option of these would you like to choose?\n" +
+                            "1. Search by name\n" +
+                            "2. Search by description\n" +
+                            "3. Search by store");
                     option = Integer.parseInt(scanner.nextLine());
                     if (option == 1 || option == 2 || option == 3) {
                         break;
@@ -289,11 +287,9 @@ public class CustomerOptions {
 
             }
 
-            System.out.print("""
-                    Which Option of these would you like to choose?
-                    1. Add a product to your shopping cart
-                    2. Remove a product to your shopping cart
-                    """);
+            System.out.print("Which Option of these would you like to choose?\n" +
+                    "1. Add a product to your shopping cart\n" +
+                    "2. Remove a product to your shopping cart");
             option = Integer.parseInt(scanner.nextLine());
             boolean bol = false;
 
