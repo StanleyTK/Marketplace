@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -410,6 +411,44 @@ public class CustomerOptions {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void buyShoppingCart(Customer customer) {
+        try {
+            File f = new File(customer.getCustomerName() + "'s File.txt");
+            BufferedReader bfr = new BufferedReader(new FileReader(f));
+            String name = bfr.readLine();
+            String userType = bfr.readLine();
+            ArrayList<Product> products = new ArrayList<Product>();
+            String line = bfr.readLine();
+            while (line != null) {
+                products.add(MarketPlace.getProduct(line));
+                line = bfr.readLine();
+            }
+            bfr.close();
+            PrintWriter pw = new PrintWriter(new FileOutputStream(f));
+            pw.println(name);
+            pw.println(userType);
+            pw.close();
+            double total = 0;
+            for (int i = 0; i < products.size(); i++) {
+                Product product = products.get(i);
+                String market = product.getStore();
+                f = new File(market + " Market.txt");
+                FileOutputStream fos = new FileOutputStream(f, true);
+                pw = new PrintWriter(fos);
+                pw.println(product.toString() + "," + customer.getCustomerName());
+                double cost = product.getPrice() * product.getQuantity();
+                total += cost;
+                System.out.printf("Purchased %d %s for %.2f total\n",
+                        product.getQuantity(), product.getName(), cost);
+                pw.close();
+            }
+            System.out.printf("Shopping cart purchased! Total cost: %.2f\n", total);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("An unexpected error occurred while accessing files!");
         }
     }
 }

@@ -72,7 +72,8 @@ public class MarketPlace {
                                        "5. View Dashboard\n" +
                                        "6. Export File with Purchase History\n" +
                                        "7. Add items to the Shopping Cart\n" +
-                                       "8. Exit");
+                                       "8. Buy Shopping Cart\n" +
+                                       "9. Exit");
                     int option = Integer.parseInt(scanner.nextLine());
                     switch (option) {
                         case (1) -> CustomerOptions.viewMarket();
@@ -82,7 +83,8 @@ public class MarketPlace {
                         case (5) -> Dashboard.viewCustomer((Customer) user);
                         case (6) -> Dashboard.exportPurchaseHistory((Customer) user);
                         case (7) -> CustomerOptions.addOrRemoveProductsShoppingCart(scanner, user.getCustomerName());
-                        case (8) -> {
+                        case (8) -> CustomerOptions.buyShoppingCart((Customer) user);
+                        case (9) -> {
                             running = false;
                         }
                         default -> System.out.println("Please enter a valid input!");
