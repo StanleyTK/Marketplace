@@ -145,17 +145,28 @@ public class SellerOptions {
                         boolean edited = false;
                         for (Product product : products) {
                             if (item.equals(product.getName())) {
-                                edited = true;
                                 System.out.println("What is the Product's new name?");
                                 product.setName(scanner.nextLine());
                                 System.out.println("What is the Product's new description?");
                                 product.setDescription(scanner.nextLine());
-                                System.out.println("What is the Product's new quantity?");
-                                product.setQuantity(Integer.parseInt(scanner.nextLine()));
-                                System.out.println("What is the Product's new price?");
-                                product.setPrice(Double.parseDouble(scanner.nextLine()));
+                                try {
+                                    System.out.println("What is the Product's new quantity?");
+                                    product.setQuantity(Integer.parseInt(scanner.nextLine()));
+                                } catch (NumberFormatException e) {
+                                    System.out.println("You must enter an integer!");
+                                    return;
+                                }
+                                try {
+                                    System.out.println("What is the Product's new price?");
+                                    product.setPrice(Double.parseDouble(scanner.nextLine()));
+                                } catch (NumberFormatException e) {
+                                    System.out.println("You must enter a number!");
+                                    return;
+                                }
+                                edited = true;
                                 break;
                             }
+
                         }
                         if (!edited) {
                             System.out.println("The product was not found in the list");
@@ -408,7 +419,7 @@ public class SellerOptions {
                 System.out.println("This market couldn't be found!");
             }
         } catch (IOException e) {
-            System.out.println("There was an error. Please try again later.");
+            System.out.println("Sorry, there are currently no markets!");
         }
     }
 

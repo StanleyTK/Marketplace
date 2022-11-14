@@ -32,6 +32,9 @@ public class CustomerOptions {
                                 "Price: " + product.getPrice() + "\n" +
                                 "Quantity " + product.getQuantity() + "\n\n";
                         line = productReader.readLine();
+
+                    } else {
+                        break;
                     }
                 }
 
@@ -305,6 +308,9 @@ public class CustomerOptions {
                     System.out.printf("Product: %s, Description: %s, " +
                                     "Price: %.2f, Quantity: %d\n", product.getName(),
                             product.getDescription(), product.getPrice(), product.getQuantity());
+                }
+                if (productsFromStore.size() == 0) {
+                    throw new IOException();
                 }
                 System.out.println("Which item would you like to buy?");
                 String item = scanner.nextLine();

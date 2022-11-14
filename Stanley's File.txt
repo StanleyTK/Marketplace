@@ -1,3 +1,0 @@
-Name: Stanley
-User: Customer
-Keyboard,Target,You type on it,3,79.99
