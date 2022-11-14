@@ -172,8 +172,8 @@ public class CustomerOptions {
             }
         }
         for (int i = 0; i < temp.length; i++) {
-            System.out.printf(i + ". Product: %s, Store: %s, Description: %s, " +
-                            "Price: %.2f, Quantity: %d\n\n", temp[i].getName(), temp[i].getStore(),
+            System.out.printf((i + 1) + ". Product: %s, Store: %s, Description: %s, " +
+                            "Price: %.2f, Quantity: %d\n", temp[i].getName(), temp[i].getStore(),
                     temp[i].getDescription(), temp[i].getPrice(), temp[i].getQuantity());
         }
     }
@@ -226,8 +226,8 @@ public class CustomerOptions {
             }
         }
         for (int i = 0; i < temp.length; i++) {
-            System.out.printf(i + ". Product: %s, Store: %s, Description: %s, " +
-                            "Price: %.2f, Quantity: %d\n\n", temp[i].getName(), temp[i].getStore(),
+            System.out.printf((i + 1) + ". Product: %s, Store: %s, Description: %s, " +
+                            "Price: %.2f, Quantity: %d\n", temp[i].getName(), temp[i].getStore(),
                     temp[i].getDescription(), temp[i].getPrice(), temp[i].getQuantity());
         }
     }
@@ -282,6 +282,7 @@ public class CustomerOptions {
                     "2. Remove a product to your shopping cart\n");
             option = Integer.parseInt(scanner.nextLine());
             boolean bol = false;
+            Product prodToRemove = null;
 
             // Add product
             if (option == 1) {
@@ -320,19 +321,23 @@ public class CustomerOptions {
                     }
                 // If the product is not in the shopping cart
                 } else {
-                    for (int i = 0; i < productsFromStore.size(); i++) {
-                        if (item.equals(productsFromStore.get(i).getName())) {
-                            if (quantity >= productsFromStore.get(i).getQuantity()) {
-                                productsFromStore.remove(productsFromStore.get(i));
-                                userProducts.add(productsFromStore.get(i));
+                    for (Product value : productsFromStore) {
+                        if (item.equals(value.getName())) {
+                            if (quantity >= value.getQuantity()) {
+                                userProducts.add(value);
+                                bol = true;
+                                prodToRemove = value;
                             } else {
-                                productsFromStore.get(i).setQuantity(productsFromStore.get(i).getQuantity() - quantity);
-                                Product product = new Product(productsFromStore.get(i).getName(), productsFromStore.get(i).getStore(),
-                                        productsFromStore.get(i).getDescription(), quantity, productsFromStore.get(i).getPrice());
+                                value.setQuantity(value.getQuantity() - quantity);
+                                Product product = new Product(value.getName(), value.getStore(),
+                                        value.getDescription(), quantity, value.getPrice());
                                 userProducts.add(product);
 
                             }
                         }
+                    }
+                    if (bol) {
+                        productsFromStore.remove(prodToRemove);
                     }
                 }
             } else {
@@ -365,8 +370,6 @@ public class CustomerOptions {
                                 System.out.println("The quantity removed cannot be less than 0");
                             } else {
                                 userProducts.get(i).setQuantity(userProducts.get(i).getQuantity() - quantity);
-                                System.out.printf("You removed %d of %s. Your current quantity for %d is %s\n",
-                                        quantity, answer, userProducts.get(i).getQuantity(), answer);
                                 run = false;
                                 break;
                             }
@@ -394,7 +397,7 @@ public class CustomerOptions {
                 pw.println(x);
             }
             pw.close();
-            System.out.println("Updating files...\nSuccess!!!\n");
+            System.out.println("Updating files...\nSuccess!!!");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
