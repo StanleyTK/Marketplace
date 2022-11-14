@@ -80,7 +80,6 @@ public class RunLocalTest {
         }
 
 
-
         // Tests to see if the login function works
         @Test(timeout = 1000)
         public void testExpectedOne() {
@@ -104,7 +103,7 @@ public class RunLocalTest {
                     "4. Sort by quantity least to greatest" + System.lineSeparator() +
                     "5. View Dashboard" + System.lineSeparator() +
                     "6. Export File with Purchase History" + System.lineSeparator() +
-                    "7. Add items to the Shopping Cart" + System.lineSeparator() +
+                    "7. Add or remove items to the Shopping Cart" + System.lineSeparator() +
                     "8. Exit" + System.lineSeparator() +
                     "Have a nice day!!" + System.lineSeparator();
 
@@ -116,12 +115,11 @@ public class RunLocalTest {
             String output = getOutput();
 
             // Trims the output and verifies it is correct.
-            expected = expected.replaceAll("\r\n","\n");
-            output = output.replaceAll("\r\n","\n");
+            expected = expected.replaceAll("\r\n", "\n");
+            output = output.replaceAll("\r\n", "\n");
             assertEquals("Test case failed!",
                     expected.trim(), output.trim());
         }
-
 
 
         // Tests to create a new file
@@ -165,8 +163,8 @@ public class RunLocalTest {
             String output = getOutput();
 
             // Trims the output and verifies it is correct.
-            expected = expected.replaceAll("\r\n","\n");
-            output = output.replaceAll("\r\n","\n");
+            expected = expected.replaceAll("\r\n", "\n");
+            output = output.replaceAll("\r\n", "\n");
 
             //Reset the files for test case 2
             File f = new File("Stan's File.txt");
@@ -202,47 +200,46 @@ public class RunLocalTest {
         }
 
 
-
-
-        @Test(timeout = 1000)
-        public void testExpectedThree() {
-            // Set the input
-            String input = "2" + System.lineSeparator() +
-                    "stanleykim2" + System.lineSeparator() +
-                    "sparkystan" + System.lineSeparator() +
-                    "8" + System.lineSeparator();
-
-            // Pair the input with the expected result
-            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
-                    "1. Create a new account" + System.lineSeparator() +
-                    "2. Log in to your account" + System.lineSeparator() +
-                    "Enter the username/email" + System.lineSeparator() +
-                    "Enter the password" + System.lineSeparator() +
-                    "Welcome Stanley!" + System.lineSeparator() +
-                    "What option would you like to choose?" + System.lineSeparator() +
-                    "1. View the marketplace" + System.lineSeparator() +
-                    "2. Search for specific products by name, description, and store" + System.lineSeparator() +
-                    "3. Sort by price least to greatest" + System.lineSeparator() +
-                    "4. Sort by quantity least to greatest" + System.lineSeparator() +
-                    "5. View Dashboard" + System.lineSeparator() +
-                    "6. Export File with Purchase History" + System.lineSeparator() +
-                    "7. Add or remove items to the Shopping Cart" + System.lineSeparator() +
-                    "8. Exit" + System.lineSeparator() +
-                    "Have a nice day!!" + System.lineSeparator();
-
-            // Runs the program with the input values
-            receiveInput(input);
-            MarketPlace.main(new String[0]);
-
-            // Retrieves the output from the program
-            String output = getOutput();
-
-            // Trims the output and verifies it is correct.
-            expected = expected.replaceAll("\r\n","\n");
-            output = output.replaceAll("\r\n","\n");
-            assertEquals("Test case failed!",
-                    expected.trim(), output.trim());
-        }
-
+//        @Test(timeout = 1000)
+//        public void testExpectedThree() {
+//            // Set the input
+//            String input = "2" + System.lineSeparator() +
+//                    "stanleykim2" + System.lineSeparator() +
+//                    "sparkystan" + System.lineSeparator() +
+//                    "7" + System.lineSeparator() +
+//                    "Walmart" + System.lineSeparator() +
+//                    "1" + System.lineSeparator() +
+//                    "Keyboard" + System.lineSeparator() +
+//                    "3" + System.lineSeparator() +
+//                    "7" + System.lineSeparator() +
+//                    "Walmart" + System.lineSeparator() +
+//                    "2" + System.lineSeparator() +
+//                    "Keyboard" + System.lineSeparator() +
+//                    "3" + System.lineSeparator() +
+//                    "8" + System.lineSeparator();
+//
+//                            // Pair the input with the expected result
+//            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
+//                    "1. Create a new account" + System.lineSeparator() +
+//                    "2. Log in to your account" + System.lineSeparator() +
+//                    "Enter the username/email" + System.lineSeparator() +
+//                    "Enter the password" + System.lineSeparator() +
+//                    "Welcome Stanley!" + System.lineSeparator();
+//
+//
+//                    // Runs the program with the input values
+//            receiveInput(input);
+//            MarketPlace.main(new String[0]);
+//
+//            // Retrieves the output from the program
+//            String output = getOutput();
+//
+//            // Trims the output and verifies it is correct.
+//            expected = expected.replaceAll("\r\n","\n");
+//            output = output.replaceAll("\r\n","\n");
+//            assertEquals("Test case failed!",
+//                    expected.trim(), output.trim());
+//        }
+//
     }
 }

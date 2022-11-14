@@ -290,7 +290,7 @@ public class CustomerOptions {
 
             System.out.print("Which Option of these would you like to choose?\n" +
                     "1. Add a product to your shopping cart\n" +
-                    "2. Remove a product to your shopping cart");
+                    "2. Remove a product to your shopping cart\n");
             option = Integer.parseInt(scanner.nextLine());
             boolean bol = false;
 
@@ -365,7 +365,6 @@ public class CustomerOptions {
                                 System.out.printf("%s is removed from your shopping cart\n", answer);
                                 for (Product product : productsFromStore) {
                                     if (product.getName().equals(answer)) {
-                                        System.out.println(userProducts.get(i).getQuantity() + "\n" + product.getQuantity());
                                         product.setQuantity(userProducts.get(i).getQuantity() + product.getQuantity());
                                     }
                                 }
