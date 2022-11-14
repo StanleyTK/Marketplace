@@ -1,3 +1,2 @@
 Name: Richard
 User: Customer
-Orange,Walmart,You eat it,1,5.99

@@ -109,6 +109,7 @@ public class SellerOptions {
                     pw.print(after);
                     pw.close();
                     br.close();
+                    System.out.println("Product is sucessfully created!");
 
 
                 }
@@ -117,14 +118,14 @@ public class SellerOptions {
                     BufferedReader productReader = new BufferedReader(new FileReader(f));
                     ArrayList<Product> products = new ArrayList<>();
                     line = productReader.readLine();
-                    while (!line.equals("--------")) { //iterates through lines of files and adds them to string
+                    while (!line.contains("-----")) { //iterates through lines of files and adds them to string
                         Product product = MarketPlace.getProduct(line);
                         products.add(product);
                         printer = printer +
                                 "Product: " + product.getName() + "\n" +
                                 "Description: " + product.getDescription() + "\n" +
                                 "Price: " + product.getPrice() + "\n" +
-                                "Quantity " + product.getQuantity();
+                                "Quantity " + product.getQuantity() + "\n\n";
                         line = productReader.readLine();
                     }
                     String rest = "";
@@ -158,7 +159,6 @@ public class SellerOptions {
                         FileOutputStream fos = new FileOutputStream(f);
                         PrintWriter pw = new PrintWriter(fos);
                         for (Product product : products) {
-                            System.out.println(product.toString());
                             pw.println(product.toString());
                         }
                         pw.print(rest);
@@ -171,14 +171,14 @@ public class SellerOptions {
                     BufferedReader productReader = new BufferedReader(new FileReader(f));
                     ArrayList<Product> products = new ArrayList<>();
                     line = productReader.readLine();
-                    while (!line.equals("--------")) { //iterates through lines of files and adds them to string
+                    while (!line.contains("-----")) { //iterates through lines of files and adds them to string
                         Product product = MarketPlace.getProduct(line);
                         products.add(product);
                         printer = printer +
                                 "Product: " + product.getName() + "\n" +
                                 "Description: " + product.getDescription() + "\n" +
                                 "Price: " + product.getPrice() + "\n" +
-                                "Quantity " + product.getQuantity();
+                                "Quantity " + product.getQuantity() + "\n\n";
                         line = productReader.readLine();
                     }
                     String after = "";
@@ -237,14 +237,14 @@ public class SellerOptions {
         String line = br.readLine();
         double totalRevenue = 0;
         while (line != null) {
-            if (line.equals("--------")) {
+            if (line.contains("------")) {
                 delineate++; //Increments delineate if it iterates through the given line.
                 line = br.readLine();
             }
-            while (delineate == 0 && !line.equals("--------")) {
+            while (delineate == 0 && !line.contains("------")) {
                 line = br.readLine();
             }
-            while (delineate == 1 && !line.equals("--------")) {
+            while (delineate == 1 && !line.contains("------")) {
                 purchaseInformation.add(new PurchaseInformation(line, new ArrayList<>(), new ArrayList<>(), new ArrayList<>())); //Adds a new customer.
                 line = br.readLine();
             }
@@ -386,6 +386,7 @@ public class SellerOptions {
                         pw.println(shoppingCart.get(j).toString());
                     }
                     pw.close();
+                    System.out.println("The market has been removed!");
                 }
                 bfr.close();
             }
@@ -400,6 +401,7 @@ public class SellerOptions {
         String market = scanner.nextLine();
         try {
             PrintWriter pw = new PrintWriter(new FileWriter("Markets.txt", true));
+            pw.println("");
             pw.println(market);
             pw.flush();
             pw.close();
@@ -409,6 +411,7 @@ public class SellerOptions {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(market + " market has been created. If you want to add any products, please restart the program");
     }
 
 }

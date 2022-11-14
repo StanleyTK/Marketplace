@@ -77,7 +77,7 @@ public class RunLocalTest {
         String toReturn = "";
         ArrayList<Product> lines = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(name + " Market.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(name + "'s File.txt"));
             String line = br.readLine();
             lines = new ArrayList<>();
             while (line != null) {
@@ -101,6 +101,56 @@ public class RunLocalTest {
         return toReturn;
     }
 
+    public static String stores() {
+        ArrayList<String> stores = new ArrayList<>();
+        String toReturn = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Markets.txt"));
+            String line = br.readLine();
+            while (line != null) {
+                stores.add(line);
+                line = br.readLine();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        for (int i = 0; i < stores.size(); i++) {
+            toReturn += stores.get(i);
+            if (i != stores.size() - 1) {
+                toReturn += "\n";
+            }
+        }
+        return toReturn;
+    }
+
+    public static String customerMenu() {
+        return "What option would you like to choose?\n" +
+                "1. View the marketplace\n" +
+                "2. Search for specific products by name, description, and store\n" +
+                "3. Sort by price least to greatest\n" +
+                "4. Sort by quantity least to greatest\n" +
+                "5. View Dashboard\n" +
+                "6. Export File with Purchase History\n" +
+                "7. Add or remove items to the Shopping Cart\n" +
+                "8. Purchase all items in the Shopping Cart\n" +
+                "9. Exit";
+    }
+
+
+    public static String sellerMenu() {
+        return "What option would you like to choose?\n" +
+                "1. View the marketplace\n" +
+                "2. Create, edit, or delete products from a store\n" +
+                "3. View the list of their sales by store\n" +
+                "4. View Dashboard\n" +
+                "5. Import/Export Products using CSV file\n" +
+                "6. View products currently in customer's shopping carts\n" +
+                "7. Create a new market\n" +
+                "8. Delete a market\n" +
+                "9. Exit";
+    }
 
 
 
@@ -161,15 +211,7 @@ public class RunLocalTest {
                     "Enter the username/email" + System.lineSeparator() +
                     "Enter the password" + System.lineSeparator() +
                     "Welcome Stanley!" + System.lineSeparator() +
-                    "What option would you like to choose?" + System.lineSeparator() +
-                    "1. View the marketplace" + System.lineSeparator() +
-                    "2. Search for specific products by name, description, and store" + System.lineSeparator() +
-                    "3. Sort by price least to greatest" + System.lineSeparator() +
-                    "4. Sort by quantity least to greatest" + System.lineSeparator() +
-                    "5. View Dashboard" + System.lineSeparator() +
-                    "6. Export File with Purchase History" + System.lineSeparator() +
-                    "7. Add or remove items to the Shopping Cart" + System.lineSeparator() +
-                    "8. Exit" + System.lineSeparator() +
+                    customerMenu() + System.lineSeparator() +
                     "Have a nice day!!" + System.lineSeparator();
 
             // Runs the program with the input values
@@ -208,16 +250,7 @@ public class RunLocalTest {
                     "What is your name?" + System.lineSeparator() +
                     "Are you a Customer or Seller?" + System.lineSeparator() +
                     "Welcome Stan!" + System.lineSeparator() +
-                    "What option would you like to choose?" + System.lineSeparator() +
-                    "1. View the marketplace" + System.lineSeparator() +
-                    "2. Create, edit, or delete products from a store" + System.lineSeparator() +
-                    "3. View the list of their sales by store" + System.lineSeparator() +
-                    "4. View Dashboard" + System.lineSeparator() +
-                    "5. Import/Export Products using CSV file" + System.lineSeparator() +
-                    "6. View products currently in customer's shopping carts" + System.lineSeparator() +
-                    "7. Create a new market" + System.lineSeparator() +
-                    "8. Delete a market" + System.lineSeparator() +
-                    "9. Exit" + System.lineSeparator() +
+                    sellerMenu() + System.lineSeparator() +
                     "Have a nice day!!" + System.lineSeparator();
 
             // Runs the program with the input values
@@ -265,23 +298,18 @@ public class RunLocalTest {
         }
 
 
-        @Test(timeout = 1000)
+        @Test(timeout = 3000)
         public void testExpectedThree() {
 
             String input = "2" + System.lineSeparator() +
                     "stanleykim2" + System.lineSeparator() +
                     "sparkystan" + System.lineSeparator() +
                     "7" + System.lineSeparator() +
-                    "Walmart" + System.lineSeparator() +
+                    "Target" + System.lineSeparator() +
                     "1" + System.lineSeparator() +
                     "Keyboard" + System.lineSeparator() +
                     "1" + System.lineSeparator() +
-                    "7" + System.lineSeparator() +
-                    "Walmart" + System.lineSeparator() +
-                    "2" + System.lineSeparator() +
-                    "Keyboard" + System.lineSeparator() +
-                    "1" + System.lineSeparator() +
-                    "8" + System.lineSeparator();
+                    "9" + System.lineSeparator();
 
                             // Pair the input with the expected result
             String expected = "Welcome to Marketplace!" + System.lineSeparator() +
@@ -289,7 +317,19 @@ public class RunLocalTest {
                     "2. Log in to your account" + System.lineSeparator() +
                     "Enter the username/email" + System.lineSeparator() +
                     "Enter the password" + System.lineSeparator() +
-                    "Welcome Stanley!" + System.lineSeparator();
+                    "Welcome Stanley!" + System.lineSeparator() +
+                    customerMenu() + System.lineSeparator() +
+                    "What store would you like to choose to add or remove new products?" + System.lineSeparator() +
+                    stores() + System.lineSeparator() +
+                    "Which Option of these would you like to choose?\n" +
+                    "1. Add a product to your shopping cart\n" +
+                    "2. Remove a product to your shopping cart" + System.lineSeparator() +
+                    getMarketInformation("Target") + System.lineSeparator() +
+                    "Which item would you like to buy" + System.lineSeparator() +
+                    "Updating files..." + System.lineSeparator() +
+                    "Success!!" + System.lineSeparator() +
+                    customerMenu() + System.lineSeparator() +
+                    "Have a nice day!!";
 
 
                     // Runs the program with the input values

@@ -45,7 +45,7 @@ public class CustomerOptions {
     // Customer Option 2
     public static void searchForProducts(Scanner scanner) {
         boolean running = true;
-        String printer = "";
+        StringBuilder printer = new StringBuilder();
         int option;
         boolean searchResult = false;
         while (running) {
@@ -80,7 +80,7 @@ public class CustomerOptions {
 
                 for (String market : lines) {
                     boolean found = false;
-                    String results = "";
+                    StringBuilder results = new StringBuilder();
                     f = new File(market + " Market.txt");
                     br = new BufferedReader(new FileReader(f));
                     line = br.readLine();
@@ -92,33 +92,21 @@ public class CustomerOptions {
                     for (String productInfo : lines) {
                         Product product = MarketPlace.getProduct(productInfo);
                         if (product.getName().contains(search) && option == 1) {
-                            results +=
-                                    "Product: " + product.getName() + "\n" +
-                                    "Description: " + product.getDescription() + "\n" +
-                                    "Price: " + product.getPrice() + "\n" +
-                                    "Quantity " + product.getQuantity() + "\n\n";
+                            results.append("Product: ").append(product.getName()).append("\n").append("Description: ").append(product.getDescription()).append("\n").append("Price: ").append(product.getPrice()).append("\n").append("Quantity ").append(product.getQuantity()).append("\n\n");
                             found = true;
                             searchResult = true;
                         } else if (product.getDescription().contains(search) && option == 2) {
-                            results +=
-                                    "Product: " + product.getName() + "\n" +
-                                    "Description: " + product.getDescription() + "\n" +
-                                    "Price: " + product.getPrice() + "\n" +
-                                    "Quantity " + product.getQuantity() + "\n\n";
+                            results.append("Product: ").append(product.getName()).append("\n").append("Description: ").append(product.getDescription()).append("\n").append("Price: ").append(product.getPrice()).append("\n").append("Quantity ").append(product.getQuantity()).append("\n\n");
                             found = true;
                             searchResult = true;
                         } else if (product.getStore().contains(search) && option == 3) {
-                            results +=
-                                    "Product: " + product.getName() + "\n" +
-                                    "Description: " + product.getDescription() + "\n" +
-                                    "Price: " + product.getPrice() + "\n" +
-                                    "Quantity " + product.getQuantity() + "\n\n";
+                            results.append("Product: ").append(product.getName()).append("\n").append("Description: ").append(product.getDescription()).append("\n").append("Price: ").append(product.getPrice()).append("\n").append("Quantity ").append(product.getQuantity()).append("\n\n");
                             found = true;
                             searchResult = true;
                         }
                     }
                     if (found) {
-                        printer += market + "\n" + "-------------\n" + results;
+                        printer.append(market).append("\n").append("-------------\n").append(results);
                     }
                 }
                 br.close();
@@ -406,7 +394,7 @@ public class CustomerOptions {
                 pw.println(x);
             }
             pw.close();
-            System.out.println("Updating files...\nSuccess!!!\n\n");
+            System.out.println("Updating files...\nSuccess!!!\n");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -431,8 +419,7 @@ public class CustomerOptions {
             pw.println(userType);
             pw.close();
             double total = 0;
-            for (int i = 0; i < products.size(); i++) {
-                Product product = products.get(i);
+            for (Product product : products) {
                 String market = product.getStore();
                 f = new File(market + " Market.txt");
                 FileOutputStream fos = new FileOutputStream(f, true);
@@ -448,6 +435,32 @@ public class CustomerOptions {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("An unexpected error occurred while accessing files!");
+        }
+    }
+
+    public static void viewShoppingCart(Customer user) {
+        try {
+            ArrayList<Product> lines = new ArrayList<>();
+            BufferedReader br = new BufferedReader(new FileReader(user.getCustomerName() + "'s File.txt"));
+            String line = br.readLine();
+
+            while (line != null) {
+                if (!line.contains("User: ") && !line.contains("Name: ")) {
+                    Product product = MarketPlace.getProduct(line);
+                    System.out.printf("Product: %s, Description: %s, " +
+                                    "Price: %.2f, Quantity: %d\n", product.getName(),
+                            product.getDescription(), product.getPrice(), product.getQuantity());
+                    lines.add(product);
+
+                }
+                line = br.readLine();
+
+            }
+            if (lines.size() == 0) {
+                System.out.println("You do not have any products in your shopping cart.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

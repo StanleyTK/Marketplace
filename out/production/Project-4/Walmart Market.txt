@@ -1,12 +1,14 @@
+Stanley,Walmart,You work on the project,1,0.01
+Tissues,Walmart,You blow on it,10,9.99
 Orange,Walmart,You eat it,4,5.99
 Orange Juice,Walmart,You drink it,100,6.99
 Water Bottle,Walmart,You drink it,44,19.99
 Walnuts,Walmart,You eat it,20,9.99
-Keyboard,Walmart,You type on it,6,79.99
-----------
+Keyboard,Walmart,You type on it,5,79.99
+-----------
 Stanley
 John Doe
---------
+-----------
 Keyboard,Walmart,You type on it,5,19.99,Stanley
 Keyboard,Walmart,You type on it,5,19.99,John Doe
 Water Bottle,Walmart,You drink it,50,19.99,Stanley

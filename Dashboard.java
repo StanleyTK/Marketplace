@@ -30,7 +30,7 @@ class ProductPurchases { //Class used in the viewSeller method.
     public String product;
     public int purchaseNumber;
     public ProductPurchases(String product, int purchaseNumber) {
-        this.product = product.split(",")[0];
+        this.product = product;
         this.purchaseNumber = purchaseNumber;
     }
 
@@ -63,15 +63,15 @@ public class Dashboard {
         ArrayList<String[]> purchases = new ArrayList<>(); //ArrayList for each purchase in the store.
         String line = br.readLine();
         while (line != null) {
-            if (line.equals("--------")) {
+            if (line.contains("------")) {
                 delineate++; //Increments delineate if it iterates through the given line.
                 line = br.readLine();
             }
-            while (delineate == 0 && !line.equals("--------")) {
+            while (delineate == 0 && !line.contains("------")) {
                 productPurchases.add(new ProductPurchases(line, 0)); //Adds a new product.
                 line = br.readLine();
             }
-            while (delineate == 1 && !line.equals("--------")) {
+            while (delineate == 1 && !line.contains("------")) {
                 customerPurchases.add(new CustomerPurchases(line, new ArrayList<>())); //Adds a new customer.
                 line = br.readLine();
             }
@@ -96,7 +96,7 @@ public class Dashboard {
         for (ProductPurchases currentProduct : productPurchases) {
             for (String[] currentPurchase : purchases) {
                 if (currentProduct.getProduct().equals(currentPurchase[0])) {
-                    int purchaseNumber = currentProduct.getPurchaseNumber() + Integer.parseInt(currentPurchase[3]);
+                    int purchaseNumber = Integer.parseInt(currentProduct.getPurchaseNumber() + currentPurchase[3]);
                     currentProduct.setPurchaseNumber(purchaseNumber);
                 }
             }
@@ -134,16 +134,16 @@ public class Dashboard {
                 int delineate = 0; //Checks to see where in the market store bufferedReader is.
                 String marketLine = bufferedReader.readLine();
                 while (marketLine != null) {
-                    if (marketLine.equals("--------")) {
+                    if (marketLine.contains("------")) {
                         delineate++; //Increments delineate if it iterates through the given line.
                         marketLine = bufferedReader.readLine();
                     }
-                    while (delineate == 0 && !marketLine.equals("--------")) {
+                    while (delineate == 0 && !marketLine.contains("------")) {
                         String[] product = marketLine.split(","); //Creates an array of the product.
                         products.add(product);
                         marketLine = bufferedReader.readLine(); //Creates an arraylist of products available.
                     }
-                    while (delineate == 1 && !marketLine.equals("--------")) {
+                    while (delineate == 1 && !marketLine.contains("------")) {
                         marketLine = bufferedReader.readLine();
                     }
                     while (delineate == 2 && marketLine != null) {
@@ -175,6 +175,7 @@ public class Dashboard {
         }
     }
 
+
     // import csv
     public static void csvFile() throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -192,18 +193,32 @@ public class Dashboard {
             }
         }
         System.out.println("Which market would you like to import or export products to?");
-        String storeName = scanner.nextLine();
+
         File markets = new File("Markets.txt");
         BufferedReader bfr = new BufferedReader(new FileReader(markets));
-        String line;
+
+
         boolean bol = false;
         File f = null;
-        while ((line = bfr.readLine()) != null) {
-            if (storeName.equals(line)) {
+
+        ArrayList<String> lines = new ArrayList<>();
+        String line = bfr.readLine();
+        while (line != null) {
+            System.out.println(line);
+            lines.add(line);
+            line = bfr.readLine();
+
+
+        }
+        String storeName = scanner.nextLine();
+        for (String x : lines) {
+            if (storeName.equals(x)) {
                 f = new File(storeName + " Market.txt");
                 bol = true;
             }
         }
+
+
         bfr.close();
         if (bol) {
             switch (option) {
@@ -221,7 +236,7 @@ public class Dashboard {
                     bfr.close();
                     bfr = new BufferedReader(new FileReader(f));
                     line = bfr.readLine();
-                    while (!line.equals("--------")) {
+                    while (!line.contains("------")) {
                         line = bfr.readLine();
                     }
                     String rest = "";
@@ -245,7 +260,7 @@ public class Dashboard {
                     bfr = new BufferedReader(new FileReader(f));
                     line = bfr.readLine();
                     String products = "";
-                    while (!line.equals("--------")) {
+                    while (!line.contains("-----")) {
                         products += line + "\n";
                         line = bfr.readLine();
                     }
@@ -253,10 +268,14 @@ public class Dashboard {
                     pw.print(products);
                     pw.close();
                     bfr.close();
+                    System.out.println("Done\n");
                     break;
                 }
             }
+        } else {
+            System.out.println("Store is not found.");
         }
+
     }
 
     public static void exportPurchaseHistory(Customer customer) throws IOException {
@@ -271,23 +290,15 @@ public class Dashboard {
             line = bfr.readLine();
         }
         bfr.close();
-        marketsFile = new File("DeletedMarkets.txt");
-        bfr = new BufferedReader(new FileReader(marketsFile));
-        line = bfr.readLine();
-        while (line != null) {
-            markets.add(line);
-            line = bfr.readLine();
-        }
-        bfr.close();
         for (int i = 0; i < markets.size(); i++) {
             File file = new File(markets.get(i) + " Market.txt");
             bfr = new BufferedReader(new FileReader(file));
             line = bfr.readLine();
-            while (!line.equals("--------")) {
+            while (!line.contains("------")) {
                 line = bfr.readLine();
             }
             line = bfr.readLine();
-            while (!line.equals("--------")) {
+            while (!line.contains("------")) {
                 line = bfr.readLine();
             }
             line = bfr.readLine();
@@ -308,9 +319,9 @@ public class Dashboard {
         pw.println("--------");
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
-            pw.println("Purchased " + product.getQuantity() + " " + product.getName() + " for\n" +
-                    product.getPrice() + " each(" + (product.getPrice() * product.getQuantity())
-            + " total) from " + product.getStore() + ".");
+            pw.print("Purchased " + product.getQuantity() + " " + product.getName() + " for\n" +
+                    product.getPrice());
+            pw.printf(" each ($%.2f) total from %s.\n", (product.getPrice() * (double) product.getQuantity()), product.getStore());
             pw.println("Description: " + product.getDescription());
             pw.println();
         }

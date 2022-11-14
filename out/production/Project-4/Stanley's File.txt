@@ -1,5 +1,2 @@
 Name: Stanley
 User: Customer
-Keyboard,Target,You type on it,5,19.99,Stanley
-Water Bottle,Target,You drink it,50,19.99,Stanley
-Water Bottle,Target,You drink it,50,19.99,Stanley
