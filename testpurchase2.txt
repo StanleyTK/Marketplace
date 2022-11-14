@@ -1,0 +1,26 @@
+Stanley's Purchase History
+--------
+Purchased 5 Keyboard for
+19.99 each(99.94999999999999 total) from Walmart.
+Description: You type on it
+
+Purchased 50 Water Bottle for
+19.99 each(999.4999999999999 total) from Walmart.
+Description: You drink it
+
+Purchased 50 Water Bottle for
+19.99 each(999.4999999999999 total) from Walmart.
+Description: You drink it
+
+Purchased 5 Keyboard for
+19.99 each(99.94999999999999 total) from Target.
+Description: You type on it
+
+Purchased 50 Water Bottle for
+19.99 each(999.4999999999999 total) from Target.
+Description: You drink it
+
+Purchased 50 Water Bottle for
+19.99 each(999.4999999999999 total) from Target.
+Description: You drink it
+

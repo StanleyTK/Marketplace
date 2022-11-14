@@ -11,3 +11,6 @@ Keyboard,Walmart,You type on it,5,19.99,Stanley
 Keyboard,Walmart,You type on it,5,19.99,John Doe
 Water Bottle,Walmart,You drink it,50,19.99,Stanley
 Water Bottle,Walmart,You drink it,50,19.99,Stanley
+Orange Juice, Walmart, You drink it, 100, 6.99,John Doe
+Water Bottle, Walmart, You drink it, 50, 19.99,John Doe
+Walnuts, Walmart, You eat it, 20, 9.99,John Doe

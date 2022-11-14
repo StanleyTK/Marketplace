@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -66,25 +65,26 @@ public class MarketPlace {
             if (user instanceof Customer) {
                 while (running) {
                     System.out.println("What option would you like to choose?");
-                    System.out.println("""
-                            1. View the marketplace
-                            2. Search for specific products by name, description, and store
-                            3. Sort by price least to greatest
-                            4. Sort by quantity least to greatest
-                            5. View Dashboard
-                            6. Export File with Purchase History
-                            7. Add or remove items to the Shopping Cart
-                            8. Exit""");
+                    System.out.println("1. View the marketplace\n" +
+                                       "2. Search for specific products by name, description, and store\n" +
+                                       "3. Sort by price least to greatest\n" +
+                                       "4. Sort by quantity least to greatest\n" +
+                                       "5. View Dashboard\n" +
+                                       "6. Export File with Purchase History\n" +
+                                       "7. Add items to the Shopping Cart\n" +
+                                       "8. Buy Shopping Cart\n" +
+                                       "9. Exit");
                     int option = Integer.parseInt(scanner.nextLine());
                     switch (option) {
                         case (1) -> CustomerOptions.viewMarket();
                         case (2) -> CustomerOptions.searchForProducts(scanner);
                         case (3) -> CustomerOptions.sortByPrice();
                         case (4) -> CustomerOptions.sortByQuantity();
-                        case (5) -> Dashboard.viewCustomer();
+                        case (5) -> Dashboard.viewCustomer((Customer) user);
                         case (6) -> Dashboard.exportPurchaseHistory((Customer) user);
                         case (7) -> CustomerOptions.addOrRemoveProductsShoppingCart(scanner, user.getCustomerName());
-                        case (8) -> {
+                        case (8) -> CustomerOptions.buyShoppingCart((Customer) user);
+                        case (9) -> {
                             running = false;
                         }
                         default -> System.out.println("Please enter a valid input!");
@@ -97,16 +97,15 @@ public class MarketPlace {
                 while (running) {
 
                     System.out.println("What option would you like to choose?");
-                    System.out.println("""
-                            1. View the marketplace
-                            2. Create, edit, or delete products from a store
-                            3. View the list of their sales by store
-                            4. View Dashboard
-                            5. Import/Export Products using CSV file
-                            6. View products currently in customer's shopping carts
-                            7. Create a new market
-                            8. Delete a market
-                            9. Exit""");
+                    System.out.println("1. View the marketplace\n" +
+                                       "2. Create, edit, or delete products from a store\n" +
+                                       "3. View the list of their sales by store\n" +
+                                       "4. View Dashboard\n" +
+                                       "5. Import/Export Products using CSV file\n" +
+                                       "6. View products currently in customer's shopping carts\n" +
+                                       "7. Create a new market\n" +
+                                       "8. Delete a market\n" +
+                                       "9. Exit");
                     int option = Integer.parseInt(scanner.nextLine());
                     switch (option) {
                         case (1) -> CustomerOptions.viewMarket();
@@ -115,7 +114,7 @@ public class MarketPlace {
                         case (4) -> Dashboard.viewSeller();
                         case (5) -> Dashboard.csvFile();
                         case (6) -> SellerOptions.viewCustomerShoppingCarts();
-                        case (7) -> SellerOptions.createMarket(scanner);
+                        case (7) -> SellerOptions.createMarket();
                         case (8) -> SellerOptions.deleteMarket();
                         case (9) -> running = false;
                         default -> System.out.println("Please enter a valid input!");

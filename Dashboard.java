@@ -30,7 +30,7 @@ class ProductPurchases { //Class used in the viewSeller method.
     public String product;
     public int purchaseNumber;
     public ProductPurchases(String product, int purchaseNumber) {
-        this.product = product;
+        this.product = product.split(",")[0];
         this.purchaseNumber = purchaseNumber;
     }
 
@@ -96,7 +96,7 @@ public class Dashboard {
         for (ProductPurchases currentProduct : productPurchases) {
             for (String[] currentPurchase : purchases) {
                 if (currentProduct.getProduct().equals(currentPurchase[0])) {
-                    int purchaseNumber = Integer.parseInt(currentProduct.getPurchaseNumber() + currentPurchase[3]);
+                    int purchaseNumber = currentProduct.getPurchaseNumber() + Integer.parseInt(currentPurchase[3]);
                     currentProduct.setPurchaseNumber(purchaseNumber);
                 }
             }
@@ -119,11 +119,9 @@ public class Dashboard {
         } //Prints the list of products in the store and the amount of times they have been purchased.
     }
 
-    public static void viewCustomer() {
+    public static void viewCustomer(Customer customer) {
         try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Please enter the customer name.");
-            String customerName = scanner.nextLine();
+            String customerName = customer.getCustomerName();
             FileReader fr = new FileReader("Markets.txt");
             BufferedReader br = new BufferedReader(fr);
             String line = br.readLine();
@@ -141,12 +139,15 @@ public class Dashboard {
                         marketLine = bufferedReader.readLine();
                     }
                     while (delineate == 0 && !marketLine.equals("--------")) {
-                        String[] product = bufferedReader.readLine().split(","); //Creates an array of the product.
+                        String[] product = marketLine.split(","); //Creates an array of the product.
                         products.add(product);
                         marketLine = bufferedReader.readLine(); //Creates an arraylist of products available.
                     }
-                    while (delineate == 2 && !marketLine.equals("--------")) {
-                        String[] purchase = line.split(","); //Creates an array of the purchase.
+                    while (delineate == 1 && !marketLine.equals("--------")) {
+                        marketLine = bufferedReader.readLine();
+                    }
+                    while (delineate == 2 && marketLine != null) {
+                        String[] purchase = marketLine.split(","); //Creates an array of the purchase.
                         purchases.add(purchase);
                         marketLine = bufferedReader.readLine(); //Creates an arraylist of all the purchases.
                     }
@@ -265,6 +266,14 @@ public class Dashboard {
         BufferedReader bfr = new BufferedReader(new FileReader(marketsFile));
         ArrayList<String> markets = new ArrayList<String>();
         String line = bfr.readLine();
+        while (line != null) {
+            markets.add(line);
+            line = bfr.readLine();
+        }
+        bfr.close();
+        marketsFile = new File("DeletedMarkets.txt");
+        bfr = new BufferedReader(new FileReader(marketsFile));
+        line = bfr.readLine();
         while (line != null) {
             markets.add(line);
             line = bfr.readLine();

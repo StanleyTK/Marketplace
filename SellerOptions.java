@@ -324,7 +324,78 @@ public class SellerOptions {
 
     }
 
-    public static void createMarket(Scanner scanner) {
+    public static void deleteMarket() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Which market would you like to delete?");
+        String market = scanner.nextLine();
+        File f = new File("Markets.txt");
+        FileReader fr = new FileReader(f);
+        BufferedReader bfr = new BufferedReader(fr);
+        String line = bfr.readLine();
+        ArrayList<String> markets = new ArrayList<String>();
+        boolean exists = false;
+        while (line != null) {
+            markets.add(line);
+            if (line.equals(market)) {
+                exists = true;
+            }
+            line = bfr.readLine();
+        }
+        bfr.close();
+        if (exists) {
+            PrintWriter pw = new PrintWriter(new FileOutputStream(f));
+            for (int i = 0; i < markets.size(); i++) {
+                if (!markets.get(i).equals(market)) {
+                    pw.println(markets.get(i));
+                }
+            }
+            pw.close();
+            pw = new PrintWriter(new FileOutputStream(new File("DeletedMarkets.txt"), true));
+            pw.println(market);
+            pw.close();
+            f = new File ("login.txt");
+            fr = new FileReader(f);
+            bfr = new BufferedReader(fr);
+            line = bfr.readLine();
+            ArrayList<String> users = new ArrayList<String>();
+            while (line != null) {
+                String[] lineSplit = line.split(",");
+                users.add(lineSplit[2]);
+                line = bfr.readLine();
+            }
+            bfr.close();
+            for (int i = 0; i < users.size(); i++) {
+                f = new File(users.get(i) + "'s File.txt");
+                bfr = new BufferedReader(new FileReader(f));
+                String name = bfr.readLine();
+                String customerType = bfr.readLine();
+                if (customerType.equals("User: Customer")) {
+                    ArrayList<Product> shoppingCart = new ArrayList<Product>();
+                    line = bfr.readLine();
+                    while (line != null) {
+                        Product product = MarketPlace.getProduct(line);
+                        if (!product.getStore().equals(market)) {
+                            shoppingCart.add(product);
+                        }
+                        line = bfr.readLine();
+                    }
+                    pw = new PrintWriter(new FileOutputStream(f));
+                    pw.println(name);
+                    pw.println(customerType);
+                    for (int j = 0; j < shoppingCart.size(); j++) {
+                        pw.println(shoppingCart.get(j).toString());
+                    }
+                    pw.close();
+                }
+                bfr.close();
+            }
+        } else {
+            System.out.println("This market couldn't be found!");
+        }
+    }
+
+    public static void createMarket() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("What is the name of the market you want to create?");
         String market = scanner.nextLine();
         try {
@@ -340,79 +411,6 @@ public class SellerOptions {
         }
     }
 
-    public static void deleteMarket() {
-        try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Which market would you like to delete?");
-            String market = scanner.nextLine();
-            File f = new File("Markets.txt");
-            FileReader fr = new FileReader(f);
-            BufferedReader bfr = new BufferedReader(fr);
-            String line = bfr.readLine();
-            ArrayList<String> markets = new ArrayList<String>();
-            boolean exists = false;
-            while (line != null) {
-                markets.add(line);
-                if (line.equals(market)) {
-                    exists = true;
-                }
-                line = bfr.readLine();
-            }
-            bfr.close();
-            if (exists) {
-                PrintWriter pw = new PrintWriter(new FileOutputStream(f));
-                for (int i = 0; i < markets.size(); i++) {
-                    if (!markets.get(i).equals(market)) {
-                        pw.println(markets.get(i));
-                    }
-                }
-                pw.close();
-                pw = new PrintWriter(new FileOutputStream(new File("DeletedMarkets.txt"), true));
-                pw.println(market);
-                pw.close();
-                f = new File("login.txt");
-                fr = new FileReader(f);
-                bfr = new BufferedReader(fr);
-                line = bfr.readLine();
-                ArrayList<String> users = new ArrayList<String>();
-                while (line != null) {
-                    String[] lineSplit = line.split(",");
-                    users.add(lineSplit[2]);
-                    line = bfr.readLine();
-                }
-                bfr.close();
-                for (int i = 0; i < users.size(); i++) {
-                    f = new File(users.get(i) + "'s File.txt");
-                    bfr = new BufferedReader(new FileReader(f));
-                    String name = bfr.readLine();
-                    String customerType = bfr.readLine();
-                    if (customerType.equals("User: Customer")) {
-                        ArrayList<Product> shoppingCart = new ArrayList<Product>();
-                        line = bfr.readLine();
-                        while (line != null) {
-                            Product product = MarketPlace.getProduct(line);
-                            if (!product.getStore().equals(market)) {
-                                shoppingCart.add(product);
-                            }
-                            line = bfr.readLine();
-                        }
-                        pw = new PrintWriter(new FileOutputStream(f));
-                        pw.println(name);
-                        pw.println(customerType);
-                        for (int j = 0; j < shoppingCart.size(); j++) {
-                            pw.println(shoppingCart.get(j).toString());
-                        }
-                        pw.close();
-                    }
-                    bfr.close();
-                }
-            } else {
-                System.out.println("This market couldn't be found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
 
 
