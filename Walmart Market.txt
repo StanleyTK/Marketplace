@@ -1,3 +1,5 @@
+Testasf,Walmart,Testing if the object,1,14.99
+Phone,Walmart,You call on it,10,999.99
 Stanley,Walmart,You work on the project,1,0.01
 Tissues,Walmart,You blow on it,10,9.99
 Orange,Walmart,You eat it,4,5.99

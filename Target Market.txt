@@ -2,7 +2,7 @@ Orange Juice,Target,You drink it,96,6.99
 Orange,Target,You eat it,50,5.99
 Water Bottle,Target,You drink it,50,19.99
 Walnuts,Target,You eat it,20,9.99
-Keyboard,Target,You type on it,53,79.99
+Keyboard,Target,You type on it,42,79.99
 ----------
 Stanley
 John Doe

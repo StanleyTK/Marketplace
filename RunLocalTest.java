@@ -9,6 +9,7 @@ import org.junit.runner.notification.Failure;
 import java.io.*;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 import static org.junit.Assert.*;
@@ -615,5 +616,83 @@ public class RunLocalTest {
 
         }
 
+
+
+        @Test(timeout = 1000)
+        public void testExpectedSeven() {
+            User user = MarketPlace.getUser("stanleykim2,sparkystan,Stanley");
+            CustomerOptions.viewShoppingCart((Customer) user);
+
+            String expected = "";
+
+            try {
+                ArrayList<Product> lines = new ArrayList<>();
+                BufferedReader br = new BufferedReader(new FileReader(user.getCustomerName() + "'s File.txt"));
+                String line = br.readLine();
+
+                while (line != null) {
+                    if (!line.contains("User: ") && !line.contains("Name: ")) {
+                        Product product = MarketPlace.getProduct(line);
+                        expected += String.format("Product: %s, Description: %s, " +
+                                        "Price: %.2f, Quantity: %d\n", product.getName(),
+                                product.getDescription(), product.getPrice(), product.getQuantity());
+                        lines.add(product);
+
+                    }
+                    line = br.readLine();
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String output = getOutput();
+
+            // Trims the output and verifies it is correct.
+            expected = expected.replaceAll("\r\n", "\n");
+            output = output.replaceAll("\r\n", "\n");
+            assertEquals("Test case failed!",
+                    expected.trim(), output.trim());
+        }
+
+        @Test(timeout = 5000)
+        public void testExpectedEight() {
+
+
+            Scanner scanner = new Scanner(System.in);
+            SellerOptions.editProducts(scanner);
+            String input =
+                    "1" + System.lineSeparator() +
+                    "Walmart" + System.lineSeparator() +
+                    "Test Object" + System.lineSeparator() +
+                    "Testing if the object is in the file" + System.lineSeparator() +
+                    "1" + System.lineSeparator() +
+                    "14.99" + System.lineSeparator();
+
+            // Pair the input with the expected result
+            String expected = "Which Option of these would you like to choose?" + System.lineSeparator() +
+                    "1. Create a new product" + System.lineSeparator() +
+                    "2. Edit a product" + System.lineSeparator() +
+                    "3. Delete a product" + System.lineSeparator() +
+                    "Which store would you like to make the changes?" + System.lineSeparator() +
+                    "Walmart" + System.lineSeparator() +
+                    "Target" + System.lineSeparator() +
+                    "What is the Product's new name?" + System.lineSeparator() +
+                    "What is the Product's new description?" + System.lineSeparator() +
+                    "What is the Product's new quantity?" + System.lineSeparator() +
+                    "What is the Product's new price?" + System.lineSeparator() +
+                    "Product is sucessfully created!" + System.lineSeparator();
+
+
+            String output = getOutput();
+
+            expected = expected.replaceAll("\r\n", "\n");
+            output = output.replaceAll("\r\n", "\n");
+            assertEquals("Test case failed!",
+                    expected.trim(), output.trim());
+        }
+
     }
+
+
 }
