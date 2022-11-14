@@ -15,8 +15,7 @@ public class Seller extends User {
 
 
         } catch(IOException e) {
-            e.printStackTrace();
-            System.out.println("There was an error");
+            System.out.println("There are no customers");
         }
     }
     public void setProducts(ArrayList<Product> products) throws IOException {

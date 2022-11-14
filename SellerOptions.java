@@ -68,8 +68,13 @@ public class SellerOptions {
                     System.out.println("Enter a valid input");
                 }
             }
-            System.out.println("Which store would you like to make the changes?");
-            System.out.println(RunLocalTest.stores());
+            String todo = (RunLocalTest.stores());
+            if (todo != null) {
+                System.out.println("Which store would you like to make the changes?");
+                System.out.println(todo);
+            } else {
+                throw new IOException();
+            }
             String storeName = scanner.nextLine();
             File markets = new File("Markets.txt");
             BufferedReader bfr = new BufferedReader(new FileReader(markets));
@@ -112,7 +117,6 @@ public class SellerOptions {
                         pw.close();
                         br.close();
                         System.out.println("Product is sucessfully created!");
-
 
                     }
                     case (2) -> {
@@ -157,7 +161,6 @@ public class SellerOptions {
                             System.out.println("The product was not found in the list");
                         } else {
                             System.out.println("The product was successfully edited");
-                            System.out.println("Updating the file...");
                             FileOutputStream fos = new FileOutputStream(f);
                             PrintWriter pw = new PrintWriter(fos);
                             for (Product product : products) {
@@ -205,7 +208,6 @@ public class SellerOptions {
                         } else {
                             products.remove(productFound);
                             System.out.println("The product was successfully removed");
-                            System.out.println("Updating the file...");
                             FileOutputStream fos = new FileOutputStream(f, false);
                             PrintWriter pw = new PrintWriter(fos);
                             for (Product product : products) {
@@ -223,75 +225,81 @@ public class SellerOptions {
                 System.out.println("Store not found. Try again.");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("There are no stores found. Please add a new store");
         }
 
     }
 
 
     // Seller Option 3
-    public static void viewSales() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter a store name.");
-        String market = scanner.nextLine(); //Gets the store name from the user.
-        FileReader fr = new FileReader(market + " Market.txt");
-        BufferedReader br = new BufferedReader(fr);
-        int delineate = 0;
-        ArrayList<PurchaseInformation> purchaseInformation = new ArrayList<>(); //ArrayList of customers and purchases.
-        ArrayList<String[]> purchases = new ArrayList<>(); //ArrayList for each purchase in the store.
-        String line = br.readLine();
-        double totalRevenue = 0;
-        while (line != null) {
-            if (line.contains("------")) {
-                delineate++; //Increments delineate if it iterates through the given line.
-                line = br.readLine();
-            }
-            while (delineate == 0 && !line.contains("------")) {
-                line = br.readLine();
-            }
-            while (delineate == 1 && !line.contains("------")) {
-                purchaseInformation.add(new PurchaseInformation(line, new ArrayList<>(), new ArrayList<>(), new ArrayList<>())); //Adds a new customer.
-                line = br.readLine();
-            }
-            while (delineate == 2 && line != null) {
-                String[] purchase = line.split(","); //Creates an array of the purchase.
-                purchases.add(purchase); //Adds the purchase.
-                line = br.readLine();
-            }
-        }
-        br.close();
-        for (PurchaseInformation currentInformation : purchaseInformation) {
-            for (String[] currentPurchase : purchases) {
-                if (currentInformation.getCustomer().equals(currentPurchase[5])) {
-                    ArrayList<String> currentCustomerPurchases = currentInformation.getPurchases();
-                    currentCustomerPurchases.add(currentPurchase[0]);
-                    currentInformation.setPurchases(currentCustomerPurchases);
-                    ArrayList<Integer> currentPurchaseAmount = currentInformation.getAmountPurchased();
-                    currentPurchaseAmount.add(Integer.parseInt(currentPurchase[3]));
-                    currentInformation.setAmountPurchased(currentPurchaseAmount);
-                    ArrayList<Double> currentPrice = currentInformation.getPrice();
-                    currentPrice.add(Double.parseDouble(currentPurchase[4]));
-                    currentInformation.setPrice(currentPrice);
-
+    public static void viewSales() {
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please enter a store name.");
+            String market = scanner.nextLine(); //Gets the store name from the user.
+            FileReader fr = new FileReader(market + " Market.txt");
+            BufferedReader br = new BufferedReader(fr);
+            int delineate = 0;
+            ArrayList<PurchaseInformation> purchaseInformation = new ArrayList<>(); //ArrayList of customers and purchases.
+            ArrayList<String[]> purchases = new ArrayList<>(); //ArrayList for each purchase in the store.
+            String line = br.readLine();
+            double totalRevenue = 0;
+            while (line != null) {
+                if (line.contains("------")) {
+                    delineate++; //Increments delineate if it iterates through the given line.
+                    line = br.readLine();
+                }
+                while (delineate == 0 && !line.contains("------")) {
+                    line = br.readLine();
+                }
+                while (delineate == 1 && !line.contains("------")) {
+                    purchaseInformation.add(new PurchaseInformation(line, new ArrayList<>(), new ArrayList<>(), new ArrayList<>())); //Adds a new customer.
+                    line = br.readLine();
+                }
+                while (delineate == 2 && line != null) {
+                    String[] purchase = line.split(","); //Creates an array of the purchase.
+                    purchases.add(purchase); //Adds the purchase.
+                    line = br.readLine();
                 }
             }
-        } //Creates an arraylist of PurchaseInformation objects with customer, product, amount bought, and price.
+            br.close();
+            for (PurchaseInformation currentInformation : purchaseInformation) {
+                for (String[] currentPurchase : purchases) {
+                    if (currentInformation.getCustomer().equals(currentPurchase[5])) {
+                        ArrayList<String> currentCustomerPurchases = currentInformation.getPurchases();
+                        currentCustomerPurchases.add(currentPurchase[0]);
+                        currentInformation.setPurchases(currentCustomerPurchases);
+                        ArrayList<Integer> currentPurchaseAmount = currentInformation.getAmountPurchased();
+                        currentPurchaseAmount.add(Integer.parseInt(currentPurchase[3]));
+                        currentInformation.setAmountPurchased(currentPurchaseAmount);
+                        ArrayList<Double> currentPrice = currentInformation.getPrice();
+                        currentPrice.add(Double.parseDouble(currentPurchase[4]));
+                        currentInformation.setPrice(currentPrice);
 
-        for (int i = 0; i < purchaseInformation.size(); i++) {
-            double customerAmountSpent = 0;
-            PurchaseInformation currentInformation = purchaseInformation.get(i);
-            System.out.printf("%d. ", i + 1);
-            System.out.printf("%s bought:\n", currentInformation.getCustomer());
-            for (int j = 0; j < currentInformation.getPurchases().size(); j++) {
-                double amountSpent = currentInformation.getAmountPurchased().get(j) * currentInformation.getPrice().get(j);
-                System.out.printf("%d %s for a total of %.2f\n",currentInformation.getAmountPurchased().get(j), currentInformation.getPurchases().get(j), amountSpent);
-                customerAmountSpent = customerAmountSpent + amountSpent;
-                totalRevenue = totalRevenue + amountSpent;
-            }
-            System.out.printf("%s spent %.2f dollars\n", currentInformation.getCustomer(), customerAmountSpent);
-        } //Prints the list of product each customer bought and the money spent on each product.
-        System.out.printf("The total revenue made from the store is: %.2f\n", totalRevenue);
-    } //Prints the total revenue made from the store.
+                    }
+                }
+            } //Creates an arraylist of PurchaseInformation objects with customer, product, amount bought, and price.
+
+            for (int i = 0; i < purchaseInformation.size(); i++) {
+                double customerAmountSpent = 0;
+                PurchaseInformation currentInformation = purchaseInformation.get(i);
+                System.out.printf("%d. ", i + 1);
+                System.out.printf("%s bought:\n", currentInformation.getCustomer());
+                for (int j = 0; j < currentInformation.getPurchases().size(); j++) {
+                    double amountSpent = currentInformation.getAmountPurchased().get(j) * currentInformation.getPrice().get(j);
+                    System.out.printf("%d %s for a total of %.2f\n", currentInformation.getAmountPurchased().get(j), currentInformation.getPurchases().get(j), amountSpent);
+                    customerAmountSpent = customerAmountSpent + amountSpent;
+                    totalRevenue = totalRevenue + amountSpent;
+                }
+                System.out.printf("%s spent %.2f dollars\n", currentInformation.getCustomer(), customerAmountSpent);
+            } //Prints the list of product each customer bought and the money spent on each product.
+            System.out.printf("The total revenue made from the store is: %.2f\n", totalRevenue);
+        } catch (IOException e) {
+            System.out.println("There are no sales yet, or the market does not exist");
+        } catch (NullPointerException e) {
+            System.out.println("There is no purchase history yet, please try again when there are purchases made.");
+        }
+    }//Prints the total revenue made from the store.
 
 
     public static void viewCustomerShoppingCarts() {
@@ -322,81 +330,85 @@ public class SellerOptions {
 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("The user is not found, or there is nothing in the shopping cart");
         }
         System.out.print("\n\n");
 
 
     }
 
-    public static void deleteMarket() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Which market would you like to delete?");
-        String market = scanner.nextLine();
-        File f = new File("Markets.txt");
-        FileReader fr = new FileReader(f);
-        BufferedReader bfr = new BufferedReader(fr);
-        String line = bfr.readLine();
-        ArrayList<String> markets = new ArrayList<String>();
-        boolean exists = false;
-        while (line != null) {
-            markets.add(line);
-            if (line.equals(market)) {
-                exists = true;
-            }
-            line = bfr.readLine();
-        }
-        bfr.close();
-        if (exists) {
-            PrintWriter pw = new PrintWriter(new FileOutputStream(f));
-            for (int i = 0; i < markets.size(); i++) {
-                if (!markets.get(i).equals(market)) {
-                    pw.println(markets.get(i));
-                }
-            }
-            pw.close();
-            pw = new PrintWriter(new FileOutputStream(new File("DeletedMarkets.txt"), true));
-            pw.println(market);
-            pw.close();
-            f = new File ("login.txt");
-            fr = new FileReader(f);
-            bfr = new BufferedReader(fr);
-            line = bfr.readLine();
-            ArrayList<String> users = new ArrayList<String>();
+    public static void deleteMarket() {
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Which market would you like to delete?");
+            String market = scanner.nextLine();
+            File f = new File("Markets.txt");
+            FileReader fr = new FileReader(f);
+            BufferedReader bfr = new BufferedReader(fr);
+            String line = bfr.readLine();
+            ArrayList<String> markets = new ArrayList<String>();
+            boolean exists = false;
             while (line != null) {
-                String[] lineSplit = line.split(",");
-                users.add(lineSplit[2]);
+                markets.add(line);
+                if (line.equals(market)) {
+                    exists = true;
+                }
                 line = bfr.readLine();
             }
             bfr.close();
-            for (int i = 0; i < users.size(); i++) {
-                f = new File(users.get(i) + "'s File.txt");
-                bfr = new BufferedReader(new FileReader(f));
-                String name = bfr.readLine();
-                String customerType = bfr.readLine();
-                if (customerType.equals("User: Customer")) {
-                    ArrayList<Product> shoppingCart = new ArrayList<Product>();
+            if (exists) {
+                PrintWriter pw = new PrintWriter(new FileOutputStream(f));
+                for (int i = 0; i < markets.size(); i++) {
+                    if (!markets.get(i).equals(market)) {
+                        pw.println(markets.get(i));
+                    }
+                }
+                pw.close();
+                pw = new PrintWriter(new FileOutputStream(new File("DeletedMarkets.txt"), true));
+                pw.println(market);
+                pw.close();
+                f = new File("login.txt");
+                fr = new FileReader(f);
+                bfr = new BufferedReader(fr);
+                line = bfr.readLine();
+                ArrayList<String> users = new ArrayList<String>();
+                while (line != null) {
+                    String[] lineSplit = line.split(",");
+                    users.add(lineSplit[2]);
                     line = bfr.readLine();
-                    while (line != null) {
-                        Product product = MarketPlace.getProduct(line);
-                        if (!product.getStore().equals(market)) {
-                            shoppingCart.add(product);
-                        }
-                        line = bfr.readLine();
-                    }
-                    pw = new PrintWriter(new FileOutputStream(f));
-                    pw.println(name);
-                    pw.println(customerType);
-                    for (int j = 0; j < shoppingCart.size(); j++) {
-                        pw.println(shoppingCart.get(j).toString());
-                    }
-                    pw.close();
-                    System.out.println("The market has been removed!");
                 }
                 bfr.close();
+                for (int i = 0; i < users.size(); i++) {
+                    f = new File(users.get(i) + "'s File.txt");
+                    bfr = new BufferedReader(new FileReader(f));
+                    String name = bfr.readLine();
+                    String customerType = bfr.readLine();
+                    if (customerType.equals("User: Customer")) {
+                        ArrayList<Product> shoppingCart = new ArrayList<Product>();
+                        line = bfr.readLine();
+                        while (line != null) {
+                            Product product = MarketPlace.getProduct(line);
+                            if (!product.getStore().equals(market)) {
+                                shoppingCart.add(product);
+                            }
+                            line = bfr.readLine();
+                        }
+                        pw = new PrintWriter(new FileOutputStream(f));
+                        pw.println(name);
+                        pw.println(customerType);
+                        for (int j = 0; j < shoppingCart.size(); j++) {
+                            pw.println(shoppingCart.get(j).toString());
+                        }
+                        pw.close();
+                        System.out.println("The market has been removed!");
+                    }
+                    bfr.close();
+                }
+            } else {
+                System.out.println("This market couldn't be found!");
             }
-        } else {
-            System.out.println("This market couldn't be found!");
+        } catch (IOException e) {
+            System.out.println("There was an error. Please try again later.");
         }
     }
 
@@ -406,13 +418,16 @@ public class SellerOptions {
         String market = scanner.nextLine();
         try {
             PrintWriter pw = new PrintWriter(new FileWriter("Markets.txt", true));
-            pw.println("");
             pw.println(market);
             pw.flush();
             pw.close();
             FileWriter fw = new FileWriter(market + " Market.txt");
+            pw = new PrintWriter(market + " Market.txt");
+            pw.println("--------");
+            pw.println("--------");
             fw.write("");
             fw.flush();
+            pw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -23,20 +23,21 @@ public class CustomerOptions {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
                 line = productReader.readLine();
-                while (!line.contains("------")) { //iterates through lines of files and adds them to string
-
-                    Product product = MarketPlace.getProduct(line);
-                    printer = printer +
-                            "Product: " + product.getName() + "\n" +
-                            "Description: " + product.getDescription() + "\n" +
-                            "Price: " + product.getPrice() + "\n" +
-                            "Quantity " + product.getQuantity() + "\n\n";
-                    line = productReader.readLine();
+                while (line != null) { //iterates through lines of files and adds them to string
+                    if (!line.contains("-----")) {
+                        Product product = MarketPlace.getProduct(line);
+                        printer = printer +
+                                "Product: " + product.getName() + "\n" +
+                                "Description: " + product.getDescription() + "\n" +
+                                "Price: " + product.getPrice() + "\n" +
+                                "Quantity " + product.getQuantity() + "\n\n";
+                        line = productReader.readLine();
+                    }
                 }
 
             }
         } catch (IOException e) {
-            System.out.println("There was an error");
+            System.out.println("There are no stores/products found. Sorry");
         }
         System.out.println(printer);
 
@@ -85,9 +86,13 @@ public class CustomerOptions {
                     br = new BufferedReader(new FileReader(f));
                     line = br.readLine();
                     lines = new ArrayList<>();
-                    while (!line.contains("------")) {
-                        lines.add(line);
-                        line = br.readLine();
+                    while (line != null) {
+                        if (!line.contains("------")) {
+                            lines.add(line);
+                            line = br.readLine();
+                        } else {
+                            break;
+                        }
                     }
                     for (String productInfo : lines) {
                         Product product = MarketPlace.getProduct(productInfo);
@@ -114,7 +119,7 @@ public class CustomerOptions {
             } catch (NumberFormatException e) {
                 System.out.println("Wrong format, try again.");
             } catch (IOException e) {
-                System.out.println("There was an error. Try again");
+                System.out.println("There are no stores/products found. Sorry");
             }
         }
         if (searchResult) {
@@ -141,13 +146,18 @@ public class CustomerOptions {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
                 line = productReader.readLine();
-                while (!line.contains("------")) { //iterates through lines of files and adds them to string
-                    products.add(MarketPlace.getProduct(line));
-                    line = productReader.readLine();
+                while (line != null) { //iterates through lines of files and adds them to string
+                    if (!line.contains("------")) {
+                        products.add(MarketPlace.getProduct(line));
+                        line = productReader.readLine();
+                    } else {
+                        break;
+                    }
                 }
             }
         } catch (IOException e) {
-            System.out.println("There was an error");
+            System.out.println("There are no stores/products found. Sorry");
+
         }
 
         Product[] temp = new Product[products.size()];
@@ -196,13 +206,17 @@ public class CustomerOptions {
                 File f = new File(storeName + " Market.txt");
                 BufferedReader productReader = new BufferedReader(new FileReader(f));
                 line = productReader.readLine();
-                while (!line.contains("-----")) { //iterates through lines of files and adds them to string
-                    products.add(MarketPlace.getProduct(line));
-                    line = productReader.readLine();
+                while (line != null) { //iterates through lines of files and adds them to string
+                    if (!line.contains("----")) {
+                        products.add(MarketPlace.getProduct(line));
+                        line = productReader.readLine();
+                    } else {
+                        break;
+                    }
                 }
             }
         } catch (IOException e) {
-            System.out.println("There was an error");
+            System.out.println("There are no stores/products found. Sorry");
         }
 
         Product[] temp = new Product[products.size()];
@@ -249,8 +263,8 @@ public class CustomerOptions {
 
                 }
             }
-            System.out.println("What store would you like to choose to add or remove new products?");
             br = new BufferedReader(new FileReader("Markets.txt"));
+            System.out.println("What store would you like to choose to add or remove new products?");
 
             while ((line = br.readLine()) != null) { //Takes name of all markets in file
                 System.out.println(line);
@@ -400,7 +414,7 @@ public class CustomerOptions {
             System.out.println("Updating files...\nSuccess!!!");
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("There are no stores/products found. Sorry");
         }
     }
 
@@ -433,6 +447,41 @@ public class CustomerOptions {
                 System.out.printf("Purchased %d %s for %.2f total\n",
                         product.getQuantity(), product.getName(), cost);
                 pw.close();
+                bfr = new BufferedReader(new FileReader(f));
+                line = bfr.readLine();
+                String before = "";
+                boolean isCustomer = false;
+                while (!line.contains("------")) {
+                    before += line + "\n";
+                    line = bfr.readLine();
+                }
+                before += "--------\n";
+                line = bfr.readLine();
+                ArrayList<String> customers = new ArrayList<String>();
+                while (!line.contains("------")) {
+                    customers.add(line);
+                    if (line.equals(customer.getCustomerName())) {
+                        isCustomer = true;
+                    }
+                    line = bfr.readLine();
+                }
+                if (!isCustomer) {
+                    customers.add(customer.getCustomerName());
+                }
+                String after = line;
+                line = bfr.readLine();
+                while (line != null) {
+                    after += "\n" + line;
+                    line = bfr.readLine();
+                }
+                bfr.close();
+                pw = new PrintWriter(new FileOutputStream(f));
+                pw.print(before);
+                for (int i = 0; i < customers.size(); i++) {
+                    pw.println(customers.get(i));
+                }
+                pw.println(after);
+                pw.close();
             }
             System.out.printf("Shopping cart purchased! Total cost: %.2f\n", total);
         } catch (IOException e) {
@@ -463,7 +512,7 @@ public class CustomerOptions {
                 System.out.println("You do not have any products in your shopping cart.");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("There are no stores/products found. Sorry");
         }
     }
 }

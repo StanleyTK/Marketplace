@@ -5,18 +5,20 @@ import java.util.Scanner;
 
 public class MarketPlace {
     public static void main(String[] args) {
-        try {
-            Scanner scanner = new Scanner(System.in);
-            String password;
-            String name;
-            System.out.println("Welcome to Marketplace!");
-            String info = "";
-            //implement try catch error for verify login
+        Scanner scanner = new Scanner(System.in);
+        String password;
+        String name;
+        System.out.println("Welcome to Marketplace!");
+        String info = "";
+        //implement try catch error for verify login
+
+        String userName = "";
+        User user = null;
+        boolean loginRun = true;
+        while (loginRun) {
             System.out.println("1. Create a new account");
             System.out.println("2. Log in to your account");
             String op = scanner.nextLine();
-            String userName = "";
-            User user = null;
             if (op.equals("2")) {
                 while (true) {
                     try {
@@ -26,6 +28,7 @@ public class MarketPlace {
                         password = scanner.nextLine();
                         info = verifyLogin(userName, password);
                         user = getUser(info);
+                        loginRun = false;
 
                         break;
                     } catch (UserNamePasswordIncorrectException e) {
@@ -33,7 +36,7 @@ public class MarketPlace {
                     }
                 }
 
-            } else {
+            } else if (op.equals("1")) {
                 while (true) {
                     System.out.println("Enter the username/email");
                     userName = scanner.nextLine();
@@ -58,75 +61,86 @@ public class MarketPlace {
                     System.out.println("Enter a valid input");
                 }
                 user = createUser(userName, password, yolo, name);
-
-            }
-            System.out.println("Welcome " + user.getCustomerName() + "!");
-
-            boolean running = true;
-            if (user instanceof Customer) {
-                while (running) {
-                    System.out.println("What option would you like to choose?");
-                    System.out.println("1. View the marketplace\n" +
-                            "2. Search for specific products by name, description, and store\n" +
-                            "3. Sort by price least to greatest\n" +
-                            "4. Sort by quantity least to greatest\n" +
-                            "5. View Dashboard\n" +
-                            "6. Export File with Purchase History\n" +
-                            "7. Add or remove items to the Shopping Cart\n" +
-                            "8. Purchase all items in the Shopping Cart\n" +
-                            "9. View my Shopping Cart\n" +
-                            "10. Exit");
-                    int option = Integer.parseInt(scanner.nextLine());
-                    switch (option) {
-                        case (1) -> CustomerOptions.viewMarket();
-                        case (2) -> CustomerOptions.searchForProducts(scanner);
-                        case (3) -> CustomerOptions.sortByPrice();
-                        case (4) -> CustomerOptions.sortByQuantity();
-                        case (5) -> Dashboard.viewCustomer((Customer) user);
-                        case (6) -> Dashboard.exportPurchaseHistory((Customer) user);
-                        case (7) -> CustomerOptions.addOrRemoveProductsShoppingCart(scanner, user.getCustomerName());
-                        case (8) -> CustomerOptions.buyShoppingCart((Customer) user);
-                        case (9) -> CustomerOptions.viewShoppingCart((Customer) user);
-                        case (10) -> running = false;
-                        default -> System.out.println("Please enter a valid input!");
-
-                    }
-                }
-
+                loginRun = false;
 
             } else {
-                while (running) {
-
-                    System.out.println("What option would you like to choose?");
-                    System.out.println("1. View the marketplace\n" +
-                            "2. Create, edit, or delete products from a store\n" +
-                            "3. View the list of their sales by store\n" +
-                            "4. View Dashboard\n" +
-                            "5. Import/Export Products using CSV file\n" +
-                            "6. View products currently in customer's shopping carts\n" +
-                            "7. Create a new market\n" +
-                            "8. Delete a market\n" +
-                            "9. Exit");
-                    int option = Integer.parseInt(scanner.nextLine());
-                    switch (option) {
-                        case (1) -> CustomerOptions.viewMarket();
-                        case (2) -> SellerOptions.editProducts(scanner);
-                        case (3) -> SellerOptions.viewSales();
-                        case (4) -> Dashboard.viewSeller();
-                        case (5) -> Dashboard.csvFile();
-                        case (6) -> SellerOptions.viewCustomerShoppingCarts();
-                        case (7) -> SellerOptions.createMarket();
-                        case (8) -> SellerOptions.deleteMarket();
-                        case (9) -> running = false;
-                        default -> System.out.println("Please enter a valid input!");
-
-
-                    }
-                }
-
+                System.out.println("Please enter a valid number");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        System.out.println("Welcome " + user.getCustomerName() + "!");
+
+        boolean running = true;
+        if (user instanceof Customer) {
+            while (running) {
+                System.out.println("What option would you like to choose?");
+                System.out.println("1. View the marketplace\n" +
+                        "2. Search for specific products by name, description, and store\n" +
+                        "3. Sort by price least to greatest\n" +
+                        "4. Sort by quantity least to greatest\n" +
+                        "5. View Dashboard\n" +
+                        "6. Export File with Purchase History\n" +
+                        "7. Add or remove items to the Shopping Cart\n" +
+                        "8. Purchase all items in the Shopping Cart\n" +
+                        "9. View my Shopping Cart\n" +
+                        "10. Exit");
+                int option = 0;
+                try {
+                    option = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Enter a valid number");
+                }
+                switch (option) {
+                    case (1) -> CustomerOptions.viewMarket();
+                    case (2) -> CustomerOptions.searchForProducts(scanner);
+                    case (3) -> CustomerOptions.sortByPrice();
+                    case (4) -> CustomerOptions.sortByQuantity();
+                    case (5) -> Dashboard.viewCustomer((Customer) user);
+                    case (6) -> Dashboard.exportPurchaseHistory((Customer) user);
+                    case (7) -> CustomerOptions.addOrRemoveProductsShoppingCart(scanner, user.getCustomerName());
+                    case (8) -> CustomerOptions.buyShoppingCart((Customer) user);
+                    case (9) -> CustomerOptions.viewShoppingCart((Customer) user);
+                    case (10) -> running = false;
+                    default -> System.out.println("Please enter a valid input!");
+
+                }
+            }
+
+
+        } else {
+            while (running) {
+
+                System.out.println("What option would you like to choose?");
+                System.out.println("1. View the marketplace\n" +
+                        "2. Create, edit, or delete products from a store\n" +
+                        "3. View the list of their sales by store\n" +
+                        "4. View Dashboard\n" +
+                        "5. Import/Export Products using CSV file\n" +
+                        "6. View products currently in customer's shopping carts\n" +
+                        "7. Create a new market\n" +
+                        "8. Delete a market\n" +
+                        "9. Exit");
+                int option = 0;
+                try {
+                    option = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Enter a valid number");
+                }
+                switch (option) {
+                    case (1) -> CustomerOptions.viewMarket();
+                    case (2) -> SellerOptions.editProducts(scanner);
+                    case (3) -> SellerOptions.viewSales();
+                    case (4) -> Dashboard.viewSeller();
+                    case (5) -> Dashboard.csvFile();
+                    case (6) -> SellerOptions.viewCustomerShoppingCarts();
+                    case (7) -> SellerOptions.createMarket();
+                    case (8) -> SellerOptions.deleteMarket();
+                    case (9) -> running = false;
+                    default -> System.out.println("Please enter a valid input!");
+
+
+                }
+            }
+
         }
         System.out.println("Have a nice day!!");
     }
@@ -213,7 +227,6 @@ public class MarketPlace {
                 line = br.readLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
         }
         return true;
 
@@ -233,15 +246,38 @@ public class MarketPlace {
             pw.println("User: " + option);
             pw.close();
 
+            if (option.equals("Customer")) {
+                f = new File("Customers.txt");
+                pw = new PrintWriter(new FileOutputStream(f, false));
+                if (f.createNewFile()) {
+                    BufferedReader br = new BufferedReader(new FileReader(f));
+                    String line = br.readLine();
+                    ArrayList<String> lines = new ArrayList<>();
+                    while (line != null) {
+                        lines.add(line);
+                        line = br.readLine();
+                    }
+                    br.close();
+                    for (String x : lines) {
+                        pw.println(x);
+                    }
+
+                }
+                pw.println(username);
+                pw.close();
+
+                return new Customer(name, username, password);
+
+
+
+            } else {
+                return new Seller(name, username, password);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        if (option.equals("Customer")) {
-            return new Customer(name, username, password);
-        } else {
-            return new Seller(name, username, password);
-        }
+        return null;
 
     }
 }

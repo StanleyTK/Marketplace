@@ -106,15 +106,21 @@ public class RunLocalTest {
         ArrayList<String> stores = new ArrayList<>();
         String toReturn = "";
         try {
-            BufferedReader br = new BufferedReader(new FileReader("Markets.txt"));
-            String line = br.readLine();
-            while (line != null) {
-                stores.add(line);
-                line = br.readLine();
+            File f = new File("Markets.txt");
+            if (!f.createNewFile()) {
+                BufferedReader br = new BufferedReader(new FileReader(f));
+                String line = br.readLine();
+                while (line != null) {
+                    stores.add(line);
+                    line = br.readLine();
+                }
+            } else {
+                f.delete();
+                throw new IOException();
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            return null;
 
         }
         for (int i = 0; i < stores.size(); i++) {
@@ -229,46 +235,12 @@ public class RunLocalTest {
         @Test(timeout = 1000)
         public void testExpectedOne() {
             // Set the input
-            String input = "2" + System.lineSeparator() +
-                    "stanleykim2" + System.lineSeparator() +
-                    "sparkystan" + System.lineSeparator() +
-                    "10" + System.lineSeparator();
-
-            // Pair the input with the expected result
-            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
-                    "1. Create a new account" + System.lineSeparator() +
-                    "2. Log in to your account" + System.lineSeparator() +
-                    "Enter the username/email" + System.lineSeparator() +
-                    "Enter the password" + System.lineSeparator() +
-                    "Welcome Stanley!" + System.lineSeparator() +
-                    customerMenu() + System.lineSeparator() +
-                    "Have a nice day!!" + System.lineSeparator();
-
-            // Runs the program with the input values
-            receiveInput(input);
-            MarketPlace.main(new String[0]);
-
-            // Retrieves the output from the program
-            String output = getOutput();
-
-            // Trims the output and verifies it is correct.
-            expected = expected.replaceAll("\r\n", "\n");
-            output = output.replaceAll("\r\n", "\n");
-            assertEquals("Test case failed!",
-                    expected.trim(), output.trim());
-        }
-
-
-        // Tests to create a new file
-        @Test(timeout = 1000)
-        public void testExpectedTwo() {
-            // Set the input
             String input = "1" + System.lineSeparator() +
-                    "testaccount747" + System.lineSeparator() +
-                    "project4" + System.lineSeparator() +
-                    "Stan" + System.lineSeparator() +
-                    "Seller" + System.lineSeparator() +
-                    "9" + System.lineSeparator();
+                    "stanleykim202" + System.lineSeparator() +
+                    "sparkystan" + System.lineSeparator() +
+                    "Stanley" + System.lineSeparator() +
+                    "Customer" + System.lineSeparator() +
+                    "10" + System.lineSeparator();
 
 
             // Pair the input with the expected result
@@ -279,8 +251,8 @@ public class RunLocalTest {
                     "Enter the password" + System.lineSeparator() +
                     "What is your name?" + System.lineSeparator() +
                     "Are you a Customer or Seller?" + System.lineSeparator() +
-                    "Welcome Stan!" + System.lineSeparator() +
-                    sellerMenu() + System.lineSeparator() +
+                    "Welcome Stanley!" + System.lineSeparator() +
+                    customerMenu() + System.lineSeparator() +
                     "Have a nice day!!" + System.lineSeparator();
 
             // Runs the program with the input values
@@ -289,141 +261,11 @@ public class RunLocalTest {
 
             // Retrieves the output from the program
             String output = getOutput();
+            File f = new File("login.txt");
 
             // Trims the output and verifies it is correct.
             expected = expected.replaceAll("\r\n", "\n");
             output = output.replaceAll("\r\n", "\n");
-
-            //Reset the files for test case 2
-            File f = new File("Stan's File.txt");
-            f.delete();
-            try {
-                f = new File("login.txt");
-                BufferedReader br = new BufferedReader(new FileReader("login.txt"));
-                String line = br.readLine();
-                ArrayList<String> lines = new ArrayList<>();
-                while (line != null) {
-                    lines.add(line);
-                    line = br.readLine();
-                }
-                br.close();
-                PrintWriter pw = new PrintWriter(new FileOutputStream(f, false));
-                boolean contain = false;
-                for (String x : lines) {
-                    if (!x.contains("testaccount747,project4,Stan")) {
-                        pw.println(x);
-                    } else {
-                        contain = true;
-                    }
-                }
-                pw.close();
-                if (!contain) {
-                    fail("Login in file fail");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            assertEquals("Test case failed!",
-                    expected.trim(), output.trim());
-        }
-
-
-
-        // Adding to shopping cart
-        @Test(timeout = 1000)
-        public void testExpectedThree() {
-
-            String input = "2" + System.lineSeparator() +
-                    "stanleykim2" + System.lineSeparator() +
-                    "sparkystan" + System.lineSeparator() +
-                    "7" + System.lineSeparator() +
-                    "Target" + System.lineSeparator() +
-                    "1" + System.lineSeparator() +
-                    "Keyboard" + System.lineSeparator() +
-                    "1" + System.lineSeparator() +
-                    "10" + System.lineSeparator();
-
-                            // Pair the input with the expected result
-            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
-                    "1. Create a new account" + System.lineSeparator() +
-                    "2. Log in to your account" + System.lineSeparator() +
-                    "Enter the username/email" + System.lineSeparator() +
-                    "Enter the password" + System.lineSeparator() +
-                    "Welcome Stanley!" + System.lineSeparator() +
-                    customerMenu() + System.lineSeparator() +
-                    "What store would you like to choose to add or remove new products?" + System.lineSeparator() +
-                    stores() + System.lineSeparator() +
-                    "Which Option of these would you like to choose?\n" +
-                    "1. Add a product to your shopping cart\n" +
-                    "2. Remove a product to your shopping cart" + System.lineSeparator() +
-                    getMarketInformation("Target") + System.lineSeparator() +
-                    "Which item would you like to buy?" + System.lineSeparator() +
-                    "How many Keyboard would you like to buy?" + System.lineSeparator() +
-                    "Updating files..." + System.lineSeparator() +
-                    "Success!!!" + System.lineSeparator() +
-                    customerMenu() + System.lineSeparator() +
-                    "Have a nice day!!";
-
-
-                    // Runs the program with the input values
-            receiveInput(input);
-            MarketPlace.main(new String[0]);
-
-            // Retrieves the output from the program
-            String output = getOutput();
-
-            // Trims the output and verifies it is correct.
-            expected = expected.replaceAll("\r\n","\n");
-            output = output.replaceAll("\r\n","\n");
-            assertEquals("Test case failed!",
-                    expected.trim(), output.trim());
-        }
-        // Removing from shopping cart
-        @Test(timeout = 1000)
-        public void testExpectedFour() {
-
-            String input = "2" + System.lineSeparator() +
-                    "stanleykim2" + System.lineSeparator() +
-                    "sparkystan" + System.lineSeparator() +
-                    "7" + System.lineSeparator() +
-                    "Target" + System.lineSeparator() +
-                    "2" + System.lineSeparator() +
-                    "Keyboard" + System.lineSeparator() +
-                    "1" + System.lineSeparator() +
-                    "10" + System.lineSeparator();
-
-            // Pair the input with the expected result
-            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
-                    "1. Create a new account" + System.lineSeparator() +
-                    "2. Log in to your account" + System.lineSeparator() +
-                    "Enter the username/email" + System.lineSeparator() +
-                    "Enter the password" + System.lineSeparator() +
-                    "Welcome Stanley!" + System.lineSeparator() +
-                    customerMenu() + System.lineSeparator() +
-                    "What store would you like to choose to add or remove new products?" + System.lineSeparator() +
-                    stores() + System.lineSeparator() +
-                    "Which Option of these would you like to choose?\n" +
-                    "1. Add a product to your shopping cart\n" +
-                    "2. Remove a product to your shopping cart" + System.lineSeparator() +
-                    "Which product name would you like to remove from your shopping cart?" + System.lineSeparator() +
-                    viewShoppingCart("Stanley") + System.lineSeparator() +
-                    "How many items would you like to remove?" + System.lineSeparator() +
-                    "Updating files..." + System.lineSeparator() +
-                    "Success!!!" + System.lineSeparator() +
-                    customerMenu() + System.lineSeparator() +
-                    "Have a nice day!!";
-
-
-            // Runs the program with the input values
-            receiveInput(input);
-            MarketPlace.main(new String[0]);
-
-            // Retrieves the output from the program
-            String output = getOutput();
-
-            // Trims the output and verifies it is correct.
-            expected = expected.replaceAll("\r\n","\n");
-            output = output.replaceAll("\r\n","\n");
             assertEquals("Test case failed!",
                     expected.trim(), output.trim());
         }
@@ -431,17 +273,17 @@ public class RunLocalTest {
 
 
 
-
-        // Adds a brand new market
+        // Tests to create a new file
 //        @Test(timeout = 1000)
-//        public void testExpectedFive() {
-//
-//            String input = "2" + System.lineSeparator() +
-//                    "janedoe456" + System.lineSeparator() +
-//                    "yolo" + System.lineSeparator() +
-//                    "7" + System.lineSeparator() +
-//                    "Purdue Bookstore" + System.lineSeparator() +
+//        public void testExpectedTwo() {
+//            // Set the input
+//            String input = "1" + System.lineSeparator() +
+//                    "testaccount747" + System.lineSeparator() +
+//                    "project4" + System.lineSeparator() +
+//                    "Stan" + System.lineSeparator() +
+//                    "Seller" + System.lineSeparator() +
 //                    "9" + System.lineSeparator();
+//
 //
 //            // Pair the input with the expected result
 //            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
@@ -449,11 +291,140 @@ public class RunLocalTest {
 //                    "2. Log in to your account" + System.lineSeparator() +
 //                    "Enter the username/email" + System.lineSeparator() +
 //                    "Enter the password" + System.lineSeparator() +
-//                    "Welcome Jane Doe!" + System.lineSeparator() +
+//                    "What is your name?" + System.lineSeparator() +
+//                    "Are you a Customer or Seller?" + System.lineSeparator() +
+//                    "Welcome Stan!" + System.lineSeparator() +
 //                    sellerMenu() + System.lineSeparator() +
-//                    "What is the name of the market you want to create?" + System.lineSeparator() +
-//                    "Purdue Bookstore market has been created. If you want to add any products, please restart the program" + System.lineSeparator() +
-//                    sellerMenu() + System.lineSeparator() +
+//                    "Have a nice day!!" + System.lineSeparator();
+//
+//            // Runs the program with the input values
+//            receiveInput(input);
+//            MarketPlace.main(new String[0]);
+//
+//            // Retrieves the output from the program
+//            String output = getOutput();
+//
+//            // Trims the output and verifies it is correct.
+//            expected = expected.replaceAll("\r\n", "\n");
+//            output = output.replaceAll("\r\n", "\n");
+//
+//            //Reset the files for test case 2
+//            File f = new File("Stan's File.txt");
+//            f.delete();
+//            try {
+//                f = new File("login.txt");
+//                BufferedReader br = new BufferedReader(new FileReader("login.txt"));
+//                String line = br.readLine();
+//                ArrayList<String> lines = new ArrayList<>();
+//                while (line != null) {
+//                    lines.add(line);
+//                    line = br.readLine();
+//                }
+//                br.close();
+//                PrintWriter pw = new PrintWriter(new FileOutputStream(f, false));
+//                boolean contain = false;
+//                for (String x : lines) {
+//                    if (!x.contains("testaccount747,project4,Stan")) {
+//                        pw.println(x);
+//                    } else {
+//                        contain = true;
+//                    }
+//                }
+//                pw.close();
+//                if (!contain) {
+//                    fail("Login in file fail");
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            assertEquals("Test case failed!",
+//                    expected.trim(), output.trim());
+//        }
+//
+//
+//
+//        // Adding to shopping cart
+//        @Test(timeout = 1000)
+//        public void testExpectedThree() {
+//
+//            String input = "2" + System.lineSeparator() +
+//                    "stanleykim2" + System.lineSeparator() +
+//                    "sparkystan" + System.lineSeparator() +
+//                    "7" + System.lineSeparator() +
+//                    "Target" + System.lineSeparator() +
+//                    "1" + System.lineSeparator() +
+//                    "Keyboard" + System.lineSeparator() +
+//                    "1" + System.lineSeparator() +
+//                    "10" + System.lineSeparator();
+//
+//                            // Pair the input with the expected result
+//            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
+//                    "1. Create a new account" + System.lineSeparator() +
+//                    "2. Log in to your account" + System.lineSeparator() +
+//                    "Enter the username/email" + System.lineSeparator() +
+//                    "Enter the password" + System.lineSeparator() +
+//                    "Welcome Stanley!" + System.lineSeparator() +
+//                    customerMenu() + System.lineSeparator() +
+//                    "What store would you like to choose to add or remove new products?" + System.lineSeparator() +
+//                    stores() + System.lineSeparator() +
+//                    "Which Option of these would you like to choose?\n" +
+//                    "1. Add a product to your shopping cart\n" +
+//                    "2. Remove a product to your shopping cart" + System.lineSeparator() +
+//                    getMarketInformation("Target") + System.lineSeparator() +
+//                    "Which item would you like to buy?" + System.lineSeparator() +
+//                    "How many Keyboard would you like to buy?" + System.lineSeparator() +
+//                    "Updating files..." + System.lineSeparator() +
+//                    "Success!!!" + System.lineSeparator() +
+//                    customerMenu() + System.lineSeparator() +
+//                    "Have a nice day!!";
+//
+//
+//                    // Runs the program with the input values
+//            receiveInput(input);
+//            MarketPlace.main(new String[0]);
+//
+//            // Retrieves the output from the program
+//            String output = getOutput();
+//
+//            // Trims the output and verifies it is correct.
+//            expected = expected.replaceAll("\r\n","\n");
+//            output = output.replaceAll("\r\n","\n");
+//            assertEquals("Test case failed!",
+//                    expected.trim(), output.trim());
+//        }
+//        // Removing from shopping cart
+//        @Test(timeout = 1000)
+//        public void testExpectedFour() {
+//
+//            String input = "2" + System.lineSeparator() +
+//                    "stanleykim2" + System.lineSeparator() +
+//                    "sparkystan" + System.lineSeparator() +
+//                    "7" + System.lineSeparator() +
+//                    "Target" + System.lineSeparator() +
+//                    "2" + System.lineSeparator() +
+//                    "Keyboard" + System.lineSeparator() +
+//                    "1" + System.lineSeparator() +
+//                    "10" + System.lineSeparator();
+//
+//            // Pair the input with the expected result
+//            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
+//                    "1. Create a new account" + System.lineSeparator() +
+//                    "2. Log in to your account" + System.lineSeparator() +
+//                    "Enter the username/email" + System.lineSeparator() +
+//                    "Enter the password" + System.lineSeparator() +
+//                    "Welcome Stanley!" + System.lineSeparator() +
+//                    customerMenu() + System.lineSeparator() +
+//                    "What store would you like to choose to add or remove new products?" + System.lineSeparator() +
+//                    stores() + System.lineSeparator() +
+//                    "Which Option of these would you like to choose?\n" +
+//                    "1. Add a product to your shopping cart\n" +
+//                    "2. Remove a product to your shopping cart" + System.lineSeparator() +
+//                    "Which product name would you like to remove from your shopping cart?" + System.lineSeparator() +
+//                    viewShoppingCart("Stanley") + System.lineSeparator() +
+//                    "How many items would you like to remove?" + System.lineSeparator() +
+//                    "Updating files..." + System.lineSeparator() +
+//                    "Success!!!" + System.lineSeparator() +
+//                    customerMenu() + System.lineSeparator() +
 //                    "Have a nice day!!";
 //
 //
@@ -470,227 +441,270 @@ public class RunLocalTest {
 //            assertEquals("Test case failed!",
 //                    expected.trim(), output.trim());
 //        }
-
-
-        // Sorting by Quantity
-        @Test(timeout = 1000)
-        public void testExpectedFive() {
-
-            CustomerOptions.sortByQuantity();
-
-            String line;
-            ArrayList<Product> products = new ArrayList<>();
-            ArrayList<String> storeNames = new ArrayList<>();
-            try {
-                File markets = new File("Markets.txt");
-                BufferedReader bfr = new BufferedReader(new FileReader(markets));
-                while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
-                    storeNames.add(line); //adds to arraylist
-                }
-
-                bfr.close();
-                for (String storeName : storeNames) {
-                    File f = new File(storeName + " Market.txt");
-                    BufferedReader productReader = new BufferedReader(new FileReader(f));
-                    line = productReader.readLine();
-                    while (!line.contains("-----")) { //iterates through lines of files and adds them to string
-                        products.add(MarketPlace.getProduct(line));
-                        line = productReader.readLine();
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println("There was an error");
-            }
-
-            Product[] temp = new Product[products.size()];
-            for (int i = 0; i < temp.length; i++) {
-                temp[i] = products.get(i);
-            }
-            for (int i = 0; i < temp.length; i++) {
-                for (int j = temp.length - 1; j > i; j--) {
-                    if (temp[i].getQuantity() > temp[j].getQuantity()) {
-
-                        int tempI = temp[i].getQuantity();
-                        int tempJ = temp[j].getQuantity();
-                        if (tempI > tempJ) {
-                            Product yolo = temp[i];
-                            temp[i] = temp[j];
-                            temp[j] = yolo;
-                        }
-
-                    }
-
-                }
-            }
-            String expected = "";
-            for (int i = 0; i < temp.length; i++) {
-               expected += String.format(((i + 1) + ". Product: %s, Store: %s, Description: %s, " +
-                                "Price: %.2f, Quantity: %d\n"), temp[i].getName(), temp[i].getStore(),
-                        temp[i].getDescription(), temp[i].getPrice(), temp[i].getQuantity());
-            }
-
-
-            // Retrieves the output from the program
-            String output = getOutput();
-
-            // Trims the output and verifies it is correct.
-            expected = expected.replaceAll("\r\n","\n");
-            output = output.replaceAll("\r\n","\n");
-            assertEquals("Test case failed!",
-                    expected.trim(), output.trim());
-
-
-        }
-
-
-
-
-        // Sort by Price
-        @Test(timeout = 1000)
-        public void testExpectedSix() {
-
-            CustomerOptions.sortByPrice();
-
-            String line;
-            ArrayList<Product> products = new ArrayList<>();
-            ArrayList<String> storeNames = new ArrayList<>();
-            try {
-                File markets = new File("Markets.txt");
-                BufferedReader bfr = new BufferedReader(new FileReader(markets));
-                while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
-                    storeNames.add(line); //adds to arraylist
-                }
-
-                bfr.close();
-                for (String storeName : storeNames) {
-                    File f = new File(storeName + " Market.txt");
-                    BufferedReader productReader = new BufferedReader(new FileReader(f));
-                    line = productReader.readLine();
-                    while (!line.contains("------")) { //iterates through lines of files and adds them to string
-                        products.add(MarketPlace.getProduct(line));
-                        line = productReader.readLine();
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println("There was an error");
-            }
-
-            Product[] temp = new Product[products.size()];
-            for (int i = 0; i < temp.length; i++) {
-                temp[i] = products.get(i);
-            }
-
-            for (int i = 0; i < temp.length; i++) {
-                for (int j = temp.length - 1; j > i; j--) {
-                    if (temp[i].getPrice() > temp[j].getPrice()) {
-
-                        double tempI = temp[i].getPrice();
-                        double tempJ = temp[j].getPrice();
-                        if (tempI > tempJ) {
-                            Product yolo = temp[i];
-                            temp[i] = temp[j];
-                            temp[j] = yolo;
-                        }
-
-                    }
-
-                }
-            }
-
-            String expected = "";
-            for (int i = 0; i < temp.length; i++) {
-                expected += String.format(((i + 1) + ". Product: %s, Store: %s, Description: %s, " +
-                                "Price: %.2f, Quantity: %d\n"), temp[i].getName(), temp[i].getStore(),
-                        temp[i].getDescription(), temp[i].getPrice(), temp[i].getQuantity());
-            }
-
-
-            // Retrieves the output from the program
-            String output = getOutput();
-
-            // Trims the output and verifies it is correct.
-            expected = expected.replaceAll("\r\n","\n");
-            output = output.replaceAll("\r\n","\n");
-            assertEquals("Test case failed!",
-                    expected.trim(), output.trim());
-
-        }
-
-
-
-        @Test(timeout = 1000)
-        public void testExpectedSeven() {
-            User user = MarketPlace.getUser("stanleykim2,sparkystan,Stanley");
-            CustomerOptions.viewShoppingCart((Customer) user);
-
-            String expected = "";
-
-            try {
-                ArrayList<Product> lines = new ArrayList<>();
-                BufferedReader br = new BufferedReader(new FileReader(user.getCustomerName() + "'s File.txt"));
-                String line = br.readLine();
-
-                while (line != null) {
-                    if (!line.contains("User: ") && !line.contains("Name: ")) {
-                        Product product = MarketPlace.getProduct(line);
-                        expected += String.format("Product: %s, Description: %s, " +
-                                        "Price: %.2f, Quantity: %d\n", product.getName(),
-                                product.getDescription(), product.getPrice(), product.getQuantity());
-                        lines.add(product);
-
-                    }
-                    line = br.readLine();
-
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            String output = getOutput();
-
-            // Trims the output and verifies it is correct.
-            expected = expected.replaceAll("\r\n", "\n");
-            output = output.replaceAll("\r\n", "\n");
-            assertEquals("Test case failed!",
-                    expected.trim(), output.trim());
-        }
-
-        @Test(timeout = 5000)
-        public void testExpectedEight() {
-
-
-            Scanner scanner = new Scanner(System.in);
-            SellerOptions.editProducts(scanner);
-            String input =
-                    "1" + System.lineSeparator() +
-                    "Walmart" + System.lineSeparator() +
-                    "Test Object" + System.lineSeparator() +
-                    "Testing if the object is in the file" + System.lineSeparator() +
-                    "1" + System.lineSeparator() +
-                    "14.99" + System.lineSeparator();
-
-            // Pair the input with the expected result
-            String expected = "Which Option of these would you like to choose?" + System.lineSeparator() +
-                    "1. Create a new product" + System.lineSeparator() +
-                    "2. Edit a product" + System.lineSeparator() +
-                    "3. Delete a product" + System.lineSeparator() +
-                    "Which store would you like to make the changes?" + System.lineSeparator() +
-                    "Walmart" + System.lineSeparator() +
-                    "Target" + System.lineSeparator() +
-                    "What is the Product's new name?" + System.lineSeparator() +
-                    "What is the Product's new description?" + System.lineSeparator() +
-                    "What is the Product's new quantity?" + System.lineSeparator() +
-                    "What is the Product's new price?" + System.lineSeparator() +
-                    "Product is sucessfully created!" + System.lineSeparator();
-
-
-            String output = getOutput();
-
-            expected = expected.replaceAll("\r\n", "\n");
-            output = output.replaceAll("\r\n", "\n");
-            assertEquals("Test case failed!",
-                    expected.trim(), output.trim());
-        }
+//
+//
+//
+//
+//
+//        // Adds a brand new market
+////        @Test(timeout = 1000)
+////        public void testExpectedFive() {
+////
+////            String input = "2" + System.lineSeparator() +
+////                    "janedoe456" + System.lineSeparator() +
+////                    "yolo" + System.lineSeparator() +
+////                    "7" + System.lineSeparator() +
+////                    "Purdue Bookstore" + System.lineSeparator() +
+////                    "9" + System.lineSeparator();
+////
+////            // Pair the input with the expected result
+////            String expected = "Welcome to Marketplace!" + System.lineSeparator() +
+////                    "1. Create a new account" + System.lineSeparator() +
+////                    "2. Log in to your account" + System.lineSeparator() +
+////                    "Enter the username/email" + System.lineSeparator() +
+////                    "Enter the password" + System.lineSeparator() +
+////                    "Welcome Jane Doe!" + System.lineSeparator() +
+////                    sellerMenu() + System.lineSeparator() +
+////                    "What is the name of the market you want to create?" + System.lineSeparator() +
+////                    "Purdue Bookstore market has been created. If you want to add any products, please restart the program" + System.lineSeparator() +
+////                    sellerMenu() + System.lineSeparator() +
+////                    "Have a nice day!!";
+////
+////
+////            // Runs the program with the input values
+////            receiveInput(input);
+////            MarketPlace.main(new String[0]);
+////
+////            // Retrieves the output from the program
+////            String output = getOutput();
+////
+////            // Trims the output and verifies it is correct.
+////            expected = expected.replaceAll("\r\n","\n");
+////            output = output.replaceAll("\r\n","\n");
+////            assertEquals("Test case failed!",
+////                    expected.trim(), output.trim());
+////        }
+//
+//
+//        // Sorting by Quantity
+//        @Test(timeout = 1000)
+//        public void testExpectedFive() {
+//
+//            CustomerOptions.sortByQuantity();
+//
+//            String line;
+//            ArrayList<Product> products = new ArrayList<>();
+//            ArrayList<String> storeNames = new ArrayList<>();
+//            try {
+//                File markets = new File("Markets.txt");
+//                BufferedReader bfr = new BufferedReader(new FileReader(markets));
+//                while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
+//                    storeNames.add(line); //adds to arraylist
+//                }
+//
+//                bfr.close();
+//                for (String storeName : storeNames) {
+//                    File f = new File(storeName + " Market.txt");
+//                    BufferedReader productReader = new BufferedReader(new FileReader(f));
+//                    line = productReader.readLine();
+//                    while (!line.contains("-----")) { //iterates through lines of files and adds them to string
+//                        products.add(MarketPlace.getProduct(line));
+//                        line = productReader.readLine();
+//                    }
+//                }
+//            } catch (IOException e) {
+//                System.out.println("There was an error");
+//            }
+//
+//            Product[] temp = new Product[products.size()];
+//            for (int i = 0; i < temp.length; i++) {
+//                temp[i] = products.get(i);
+//            }
+//            for (int i = 0; i < temp.length; i++) {
+//                for (int j = temp.length - 1; j > i; j--) {
+//                    if (temp[i].getQuantity() > temp[j].getQuantity()) {
+//
+//                        int tempI = temp[i].getQuantity();
+//                        int tempJ = temp[j].getQuantity();
+//                        if (tempI > tempJ) {
+//                            Product yolo = temp[i];
+//                            temp[i] = temp[j];
+//                            temp[j] = yolo;
+//                        }
+//
+//                    }
+//
+//                }
+//            }
+//            String expected = "";
+//            for (int i = 0; i < temp.length; i++) {
+//               expected += String.format(((i + 1) + ". Product: %s, Store: %s, Description: %s, " +
+//                                "Price: %.2f, Quantity: %d\n"), temp[i].getName(), temp[i].getStore(),
+//                        temp[i].getDescription(), temp[i].getPrice(), temp[i].getQuantity());
+//            }
+//
+//
+//            // Retrieves the output from the program
+//            String output = getOutput();
+//
+//            // Trims the output and verifies it is correct.
+//            expected = expected.replaceAll("\r\n","\n");
+//            output = output.replaceAll("\r\n","\n");
+//            assertEquals("Test case failed!",
+//                    expected.trim(), output.trim());
+//
+//
+//        }
+//
+//
+//
+//
+//        // Sort by Price
+//        @Test(timeout = 1000)
+//        public void testExpectedSix() {
+//
+//            CustomerOptions.sortByPrice();
+//
+//            String line;
+//            ArrayList<Product> products = new ArrayList<>();
+//            ArrayList<String> storeNames = new ArrayList<>();
+//            try {
+//                File markets = new File("Markets.txt");
+//                BufferedReader bfr = new BufferedReader(new FileReader(markets));
+//                while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
+//                    storeNames.add(line); //adds to arraylist
+//                }
+//
+//                bfr.close();
+//                for (String storeName : storeNames) {
+//                    File f = new File(storeName + " Market.txt");
+//                    BufferedReader productReader = new BufferedReader(new FileReader(f));
+//                    line = productReader.readLine();
+//                    while (!line.contains("------")) { //iterates through lines of files and adds them to string
+//                        products.add(MarketPlace.getProduct(line));
+//                        line = productReader.readLine();
+//                    }
+//                }
+//            } catch (IOException e) {
+//                System.out.println("There was an error");
+//            }
+//
+//            Product[] temp = new Product[products.size()];
+//            for (int i = 0; i < temp.length; i++) {
+//                temp[i] = products.get(i);
+//            }
+//
+//            for (int i = 0; i < temp.length; i++) {
+//                for (int j = temp.length - 1; j > i; j--) {
+//                    if (temp[i].getPrice() > temp[j].getPrice()) {
+//
+//                        double tempI = temp[i].getPrice();
+//                        double tempJ = temp[j].getPrice();
+//                        if (tempI > tempJ) {
+//                            Product yolo = temp[i];
+//                            temp[i] = temp[j];
+//                            temp[j] = yolo;
+//                        }
+//
+//                    }
+//
+//                }
+//            }
+//
+//            String expected = "";
+//            for (int i = 0; i < temp.length; i++) {
+//                expected += String.format(((i + 1) + ". Product: %s, Store: %s, Description: %s, " +
+//                                "Price: %.2f, Quantity: %d\n"), temp[i].getName(), temp[i].getStore(),
+//                        temp[i].getDescription(), temp[i].getPrice(), temp[i].getQuantity());
+//            }
+//
+//
+//            // Retrieves the output from the program
+//            String output = getOutput();
+//
+//            // Trims the output and verifies it is correct.
+//            expected = expected.replaceAll("\r\n","\n");
+//            output = output.replaceAll("\r\n","\n");
+//            assertEquals("Test case failed!",
+//                    expected.trim(), output.trim());
+//
+//        }
+//
+//
+//
+//        @Test(timeout = 1000)
+//        public void testExpectedSeven() {
+//            User user = MarketPlace.getUser("stanleykim2,sparkystan,Stanley");
+//            CustomerOptions.viewShoppingCart((Customer) user);
+//
+//            String expected = "";
+//
+//            try {
+//                ArrayList<Product> lines = new ArrayList<>();
+//                BufferedReader br = new BufferedReader(new FileReader(user.getCustomerName() + "'s File.txt"));
+//                String line = br.readLine();
+//
+//                while (line != null) {
+//                    if (!line.contains("User: ") && !line.contains("Name: ")) {
+//                        Product product = MarketPlace.getProduct(line);
+//                        expected += String.format("Product: %s, Description: %s, " +
+//                                        "Price: %.2f, Quantity: %d\n", product.getName(),
+//                                product.getDescription(), product.getPrice(), product.getQuantity());
+//                        lines.add(product);
+//
+//                    }
+//                    line = br.readLine();
+//
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            String output = getOutput();
+//
+//            // Trims the output and verifies it is correct.
+//            expected = expected.replaceAll("\r\n", "\n");
+//            output = output.replaceAll("\r\n", "\n");
+//            assertEquals("Test case failed!",
+//                    expected.trim(), output.trim());
+//        }
+//
+//        @Test(timeout = 5000)
+//        public void testExpectedEight() {
+//
+//
+//            Scanner scanner = new Scanner(System.in);
+//            SellerOptions.editProducts(scanner);
+//            String input =
+//                    "1" + System.lineSeparator() +
+//                    "Walmart" + System.lineSeparator() +
+//                    "Test Object" + System.lineSeparator() +
+//                    "Testing if the object is in the file" + System.lineSeparator() +
+//                    "1" + System.lineSeparator() +
+//                    "14.99" + System.lineSeparator();
+//
+//            // Pair the input with the expected result
+//            String expected = "Which Option of these would you like to choose?" + System.lineSeparator() +
+//                    "1. Create a new product" + System.lineSeparator() +
+//                    "2. Edit a product" + System.lineSeparator() +
+//                    "3. Delete a product" + System.lineSeparator() +
+//                    "Which store would you like to make the changes?" + System.lineSeparator() +
+//                    "Walmart" + System.lineSeparator() +
+//                    "Target" + System.lineSeparator() +
+//                    "What is the Product's new name?" + System.lineSeparator() +
+//                    "What is the Product's new description?" + System.lineSeparator() +
+//                    "What is the Product's new quantity?" + System.lineSeparator() +
+//                    "What is the Product's new price?" + System.lineSeparator() +
+//                    "Product is sucessfully created!" + System.lineSeparator();
+//
+//
+//            String output = getOutput();
+//
+//            expected = expected.replaceAll("\r\n", "\n");
+//            output = output.replaceAll("\r\n", "\n");
+//            assertEquals("Test case failed!",
+//                    expected.trim(), output.trim());
+//        }
 
     }
 
