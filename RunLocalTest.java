@@ -39,17 +39,7 @@ public class RunLocalTest {
 
 
     }
-    public static String getCustomerName() {
-        String samplename = null;
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("Customers.txt"));
-            samplename = br.readLine();
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return samplename;
-    }
+
 
     public static String getMarketInformation(String market) {
         String toReturn = "";
@@ -285,12 +275,12 @@ public class RunLocalTest {
                     "Walmart" + System.lineSeparator() +
                     "1" + System.lineSeparator() +
                     "Keyboard" + System.lineSeparator() +
-                    "3" + System.lineSeparator() +
+                    "1" + System.lineSeparator() +
                     "7" + System.lineSeparator() +
                     "Walmart" + System.lineSeparator() +
                     "2" + System.lineSeparator() +
                     "Keyboard" + System.lineSeparator() +
-                    "3" + System.lineSeparator() +
+                    "1" + System.lineSeparator() +
                     "8" + System.lineSeparator();
 
                             // Pair the input with the expected result
