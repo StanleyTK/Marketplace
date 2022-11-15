@@ -1,6 +1,15 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * A class that prints out the CustomerPurchases
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2022</p>
+ *
+ * @author Stanley Kim
+ * @version November 14, 2022
+ */
+
 class CustomerPurchases { //Class used in the viewSeller method.
     public String customer;
     public ArrayList<String> purchases;
@@ -26,6 +35,16 @@ class CustomerPurchases { //Class used in the viewSeller method.
     }
 }
 
+
+/**
+ * A class that prints out the ProductPurchases
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2022</p>
+ *
+ * @author Stanley Kim
+ * @version November 14, 2022
+ */
+
 class ProductPurchases { //Class used in the viewSeller method.
     public String product;
     public int purchaseNumber;
@@ -50,11 +69,21 @@ class ProductPurchases { //Class used in the viewSeller method.
         this.purchaseNumber = purchaseNumber;
     }
 }
+
+/**
+ * A class that has the method for options in the marketplace
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2022</p>
+ *
+ * @author Stanley Kim
+ * @version November 14, 2022
+ */
 public class Dashboard {
     public static void viewSeller() {
         try {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Please enter a store name.");
+            System.out.println(RunLocalTest.stores());
             String market = scanner.nextLine(); //Gets the store name from the user.
             FileReader fr = new FileReader(market + " Market.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -330,7 +359,8 @@ public class Dashboard {
                 Product product = products.get(i);
                 pw.print("Purchased " + product.getQuantity() + " " + product.getName() + " for\n" +
                         product.getPrice());
-                pw.printf(" each ($%.2f) total from %s.\n", (product.getPrice() * (double) product.getQuantity()), product.getStore());
+                pw.printf(" each ($%.2f) total from %s.\n",
+                        (product.getPrice() * (double) product.getQuantity()), product.getStore());
                 pw.println("Description: " + product.getDescription());
                 pw.println();
             }

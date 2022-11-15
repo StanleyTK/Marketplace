@@ -263,7 +263,7 @@ public class MarketPlace {
                     }
 
                 }
-                pw.println(username);
+                pw.println(name);
                 pw.close();
 
                 return new Customer(name, username, password);

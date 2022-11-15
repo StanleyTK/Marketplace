@@ -54,7 +54,7 @@ public class SellerOptions {
             int option;
             while (true) {
                 try {
-                    System.out.print("Which Option of these would you like to choose?\n" +
+                    System.out.print("Which option of these would you like to choose?\n" +
                             "1. Create a new product\n" +
                             "2. Edit a product\n" +
                             "3. Delete a product\n");
@@ -442,7 +442,7 @@ public class SellerOptions {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(market + " market has been created. If you want to add any products, please restart the program");
+        System.out.println(market + " market has been created.");
     }
 
 }

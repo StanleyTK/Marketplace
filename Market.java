@@ -1,5 +1,13 @@
 import java.util.ArrayList;
 import java.io.*;
+/**
+ * A Market class for Marketplace
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2022</p>
+ *
+ * @author Stanley Kim
+ * @version November 14, 2022
+ */
 
 public class Market {
 
@@ -38,7 +46,8 @@ public class Market {
         pw = new PrintWriter(fos);
         for (int i = 0; i < products.size(); i++) {
             Product p = products.get(i);
-            String product = p.getName() + ";;" + p.getDescription() + ";;" + p.getStore() + ";;" + p.getPrice() + ";;" + p.getQuantity();
+            String product = p.getName() + ";;" + p.getDescription() + ";;" +
+                    p.getStore() + ";;" + p.getPrice() + ";;" + p.getQuantity();
             pw.println(product);
         }
         pw.close();
@@ -46,8 +55,8 @@ public class Market {
 
     public Market(String name) throws FileNotFoundException, IOException {
         File f = new File("Markets.txt");
-        ArrayList<String> markets = new ArrayList<String>();
-        ArrayList<Product> products = new ArrayList<Product>();
+        ArrayList<String> markets = new ArrayList<>();
+        ArrayList<Product> prods = new ArrayList<>();
         FileReader fr = new FileReader(f);
         BufferedReader bfr = new BufferedReader(fr);
         String line = bfr.readLine();
@@ -61,7 +70,7 @@ public class Market {
                 line = bfr.readLine();
                 while (line != null) {
                     Product product = MarketPlace.getProduct(line);
-                    products.add(product);
+                    prods.add(product);
                     line = bfr.readLine();
                 }
             }
@@ -70,7 +79,7 @@ public class Market {
         }
         bfr.close();
         this.name = name;
-        this.products = products;
+        this.products = prods;
     }
 
     public ArrayList<Product> getProducts() {

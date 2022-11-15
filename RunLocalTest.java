@@ -29,7 +29,7 @@ public class RunLocalTest {
         if (result.wasSuccessful()) {
             System.out.println("Excellent - all local tests ran successfully.");
         } else {
-            System.out.printf("Tests failed: %d.\n",result.getFailureCount());
+            System.out.printf("Tests failed: %d.\n", result.getFailureCount());
             for (Failure failure : result.getFailures()) {
                 System.out.println(failure.getMessage());
                 System.out.println(failure.getTestHeader());
@@ -71,7 +71,6 @@ public class RunLocalTest {
 
         return toReturn;
     }
-
 
 
     public static String getShoppingCart(String name) {
@@ -189,7 +188,6 @@ public class RunLocalTest {
     }
 
 
-
     /**
      * A set of public test cases.
      *
@@ -269,10 +267,10 @@ public class RunLocalTest {
                 BufferedReader br = new BufferedReader(new FileReader(f));
                 String line = br.readLine();
                 while (line != null) {
-                    if (line.contains("testing")){
-                        bol=true;
+                    if (line.contains("testing")) {
+                        bol = true;
                     }
-                    line=br.readLine();
+                    line = br.readLine();
                 }
 
 
@@ -280,22 +278,22 @@ public class RunLocalTest {
                 br = new BufferedReader(new FileReader(f));
                 line = br.readLine();
                 while (line != null) {
-                    if (line.contains("Name:")){
+                    if (line.contains("Name:")) {
                         bol2 = true;
                     }
-                    line=br.readLine();
+                    line = br.readLine();
                 }
 
                 f = new File("Customers.txt");
                 br = new BufferedReader(new FileReader(f));
                 line = br.readLine();
                 while (line != null) {
-                    if (line.contains("test")){
+                    if (line.contains("test")) {
                         bol3 = true;
                     }
-                    line=br.readLine();
+                    line = br.readLine();
                 }
-                if (!bol || !bol2  || !bol3) {
+                if (!bol || !bol2 || !bol3) {
                     fail("Files weren't matched");
 
                 }
@@ -340,14 +338,12 @@ public class RunLocalTest {
             String output = getOutput();
 
 
-
             // Trims the output and verifies it is correct.
             expected = expected.replaceAll("\r\n", "\n");
             output = output.replaceAll("\r\n", "\n");
             assertEquals("Test case failed!",
                     expected.trim(), output.trim());
         }
-
 
 
         @Test(timeout = 1000)
@@ -459,46 +455,43 @@ public class RunLocalTest {
                     expected.trim(), output.trim());
         }
 
-//        @Test(timeout = 1000)
-//        public void testExpectedFive() {
-//            // Set the input
-//            String input = "Apple" + System.lineSeparator();
-//
-//
-//            // Pair the input with the expected result
-//            String expected = "What is the name of the market you want to create?" + System.lineSeparator() +
-//                    "Apple market has been created. If you want to add any products, please restart the program" + System.lineSeparator();
-//
-//            // Runs the program with the input values
-//            receiveInput(input);
-//            SellerOptions.createMarket();
-//
-//            // Retrieves the output from the program
-//            String output = getOutput();
-//            try {
-//                File f = new File("Apple Market.txt");
-//                if (!f.createNewFile()) {
-//                    fail("File was not created");
-//                }
-//
-//                f = new File("Markets.txt");
-//                if (!f.createNewFile()) {
-//                    fail("File was not created");
-//                }
-//            } catch (IOException e) {
-//                fail("File was not created");
-//            }
-//
-//
-//            // Trims the output and verifies it is correct.
-//            expected = expected.replaceAll("\r\n", "\n");
-//            output = output.replaceAll("\r\n", "\n");
-//            assertEquals("Test case failed!",
-//                    expected.trim(), output.trim());
-//        }
-//
-//
-//
+        @Test(timeout = 1000)
+        public void testExpectedFive() {
+            // Set the input
+            String input = "Apple" + System.lineSeparator();
+
+
+            // Pair the input with the expected result
+            String expected = "What is the name of the market you want to create?" + System.lineSeparator() +
+                    "Apple market has been created." + System.lineSeparator();
+
+            // Runs the program with the input values
+            receiveInput(input);
+            SellerOptions.createMarket();
+
+            // Retrieves the output from the program
+            String output = getOutput();
+            try {
+                File f = new File("Apple Market.txt");
+                BufferedReader br = new BufferedReader(new FileReader(f));
+                if (!br.readLine().contains("------")) {
+                    fail("File was not created properly");
+                }
+
+            } catch (IOException e) {
+                fail("File was not created");
+            }
+
+
+            // Trims the output and verifies it is correct.
+            expected = expected.replaceAll("\r\n", "\n");
+            output = output.replaceAll("\r\n", "\n");
+            assertEquals("Test case failed!",
+                    expected.trim(), output.trim());
+        }
+
+
+
 //        @Test(timeout = 1000)
 //        public void testExpectedSix() {
 //            // Set the input
@@ -527,7 +520,7 @@ public class RunLocalTest {
 //
 //                    // Runs the program with the input values
 //            receiveInput(input);
-//            SellerOptions.createMarket();
+//            SellerOptions.editProducts(new Scanner(System.in));
 //
 //            // Retrieves the output from the program
 //            String output = getOutput();
@@ -547,201 +540,6 @@ public class RunLocalTest {
 //            assertEquals("Test case failed!",
 //                    expected.trim(), output.trim());
 //        }
-//
-
-//        @Test(timeout = 1000)
-//        public void testExpectedSeven() {
-//            // Set the input
-//            String input = "1" + System.lineSeparator() +
-//                    "Apple" + System.lineSeparator() +
-//                    "iPhone XS" + System.lineSeparator() +
-//                    "You use it" + System.lineSeparator() +
-//                    "20" + System.lineSeparator() +
-//                    "999.99" + System.lineSeparator();
-//
-//
-//            // Pair the input with the expected result
-//            String expected = "Which Option of these would you like to choose?" +System.lineSeparator() +
-//                    "1. Create a new product" + System.lineSeparator() +
-//                    "2. Edit a product" + System.lineSeparator() +
-//                    "3. Delete a product" + System.lineSeparator() +
-//                    "Which store would you like to make the changes?" +
-//                    "Apple" + System.lineSeparator() +
-//                    "What is the Product's new name?" + System.lineSeparator() +
-//                    "What is the Product's new description?" + System.lineSeparator() +
-//                    "What is the Product's new quantity?" + System.lineSeparator() +
-//                    "What is the Product's new price?" + System.lineSeparator() +
-//                    "Product is sucessfully created!";
-//
-//
-//
-//            // Runs the program with the input values
-//            receiveInput(input);
-//            SellerOptions.createMarket();
-//
-//            // Retrieves the output from the program
-//            String output = getOutput();
-//            try {
-//                File f = new File("Apple Market.txt");
-//                BufferedReader br = new BufferedReader(new FileReader(f));
-//                String line = br.readLine();
-//                if (!line.contains("iPhone XS")) {
-//                    fail("No information found");
-//                }
-//            } catch (IOException e) {
-//                fail("File was not created");
-//            }
-//
-//            // Trims the output and verifies it is correct.
-//            expected = expected.replaceAll("\r\n", "\n");
-//            output = output.replaceAll("\r\n", "\n");
-//            assertEquals("Test case failed!",
-//                    expected.trim(), output.trim());
-//        }
-
-//
-//        @Test(timeout = 1000)
-//        public void testExpectedEight() {
-//
-//            CustomerOptions.sortByQuantity();
-//
-//            String line;
-//            ArrayList<Product> products = new ArrayList<>();
-//            ArrayList<String> storeNames = new ArrayList<>();
-//            try {
-//                File markets = new File("Markets.txt");
-//                BufferedReader bfr = new BufferedReader(new FileReader(markets));
-//                while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
-//                    storeNames.add(line); //adds to arraylist
-//                }
-//
-//                bfr.close();
-//                for (String storeName : storeNames) {
-//                    File f = new File(storeName + " Market.txt");
-//                    BufferedReader productReader = new BufferedReader(new FileReader(f));
-//                    line = productReader.readLine();
-//                    while (!line.contains("-----")) { //iterates through lines of files and adds them to string
-//                        products.add(MarketPlace.getProduct(line));
-//                        line = productReader.readLine();
-//                    }
-//                }
-//            } catch (IOException e) {
-//            }
-//
-//            Product[] temp = new Product[products.size()];
-//            for (int i = 0; i < temp.length; i++) {
-//                temp[i] = products.get(i);
-//            }
-//            for (int i = 0; i < temp.length; i++) {
-//                for (int j = temp.length - 1; j > i; j--) {
-//                    if (temp[i].getQuantity() > temp[j].getQuantity()) {
-//
-//                        int tempI = temp[i].getQuantity();
-//                        int tempJ = temp[j].getQuantity();
-//                        if (tempI > tempJ) {
-//                            Product yolo = temp[i];
-//                            temp[i] = temp[j];
-//                            temp[j] = yolo;
-//                        }
-//
-//                    }
-//
-//                }
-//            }
-//            String expected = "";
-//            for (int i = 0; i < temp.length; i++) {
-//                expected += String.format(((i + 1) + ". Product: %s, Store: %s, Description: %s, " +
-//                                "Price: %.2f, Quantity: %d\n"), temp[i].getName(), temp[i].getStore(),
-//                        temp[i].getDescription(), temp[i].getPrice(), temp[i].getQuantity());
-//            }
-//
-//
-//            // Retrieves the output from the program
-//            String output = getOutput();
-//
-//            // Trims the output and verifies it is correct.
-//            expected = expected.replaceAll("\r\n","\n");
-//            output = output.replaceAll("\r\n","\n");
-//            assertEquals("Test case failed!",
-//                    expected.trim(), output.trim());
-//
-//
-//        }
-//
-//        // Sort by Price
-//        @Test(timeout = 1000)
-//        public void testExpectedNine() {
-//
-//            CustomerOptions.sortByPrice();
-//
-//            String line;
-//            ArrayList<Product> products = new ArrayList<>();
-//            ArrayList<String> storeNames = new ArrayList<>();
-//            try {
-//                File markets = new File("Markets.txt");
-//                BufferedReader bfr = new BufferedReader(new FileReader(markets));
-//                while ((line = bfr.readLine()) != null) { //Takes name of all markets in file
-//                    storeNames.add(line); //adds to arraylist
-//                }
-//
-//                bfr.close();
-//                for (String storeName : storeNames) {
-//                    File f = new File(storeName + " Market.txt");
-//                    BufferedReader productReader = new BufferedReader(new FileReader(f));
-//                    line = productReader.readLine();
-//                    while (!line.contains("------")) { //iterates through lines of files and adds them to string
-//                        products.add(MarketPlace.getProduct(line));
-//                        line = productReader.readLine();
-//                    }
-//                }
-//            } catch (IOException e) {
-//                System.out.println("There was an error");
-//            }
-//
-//            Product[] temp = new Product[products.size()];
-//            for (int i = 0; i < temp.length; i++) {
-//                temp[i] = products.get(i);
-//            }
-//
-//            for (int i = 0; i < temp.length; i++) {
-//                for (int j = temp.length - 1; j > i; j--) {
-//                    if (temp[i].getPrice() > temp[j].getPrice()) {
-//
-//                        double tempI = temp[i].getPrice();
-//                        double tempJ = temp[j].getPrice();
-//                        if (tempI > tempJ) {
-//                            Product yolo = temp[i];
-//                            temp[i] = temp[j];
-//                            temp[j] = yolo;
-//                        }
-//
-//                    }
-//
-//                }
-//            }
-//
-//            String expected = "";
-//            for (int i = 0; i < temp.length; i++) {
-//                expected += String.format(((i + 1) + ". Product: %s, Store: %s, Description: %s, " +
-//                                "Price: %.2f, Quantity: %d\n"), temp[i].getName(), temp[i].getStore(),
-//                        temp[i].getDescription(), temp[i].getPrice(), temp[i].getQuantity());
-//            }
-//
-//
-//            // Retrieves the output from the program
-//            String output = getOutput();
-//
-//            // Trims the output and verifies it is correct.
-//            expected = expected.replaceAll("\r\n","\n");
-//            output = output.replaceAll("\r\n","\n");
-//            assertEquals("Test case failed!",
-//                    expected.trim(), output.trim());
-//
-//        }
-//
-//
 
     }
-
-
 }

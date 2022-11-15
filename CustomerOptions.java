@@ -3,6 +3,15 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * An options method for MarketPlace
+ *
+ * <p>Purdue University -- CS18000 -- Fall 2022</p>
+ *
+ * @author Stanley Kim
+ * @version November 14, 2022
+ */
+
 public class CustomerOptions {
     // Customer Option 1 and Seller Option 1
     public static void viewMarket() { //prints out marketplace to user
@@ -100,15 +109,24 @@ public class CustomerOptions {
                     for (String productInfo : lines) {
                         Product product = MarketPlace.getProduct(productInfo);
                         if (product.getName().contains(search) && option == 1) {
-                            results.append("Product: ").append(product.getName()).append("\n").append("Description: ").append(product.getDescription()).append("\n").append("Price: ").append(product.getPrice()).append("\n").append("Quantity ").append(product.getQuantity()).append("\n\n");
+                            results.append("Product: ").append(product.getName()).append("\n")
+                                    .append("Description: ").append(product.getDescription()).append("\n")
+                                    .append("Price: ").append(product.getPrice()).append("\n").append("Quantity ")
+                                    .append(product.getQuantity()).append("\n\n");
                             found = true;
                             searchResult = true;
                         } else if (product.getDescription().contains(search) && option == 2) {
-                            results.append("Product: ").append(product.getName()).append("\n").append("Description: ").append(product.getDescription()).append("\n").append("Price: ").append(product.getPrice()).append("\n").append("Quantity ").append(product.getQuantity()).append("\n\n");
+                            results.append("Product: ").append(product.getName()).append("\n")
+                                    .append("Description: ").append(product.getDescription()).append("\n")
+                                    .append("Price: ").append(product.getPrice()).append("\n").append("Quantity ")
+                                    .append(product.getQuantity()).append("\n\n");
                             found = true;
                             searchResult = true;
                         } else if (product.getStore().contains(search) && option == 3) {
-                            results.append("Product: ").append(product.getName()).append("\n").append("Description: ").append(product.getDescription()).append("\n").append("Price: ").append(product.getPrice()).append("\n").append("Quantity ").append(product.getQuantity()).append("\n\n");
+                            results.append("Product: ").append(product.getName()).append("\n")
+                                    .append("Description: ").append(product.getDescription()).append("\n")
+                                    .append("Price: ").append(product.getPrice()).append("\n").append("Quantity ")
+                                    .append(product.getQuantity()).append("\n\n");
                             found = true;
                             searchResult = true;
                         }
@@ -339,7 +357,7 @@ public class CustomerOptions {
                             }
                         }
                     }
-                // If the product is not in the shopping cart
+                    // If the product is not in the shopping cart
                 } else {
                     for (Product value : productsFromStore) {
                         if (item.equals(value.getName())) {
